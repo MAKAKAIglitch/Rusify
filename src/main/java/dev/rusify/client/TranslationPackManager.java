@@ -25,6 +25,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("offlinelan");
     }
 
+    public static boolean isAdvancedLootInfoEnabled() throws IOException {
+        return isTranslationEnabled("ali");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -36,6 +40,10 @@ public final class TranslationPackManager {
 
     public static Path exportOfflineLanPack() throws IOException {
         return exportTranslationPack("offlinelan");
+    }
+
+    public static Path exportAdvancedLootInfoPack() throws IOException {
+        return exportTranslationPack("ali");
     }
 
     public static Path exportTranslationPack(String modId) throws IOException {
@@ -51,6 +59,10 @@ public final class TranslationPackManager {
 
     public static void setOfflineLanEnabled(boolean enabled) throws IOException {
         setTranslationEnabled("offlinelan", enabled);
+    }
+
+    public static void setAdvancedLootInfoEnabled(boolean enabled) throws IOException {
+        setTranslationEnabled("ali", enabled);
     }
 
     public static void setTranslationEnabled(String modId, boolean enabled) throws IOException {
@@ -74,12 +86,14 @@ public final class TranslationPackManager {
     public static void setAllBuiltInTranslationsEnabled(boolean enabled) throws IOException {
         setCarryOnEnabled(enabled);
         setOfflineLanEnabled(enabled);
+        setAdvancedLootInfoEnabled(enabled);
     }
 
     private static Translation translation(String modId) throws IOException {
         return switch (modId) {
             case "carryon" -> new Translation("carryon", "Carry On", "carryon");
             case "offlinelan" -> new Translation("offlinelan", "OfflineLAN", "offlinelan");
+            case "ali" -> new Translation("ali", "Advanced Loot Info", "ali");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
