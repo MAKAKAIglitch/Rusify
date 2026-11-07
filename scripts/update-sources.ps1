@@ -5,135 +5,230 @@ param()
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$ProjectRoot = Split-Path -Parent $PSScriptRoot
+$ProjectRoot = [IO.Path]::GetFullPath((Split-Path -Parent $PSScriptRoot))
 $Repository = "MAKAKAIglitch/Rusify"
 $Branch = "main"
-$ExpectedRemote = "https://github.com/$Repository.git"
+$ArchiveUrl = "https://codeload.github.com/$Repository/zip/refs/heads/$Branch"
+$ManifestName = ".rusify-update-manifest.txt"
+$ManifestPath = Join-Path $ProjectRoot $ManifestName
+$BackupRoot = Join-Path $ProjectRoot ".rusify-backups"
+$TempRoot = Join-Path ([IO.Path]::GetTempPath()) ("RusifyUpdater-" + [guid]::NewGuid().ToString("N"))
+$StageRoot = Join-Path $TempRoot "stage"
+$ZipPath = Join-Path $TempRoot "rusify-main.zip"
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
-function Invoke-Git {
-    param([Parameter(Mandatory = $true)][string[]] $Arguments)
+# These folders/files belong to the game, build output, or the user.
+# They are deliberately never touched by the source updater.
+$ProtectedTopLevel = @(
+    ".git", ".tools", ".gradle", ".idea", ".vscode",
+    ".rusify-backups", "build", "run", "mods", "config",
+    "saves", "logs", "crash-reports", "screenshots",
+    "resourcepacks", "shaderpacks"
+)
+$ProtectedFiles = @("options.txt", "servers.dat")
 
-    & git -C $ProjectRoot @Arguments
-    if ($LASTEXITCODE -ne 0) {
-        throw "Git command failed: git $($Arguments -join ' ') (exit code $LASTEXITCODE)."
+function Test-ProtectedPath {
+    param([Parameter(Mandatory = $true)][string] $RelativePath)
+
+    $normalized = $RelativePath.Replace("\", "/").TrimStart("/")
+    $first = ($normalized -split "/", 2)[0]
+    if ($ProtectedTopLevel -contains $first) { return $true }
+    if ($ProtectedFiles -contains $normalized) { return $true }
+    if ($normalized -eq $ManifestName) { return $true }
+    return $false
+}
+
+function Get-Sha256 {
+    param([Parameter(Mandatory = $true)][string] $Path)
+    return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
+}
+
+function Get-SafeDestination {
+    param(
+        [Parameter(Mandatory = $true)][string] $Root,
+        [Parameter(Mandatory = $true)][string] $RelativePath
+    )
+
+    $relative = $RelativePath.Replace("/", "\")
+    if ([IO.Path]::IsPathRooted($relative) -or $relative -match '(^|\\)\.\.(\\|$)' -or $relative.Contains(":")) {
+        throw "Unsafe path received from the GitHub archive: $RelativePath"
     }
+
+    $rootFull = [IO.Path]::GetFullPath($Root).TrimEnd("\") + "\"
+    $destination = [IO.Path]::GetFullPath((Join-Path $Root $relative))
+    if (!$destination.StartsWith($rootFull, [StringComparison]::OrdinalIgnoreCase)) {
+        throw "Archive path escapes the destination folder: $RelativePath"
+    }
+    return $destination
+}
+
+function Expand-VerifiedArchive {
+    param(
+        [Parameter(Mandatory = $true)][string] $Archive,
+        [Parameter(Mandatory = $true)][string] $Destination
+    )
+
+    Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+    [IO.Directory]::CreateDirectory($Destination) | Out-Null
+    $zip = [IO.Compression.ZipFile]::OpenRead($Archive)
+    try {
+        foreach ($entry in $zip.Entries) {
+            $name = $entry.FullName.Replace("\", "/")
+            if ([string]::IsNullOrWhiteSpace($name) -or $name.EndsWith("/")) { continue }
+
+            $parts = $name.Split("/")
+            if ($parts.Count -lt 2) { continue }
+            $relative = ($parts | Select-Object -Skip 1) -join "/"
+            if ([string]::IsNullOrWhiteSpace($relative) -or (Test-ProtectedPath -RelativePath $relative)) { continue }
+
+            $target = Get-SafeDestination -Root $Destination -RelativePath $relative
+            $parent = Split-Path -Parent $target
+            [IO.Directory]::CreateDirectory($parent) | Out-Null
+
+            $inputStream = $entry.Open()
+            try {
+                $outputStream = [IO.File]::Create($target)
+                try { $inputStream.CopyTo($outputStream) }
+                finally { $outputStream.Dispose() }
+            }
+            finally { $inputStream.Dispose() }
+        }
+    }
+    finally { $zip.Dispose() }
 }
 
 try {
     Write-Host ""
     Write-Host " Rusify source updater" -ForegroundColor White
     Write-Host " Repository: $Repository | Branch: $Branch" -ForegroundColor DarkGray
+    Write-Host " Mode: direct download from GitHub (Git is not required)" -ForegroundColor Cyan
     Write-Host ""
 
-    if (!(Get-Command git.exe -ErrorAction SilentlyContinue)) {
-        throw "Git for Windows is not installed or git.exe is not available in PATH. Install Git, then run this updater again."
+    if (!(Test-Path -LiteralPath (Join-Path $ProjectRoot "build.bat"))) {
+        throw "This does not look like the Rusify project folder: build.bat was not found. Keep update-sources.bat in the Rusify root folder."
     }
 
-    # Check for Git metadata before invoking Git. This also avoids leaking
-    # the raw "fatal: not a git repository" message from ZIP installations.
-    $GitMetadata = Join-Path $ProjectRoot ".git"
-    if (!(Test-Path -LiteralPath $GitMetadata)) {
-        throw @"
-This Rusify folder is not a Git clone (the .git directory is missing).
-The source updater can update only a repository created with:
-  git clone -b main https://github.com/$Repository.git
-If you downloaded Rusify as a ZIP, first clone the repository into a new folder,
-then use update-sources.bat from that cloned folder. Your current files were not changed.
-"@
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    [IO.Directory]::CreateDirectory($TempRoot) | Out-Null
+
+    Write-Host "[1/4] Downloading the latest main branch from GitHub..." -ForegroundColor Cyan
+    Invoke-WebRequest -Uri $ArchiveUrl -OutFile $ZipPath -UseBasicParsing -Headers @{
+        "User-Agent" = "Rusify-Source-Updater"
+        "Accept" = "application/vnd.github+json"
     }
 
-    $GitRootOutput = @(& git -C $ProjectRoot rev-parse --show-toplevel 2>&1)
-    $GitRootExitCode = $LASTEXITCODE
-    if ($GitRootExitCode -ne 0 -or !$GitRootOutput) {
-        throw "Git metadata exists, but this folder is not a valid Git working tree. Check that the .git directory is intact."
-    }
-    $GitRoot = $GitRootOutput | Select-Object -First 1
-
-    $GitRoot = [IO.Path]::GetFullPath(($GitRoot | Select-Object -First 1).Trim())
-    $ExpectedRoot = [IO.Path]::GetFullPath($ProjectRoot)
-    if (!$GitRoot.Equals($ExpectedRoot, [StringComparison]::OrdinalIgnoreCase)) {
-        throw "The updater must be run from the root of the Rusify clone. Detected Git root: $GitRoot"
+    if (!(Test-Path -LiteralPath $ZipPath) -or (Get-Item -LiteralPath $ZipPath).Length -lt 1024) {
+        throw "GitHub returned an empty or unexpectedly small archive."
     }
 
-    $Remote = (& git -C $ProjectRoot remote get-url origin 2>$null)
-    if ($LASTEXITCODE -ne 0 -or !$Remote) {
-        throw "Git remote 'origin' is missing."
-    }
-    $Remote = ($Remote | Select-Object -First 1).Trim()
-    $AllowedRemotes = @(
-        $ExpectedRemote,
-        "https://github.com/$Repository",
-        "git@github.com:$Repository.git",
-        "ssh://git@github.com/$Repository.git"
-    )
-    if ($AllowedRemotes -notcontains $Remote) {
-        throw "Remote 'origin' does not point to the official repository $Repository. Current URL: $Remote"
+    Write-Host "[2/4] Checking and extracting the archive..." -ForegroundColor Cyan
+    Expand-VerifiedArchive -Archive $ZipPath -Destination $StageRoot
+
+    $required = @("build.bat", "gradlew", "settings.gradle")
+    foreach ($file in $required) {
+        if (!(Test-Path -LiteralPath (Join-Path $StageRoot $file) -PathType Leaf)) {
+            throw "The downloaded archive is incomplete: required file '$file' is missing. Existing sources were not changed."
+        }
     }
 
-    $CurrentBranch = (& git -C $ProjectRoot branch --show-current)
-    if ($LASTEXITCODE -ne 0) {
-        throw "Could not determine the current Git branch."
-    }
-    $CurrentBranch = ($CurrentBranch | Select-Object -First 1).Trim()
-    if ($CurrentBranch -ne $Branch) {
-        throw "Current branch is '$CurrentBranch', but this updater only updates '$Branch'. Switch to main and run it again."
+    $newFiles = @(Get-ChildItem -LiteralPath $StageRoot -File -Recurse | ForEach-Object {
+        $_.FullName.Substring($StageRoot.Length).TrimStart("\").Replace("\", "/")
+    } | Sort-Object -Unique)
+
+    if ($newFiles.Count -lt 5) {
+        throw "The downloaded source archive contains too few files. Existing sources were not changed."
     }
 
-    $Changes = (& git -C $ProjectRoot status --porcelain --untracked-files=normal)
-    if ($LASTEXITCODE -ne 0) {
-        throw "Could not inspect the working tree."
-    }
-    if ($Changes) {
-        Write-Host "Local changes were found:" -ForegroundColor Yellow
-        $Changes | ForEach-Object { Write-Host "  $_" -ForegroundColor Yellow }
-        throw "Update cancelled to protect local changes. Commit or back up your changes, then run the updater again."
+    $oldFiles = @()
+    if (Test-Path -LiteralPath $ManifestPath -PathType Leaf) {
+        $oldFiles = @(Get-Content -LiteralPath $ManifestPath | Where-Object {
+            $_ -and $_ -notmatch '(^/|(^|/)\.\.(/|$)|:)' -and !(Test-ProtectedPath -RelativePath $_)
+        })
     }
 
-    Write-Host "[INFO] Checking GitHub for the latest main branch..." -ForegroundColor Cyan
-    Invoke-Git -Arguments @("fetch", "--prune", "origin", $Branch)
+    $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
+    $backupDirectory = Join-Path $BackupRoot $stamp
+    $changed = 0
+    $unchanged = 0
+    $removed = 0
+    $backedUp = 0
 
-    $Counts = (& git -C $ProjectRoot rev-list --left-right --count "HEAD...origin/$Branch")
-    if ($LASTEXITCODE -ne 0 -or !$Counts) {
-        throw "Could not compare the local branch with origin/$Branch."
+    Write-Host "[3/4] Updating source files..." -ForegroundColor Cyan
+    foreach ($relative in $newFiles) {
+        $source = Get-SafeDestination -Root $StageRoot -RelativePath $relative
+        $target = Get-SafeDestination -Root $ProjectRoot -RelativePath $relative
+        $targetParent = Split-Path -Parent $target
+        [IO.Directory]::CreateDirectory($targetParent) | Out-Null
+
+        if (Test-Path -LiteralPath $target -PathType Leaf) {
+            if ((Get-Sha256 -Path $source) -eq (Get-Sha256 -Path $target)) {
+                $unchanged++
+                continue
+            }
+
+            $backup = Get-SafeDestination -Root $backupDirectory -RelativePath $relative
+            [IO.Directory]::CreateDirectory((Split-Path -Parent $backup)) | Out-Null
+            Copy-Item -LiteralPath $target -Destination $backup -Force
+            $backedUp++
+        }
+
+        $temporaryTarget = "$target.rusify-update-tmp"
+        Copy-Item -LiteralPath $source -Destination $temporaryTarget -Force
+        Move-Item -LiteralPath $temporaryTarget -Destination $target -Force
+        $changed++
     }
-    $Parts = ($Counts | Select-Object -First 1).Trim() -split '\s+'
-    if ($Parts.Count -ne 2) {
-        throw "Unexpected response while comparing Git branches."
-    }
-    $Ahead = [int]$Parts[0]
-    $Behind = [int]$Parts[1]
 
-    if ($Ahead -gt 0) {
-        throw "The local main branch contains $Ahead commit(s) that are not on GitHub. No files were changed; reconcile these commits before updating."
-    }
+    # Remove only files listed by a previous successful Rusify update.
+    # This cleans up obsolete project files without scanning/deleting user data.
+    $newSet = @{}
+    foreach ($relative in $newFiles) { $newSet[$relative.ToLowerInvariant()] = $true }
 
-    if ($Behind -eq 0) {
-        Write-Host "[ OK ] Source files are already up to date." -ForegroundColor Green
-        exit 0
-    }
-
-    Write-Host "[INFO] $Behind new commit(s) found. Updating source files with a fast-forward..." -ForegroundColor Cyan
-    Invoke-Git -Arguments @("merge", "--ff-only", "origin/$Branch")
-
-    $NewCommit = (& git -C $ProjectRoot rev-parse --short HEAD)
-    if ($LASTEXITCODE -ne 0) {
-        throw "Update completed, but the resulting commit could not be read."
+    foreach ($relative in $oldFiles) {
+        if ($newSet.ContainsKey($relative.ToLowerInvariant())) { continue }
+        $stale = Get-SafeDestination -Root $ProjectRoot -RelativePath $relative
+        if (Test-Path -LiteralPath $stale -PathType Leaf) {
+            $backup = Get-SafeDestination -Root $backupDirectory -RelativePath $relative
+            [IO.Directory]::CreateDirectory((Split-Path -Parent $backup)) | Out-Null
+            Copy-Item -LiteralPath $stale -Destination $backup -Force
+            Remove-Item -LiteralPath $stale -Force
+            $removed++
+            $backedUp++
+        }
     }
 
+    $manifestTemp = "$ManifestPath.tmp"
+    [IO.File]::WriteAllLines($manifestTemp, $newFiles, $Utf8NoBom)
+    Move-Item -LiteralPath $manifestTemp -Destination $ManifestPath -Force
+
+    Write-Host "[4/4] Finished." -ForegroundColor Cyan
     Write-Host ""
     Write-Host " ==========================================" -ForegroundColor Green
-    Write-Host " SOURCES UPDATED SUCCESSFULLY" -ForegroundColor Green
+    Write-Host " RUSIFY SOURCES UPDATED SUCCESSFULLY" -ForegroundColor Green
     Write-Host " ==========================================" -ForegroundColor Green
-    Write-Host "Current commit: $NewCommit" -ForegroundColor Green
-    Write-Host "The repository source files now match the latest main branch." -ForegroundColor White
-    Write-Host "Run build.bat if you also want to compile the updated mod." -ForegroundColor White
+    Write-Host "Updated files: $changed" -ForegroundColor Green
+    Write-Host "Already current: $unchanged" -ForegroundColor Gray
+    Write-Host "Obsolete files removed: $removed" -ForegroundColor Gray
+    Write-Host "Backup copies: $backedUp" -ForegroundColor Gray
+    if ($backedUp -gt 0) {
+        Write-Host "Backup folder: .rusify-backups\$stamp" -ForegroundColor Yellow
+    }
+    Write-Host ""
+    Write-Host "Git is not needed. You can now run build.bat to compile the updated mod." -ForegroundColor White
     Write-Host ""
     exit 0
 }
 catch {
     Write-Host ""
     Write-Host "[UPDATE ERROR] $($_.Exception.Message)" -ForegroundColor Red
-    Write-Host "No local changes were overwritten." -ForegroundColor DarkGray
+    Write-Host "The updater keeps user folders such as mods, config, saves, and build untouched." -ForegroundColor DarkGray
+    Write-Host "Any source files already replaced are backed up in .rusify-backups when possible." -ForegroundColor DarkGray
     Write-Host ""
     exit 1
+}
+finally {
+    if (Test-Path -LiteralPath $TempRoot) {
+        Remove-Item -LiteralPath $TempRoot -Recurse -Force -ErrorAction SilentlyContinue
+    }
 }
