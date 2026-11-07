@@ -36,6 +36,7 @@
 | Held Item Info | 56 | `assets/held_item_info/lang/ru_ru.json` |
 | Kiwi Library | 75 | `assets/kiwi/lang/ru_ru.json` |
 | Ping Wheel | 61 | `assets/pingwheel/lang/ru_ru.json` |
+| Sable Ragdolls | 43 | `assets/sable_player_ragdoll/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
