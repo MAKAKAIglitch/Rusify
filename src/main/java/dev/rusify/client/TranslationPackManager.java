@@ -29,6 +29,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("ali");
     }
 
+    public static boolean isStoneZoneEnabled() throws IOException {
+        return isTranslationEnabled("stonezone");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -44,6 +48,10 @@ public final class TranslationPackManager {
 
     public static Path exportAdvancedLootInfoPack() throws IOException {
         return exportTranslationPack("ali");
+    }
+
+    public static Path exportStoneZonePack() throws IOException {
+        return exportTranslationPack("stonezone");
     }
 
     public static Path exportTranslationPack(String modId) throws IOException {
@@ -63,6 +71,10 @@ public final class TranslationPackManager {
 
     public static void setAdvancedLootInfoEnabled(boolean enabled) throws IOException {
         setTranslationEnabled("ali", enabled);
+    }
+
+    public static void setStoneZoneEnabled(boolean enabled) throws IOException {
+        setTranslationEnabled("stonezone", enabled);
     }
 
     public static void setTranslationEnabled(String modId, boolean enabled) throws IOException {
@@ -88,7 +100,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -107,6 +119,7 @@ public final class TranslationPackManager {
             case "carryon" -> new Translation("carryon", "Carry On", "carryon");
             case "offlinelan" -> new Translation("offlinelan", "OfflineLAN", "offlinelan");
             case "ali" -> new Translation("ali", "Advanced Loot Info", "ali");
+            case "stonezone" -> new Translation("stonezone", "Stone Zone", "stonezone");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
