@@ -60,7 +60,7 @@
 | More Delight | 58 | `assets/moredelight/lang/ru_ru.json` |
 | More Culling | 56 | `assets/moreculling/lang/ru_ru.json` |
 | Golem Overhaul | 59 | `assets/golemoverhaul/lang/ru_ru.json` |
-| FastQuit | 25 | `assets/fastquit/lang/ru_ru.json` |
+| FastQuit | 26 | `assets/fastquit/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
