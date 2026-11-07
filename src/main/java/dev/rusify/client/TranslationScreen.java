@@ -26,9 +26,9 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi"};
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel"};
         String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library"};
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel"};
         for (int i = 0; i < modIds.length; i++) {
             String modId = modIds[i];
             boolean enabled = false;
@@ -68,6 +68,7 @@ public final class TranslationScreen extends Screen {
                 case "lendersdelight" -> "L_Ender's Delight";
                 case "held_item_info" -> "Held Item Info";
                 case "kiwi" -> "Kiwi Library";
+                case "pingwheel" -> "Ping Wheel";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
