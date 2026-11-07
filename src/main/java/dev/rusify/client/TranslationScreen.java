@@ -26,9 +26,9 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse", "dungeons_arise", "curios", "everycomp", "distanthorizons", "artifacts", "sodium_extra", "jei", "createnuclear", "vinery", "snowrealmagic", "furniture"};
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse", "dungeons_arise", "curios", "everycomp", "distanthorizons", "artifacts", "sodium_extra", "jei", "createnuclear", "vinery", "snowrealmagic", "furniture", "farm_and_charm"};
         String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator", "Better Biome ReBlend", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat", "Distant Horizons", "Artifacts", "Sodium Extra", "Just Enough Items (JEI)", "Create Nuclear", "[Let's Do] Vinery", "Snow! Real Magic!", "[Let's Do] Furniture"};
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator", "Better Biome ReBlend", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat", "Distant Horizons", "Artifacts", "Sodium Extra", "Just Enough Items (JEI)", "Create Nuclear", "[Let's Do] Vinery", "Snow! Real Magic!", "[Let's Do] Furniture", "[Let's Do] Farm & Charm"};
         int buttonWidth = Math.min(190, (width - 40 - 8) / 2);
         int totalWidth = buttonWidth * 2 + 8;
         for (int i = 0; i < modIds.length; i++) {
@@ -119,6 +119,7 @@ public final class TranslationScreen extends Screen {
                 case "vinery" -> "[Let's Do] Vinery";
                 case "snowrealmagic" -> "Snow! Real Magic!";
                 case "furniture" -> "[Let's Do] Furniture";
+                case "farm_and_charm" -> "[Let's Do] Farm & Charm";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
