@@ -26,13 +26,11 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/actions/wrapper-validation@v4
 
-      - name: Set up Gradle
+      - name: Set up Gradle cache
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '9.2.1'
 
-      - name: Compile and package
-        run: gradle build --no-daemon
+      - name: Compile and package with the repository wrapper
+        run: ./gradlew build --no-daemon --build-cache
 
       - name: Upload mod JAR
         uses: actions/upload-artifact@v4
