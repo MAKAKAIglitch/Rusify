@@ -14,8 +14,7 @@ public record ModScanResult(
         List<String> englishEntries,
         List<String> russianEntries,
         String authors,
-        String homepageUrl,
-        String sourcesUrl,
+        String repositoryUrl,
         String issuesUrl,
         List<AuthorLink> authorLinks
 ) {
