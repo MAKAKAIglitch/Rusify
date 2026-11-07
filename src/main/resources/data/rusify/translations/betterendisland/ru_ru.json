@@ -1,0 +1,15 @@
+{
+  "text.autoconfig.betterendisland-fabric-1_21.title": "YUNG's Better End Island",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.resummonedDragonDropsEgg": "Яйцо при повторном призыве дракона",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.resummonedDragonDropsEgg.@Tooltip": "Выпадает ли яйцо каждый раз после победы над Эндер-драконом.",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.useVanillaSpawnPlatform": "Использовать стандартную обсидиановую платформу",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.useVanillaSpawnPlatform.@Tooltip": "Появляется ли в Энде стандартная обсидиановая платформа вместо обновлённой.",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.useVanillaEndGateways": "Использовать стандартные врата Энда",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.useVanillaEndGateways.@Tooltip": "Появляются ли в Энде стандартные врата вместо обновлённых.",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.playBellSound": "Воспроизводить звук колокола",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.playBellSound.@Tooltip": "Воспроизводится ли звук колокола перед первым призывом Эндер-дракона и при каждом его повторном призыве.",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.spawnCentralTowerInitially": "Создавать центральную башню при генерации мира",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.spawnCentralTowerInitially.@Tooltip": "Появляется ли центральная башня в Энде при первой генерации мира.",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.spawnCentralTowerOnResummon": "Восстанавливать центральную башню при повторном призыве",
+  "text.autoconfig.betterendisland-fabric-1_21.option.general.spawnCentralTowerOnResummon.@Tooltip": "Появляется ли центральная башня в Энде заново при повторном призыве Эндер-дракона."
+}
