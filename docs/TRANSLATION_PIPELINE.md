@@ -2,6 +2,15 @@
 
 This document records the intended translation pipeline. The current release only scans and exports language files; it does not translate strings automatically.
 
+## Export folder layout
+
+Bulk export writes each mod into its own subfolder under `<game-directory>/Rusify/exports`:
+
+- `Частичный перевод/<mod-id>/` — mods with at least one non-empty Russian translation, but with untranslated source keys remaining. Existing Russian strings are retained and missing strings are exported as empty values for editing.
+- `Нет перевода/<mod-id>/` — mods with no non-empty Russian translations. All source strings are included in the generated Russian template.
+
+Mods with a complete Russian translation are not included in the incomplete-translation export. Mods without usable `en_us.json` strings are skipped.
+
 ## Translation priority
 
 1. **Curated Rusify translation packs (offline-first).** Check reviewed translations first. Each pack identifies the mod ID, namespace, mod version range, source language, target language, and source-key fingerprints.
