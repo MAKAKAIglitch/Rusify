@@ -8,9 +8,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-
 public final class ModInfoScreen extends Screen {
     private final Screen parent;
     private final ModScanResult mod;
@@ -26,12 +23,8 @@ public final class ModInfoScreen extends Screen {
     protected void init() {
         int center = width / 2;
         int y = 105;
-        if (mod.homepageUrl() != null) {
-            addRenderableWidget(linkButton("Сайт проекта", mod.homepageUrl(), center - 154, y));
-            y += 25;
-        }
-        if (mod.sourcesUrl() != null) {
-            addRenderableWidget(linkButton("Исходный код / репозиторий", mod.sourcesUrl(), center - 154, y));
+        if (mod.repositoryUrl() != null) {
+            addRenderableWidget(linkButton("Репозиторий", mod.repositoryUrl(), center - 154, y));
             y += 25;
         }
         if (mod.issuesUrl() != null) {
@@ -65,8 +58,7 @@ public final class ModInfoScreen extends Screen {
         graphics.drawString(font, "Авторы: " + mod.authors(), 18, 54, 0xFFFFFF);
         graphics.drawString(font, "Файл: " + mod.jarPath().getFileName(), 18, 70, 0xA0A0A0);
         graphics.drawString(font, "Языковые пространства: " + String.join(", ", mod.namespaces()), 18, 84, 0xA0A0A0);
-        if (mod.homepageUrl() == null && mod.sourcesUrl() == null && mod.issuesUrl() == null
-                && mod.authorLinks().isEmpty()) {
+        if (mod.repositoryUrl() == null && mod.issuesUrl() == null && mod.authorLinks().isEmpty()) {
             graphics.drawCenteredString(font, "Ссылки не указаны в метаданных этого мода.", width / 2, 115, 0xFFCC66);
         }
         graphics.drawCenteredString(font, "Ссылки берутся из metadata самого мода; Rusify их не угадывает.",
