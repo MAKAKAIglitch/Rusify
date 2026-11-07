@@ -36,9 +36,9 @@ public final class RusifyClientForgeEvents {
             startupPackHandled = true;
             if (TranslationSettings.autoApplyBuiltInPacks()) {
                 try {
-                    TranslationPackManager.setCarryOnEnabled(true);
+                    TranslationPackManager.setAllBuiltInTranslationsEnabled(true);
                 } catch (IOException exception) {
-                    System.err.println("[Rusify] Не удалось автоматически подключить перевод: "
+                    System.err.println("[Rusify] Не удалось автоматически подключить переводы: "
                             + exception.getMessage());
                 }
             }
