@@ -33,6 +33,7 @@
 | Screenshot Viewer | 74 | `assets/screenshot_viewer/lang/ru_ru.json` |
 | Ragdoll Reactions | 75 | `assets/ragdoll_reactions/lang/ru_ru.json` |
 | L_Ender's Delight | 86 | `assets/lendersdelight/lang/ru_ru.json` |
+| Held Item Info | 56 | `assets/held_item_info/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
