@@ -55,7 +55,7 @@ public final class TranslationScreen extends Screen {
     }
 
     private int listBottom() {
-        return Math.max(listTop() + 24, height - 104);
+        return Math.max(listTop() + 24, height - 100);
     }
 
     private int columns() {
@@ -187,6 +187,7 @@ public final class TranslationScreen extends Screen {
         graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 22, 0xFFFFFF);
         graphics.drawCenteredString(font, "Нажмите на перевод, чтобы включить или выключить его", width / 2,
                 42, 0xB8B8B8);
+        graphics.drawCenteredString(font, "Колёсико мыши — прокрутка списка", width / 2, 54, 0xA0A0A0);
 
         int left = listLeft();
         int top = listTop();
@@ -220,14 +221,7 @@ public final class TranslationScreen extends Screen {
         }
         graphics.disableScissor();
 
-        int visibleRows = Math.max(1, (bottom - top) / ROW_HEIGHT);
-        String scrollHint = maxScroll() > 0
-                ? "Прокрутка колёсиком · " + (int) Math.min(rowCount(), Math.floor(scrollOffset / ROW_HEIGHT) + 1)
-                    + "–" + Math.min(rowCount(), (int) Math.ceil((scrollOffset + (bottom - top)) / ROW_HEIGHT))
-                    + " из " + rowCount() + " строк"
-                : "Все переводы помещаются на экран";
-        graphics.drawCenteredString(font, scrollHint, width / 2, height - 94, 0xA0A0A0);
-        graphics.drawCenteredString(font, trim(message, 90), width / 2, height - 86, 0xD0D0D0);
+        graphics.drawCenteredString(font, trim(message, 90), width / 2, height - 88, 0xD0D0D0);
     }
 
     private static String trim(String value, int max) {
