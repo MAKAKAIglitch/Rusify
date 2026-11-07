@@ -38,6 +38,8 @@ public final class ExportScreen extends Screen {
                 .bounds(this.width / 2 - 60, 12, 112, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Экспорт <100%"), button -> exportIncomplete())
                 .bounds(this.width / 2 + 56, 12, 100, 20).build());
+        addRenderableWidget(Button.builder(Component.literal("Информация о моде"), button -> openSelectedInfo())
+                .bounds(100, this.height - 34, 140, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(12, this.height - 34, 80, 20).build());
     }
@@ -45,6 +47,14 @@ public final class ExportScreen extends Screen {
     @Override
     public void onClose() {
         Minecraft.getInstance().setScreen(parent);
+    }
+
+    private void openSelectedInfo() {
+        if (selectedIndex < 0 || selectedIndex >= results.size()) {
+            message = "Сначала выберите мод в списке.";
+            return;
+        }
+        Minecraft.getInstance().setScreen(new ModInfoScreen(this, results.get(selectedIndex)));
     }
 
     private void scan() {
