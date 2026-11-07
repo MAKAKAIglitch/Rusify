@@ -4,7 +4,10 @@ import dev.rusify.Rusify;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import org.lwjgl.glfw.GLFW;
 
@@ -22,5 +25,12 @@ public final class RusifyClientEvents {
     @SubscribeEvent
     public static void registerKeyMappings(RegisterKeyMappingsEvent event) {
         event.register(OPEN_SCREEN);
+    }
+
+    @SubscribeEvent
+    public static void registerModListScreen(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> ModList.get().getModContainerById(Rusify.MOD_ID).ifPresent(container ->
+                container.registerExtensionPoint(IConfigScreenFactory.class,
+                        () -> (modContainer, parent) -> new RusifyScreen(parent))));
     }
 }
