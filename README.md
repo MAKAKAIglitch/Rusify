@@ -59,7 +59,7 @@
 | Pufferfish's Skills | 50 | `assets/puffish_skills/lang/ru_ru.json` |
 | More Delight | 58 | `assets/moredelight/lang/ru_ru.json` |
 | More Culling | 56 | `assets/moreculling/lang/ru_ru.json` |
-| Golem Overhaul | 55 | `assets/golemoverhaul/lang/ru_ru.json` |
+| Golem Overhaul | 59 | `assets/golemoverhaul/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
