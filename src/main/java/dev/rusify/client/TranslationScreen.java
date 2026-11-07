@@ -27,40 +27,54 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         boolean carryOnEnabled = false;
+        boolean offlineLanEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
+            offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
 
         addRenderableWidget(Button.builder(
                         Component.literal("Перевод Carry On: " + (carryOnEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleCarryOn())
-                .bounds(center - 145, 88, 290, 24).build());
+                        button -> toggleTranslation("carryon"))
+                .bounds(center - 145, 78, 290, 22).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод Carry On"),
+                        button -> exportTranslation("carryon", "Carry On"))
+                .bounds(center - 145, 104, 290, 22).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Перевод OfflineLAN: " + (offlineLanEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("offlinelan"))
+                .bounds(center - 145, 130, 290, 22).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод OfflineLAN"),
+                        button -> exportTranslation("offlinelan", "OfflineLAN"))
+                .bounds(center - 145, 156, 290, 22).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение готовых переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 118, 290, 24).build());
-
-        addRenderableWidget(Button.builder(Component.literal("Экспортировать перевод Carry On"),
-                        button -> exportCarryOn())
-                .bounds(center - 145, 153, 290, 24).build());
+                .bounds(center - 145, 182, 290, 22).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 183, 290, 24).build());
+                .bounds(center - 145, 208, 290, 22).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
-                .bounds(center - 50, height - 32, 100, 20).build());
+                .bounds(center - 50, height - 28, 100, 20).build());
     }
 
-    private void toggleCarryOn() {
+    private void toggleTranslation(String modId) {
         try {
-            boolean enable = !TranslationPackManager.isCarryOnEnabled();
-            TranslationPackManager.setCarryOnEnabled(enable);
-            reopen(enable ? "Русский перевод Carry On включён." : "Русский перевод Carry On выключен.");
+            boolean enabled = !TranslationPackManager.isTranslationEnabled(modId);
+            TranslationPackManager.setTranslationEnabled(modId, enabled);
+            String name = modId.equals("carryon") ? "Carry On" : "OfflineLAN";
+            reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
         } catch (IOException exception) {
             reopen("Не удалось переключить перевод: " + exception.getMessage());
         }
@@ -78,12 +92,12 @@ public final class TranslationScreen extends Screen {
         }
     }
 
-    private void exportCarryOn() {
+    private void exportTranslation(String modId, String name) {
         try {
-            Path path = TranslationPackManager.exportCarryOnPack();
-            reopen("Ресурс-пак Carry On подготовлен: " + path);
+            Path path = TranslationPackManager.exportTranslationPack(modId);
+            reopen("Ресурс-пак " + name + " подготовлен: " + path);
         } catch (IOException exception) {
-            reopen("Ошибка экспорта Carry On: " + exception.getMessage());
+            reopen("Ошибка экспорта " + name + ": " + exception.getMessage());
         }
     }
 
@@ -101,16 +115,13 @@ public final class TranslationScreen extends Screen {
         renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 30, 0xFFFFFF);
-        graphics.drawCenteredString(font, "Готовые переводы работают как отдельный ресурс-пак.",
-                width / 2, 54, 0xB8B8B8);
-        graphics.drawCenteredString(font, "Carry On: русский перевод из официального репозитория автора.",
-                width / 2, 68, 0x77DD88);
+        graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 24, 0xFFFFFF);
+        graphics.drawCenteredString(font, "Встроенные переводы работают офлайн как ресурс-пак.", width / 2,
+                46, 0xB8B8B8);
         graphics.drawCenteredString(font, "Автоподключение применяется при следующем запуске Minecraft.",
-                width / 2, 218, 0xA0A0A0);
-        graphics.drawCenteredString(font, trim(message, 110), width / 2, 237, 0xD0D0D0);
+                width / 2, 238, 0xA0A0A0);
+        graphics.drawCenteredString(font, trim(message, 110), width / 2, 254, 0xD0D0D0);
     }
-
 
     private static String trim(String value, int max) {
         if (value.length() <= max) return value;
