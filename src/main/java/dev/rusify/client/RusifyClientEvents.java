@@ -43,7 +43,7 @@ public final class RusifyClientEvents {
             try {
                 TranslationPackManager.setAllBuiltInTranslationsEnabled(true);
             } catch (IOException exception) {
-                Rusify.LOGGER.error("Не удалось автоматически подключить встроенные переводы Rusify.", exception);
+                System.err.println("[Rusify] Не удалось автоматически подключить встроенные переводы: " + exception.getMessage());
             }
         });
     }
