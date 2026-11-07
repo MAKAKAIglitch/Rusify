@@ -8,7 +8,7 @@
 
 - Открывает главное меню клавишей `O`, командой `/rusify` или через настройки мода.
 - Отдельная вкладка **«Переводы и настройки»** управляет готовыми переводами.
-- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic, Expanded Delight, Screenshot Viewer, Ragdoll Reactions, L_Ender's Delight, iChunUtil, Resourceful Config, Better Zoom, Create: More Automation, Create: Trimmed, Jump Over Fences, BreakingPlace 211 neo, Trimmed, Curios for Ammo Box, Better Advancements, RebindNarrator, Better Biome ReBlend, Sable: Ragdoll Corpse, When Dungeons Arise, [Let's Do] Vinery, Snow! Real Magic!, [Let's Do] Furniture и [Let's Do] Farm & Charm и Pufferfish's Skills, More Delight, More Culling и Golem Overhaul, FastQuit, Create: Hypertubes, Create: Optical, Create: Deep Dark и Copper Equipment.
+- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic, Expanded Delight, Screenshot Viewer, Ragdoll Reactions, L_Ender's Delight, iChunUtil, Resourceful Config, Better Zoom, Create: More Automation, Create: Trimmed, Jump Over Fences, BreakingPlace 211 neo, Trimmed, Curios for Ammo Box, Better Advancements, RebindNarrator, Better Biome ReBlend, Sable: Ragdoll Corpse, When Dungeons Arise, [Let's Do] Vinery, Snow! Real Magic!, [Let's Do] Furniture и [Let's Do] Farm & Charm и Pufferfish's Skills, More Delight, More Culling и Golem Overhaul, FastQuit, Create: Hypertubes, Create: Optical, Create: Deep Dark, Copper Equipment и Chunk Loaders.
 - Все включённые переводы динамически объединяются в один ресурс-пак `Rusify-Translations`. При отключении мода его `ru_ru.json` удаляется из этого пакета; отдельные пакеты для каждого мода не создаются.
 - При запуске Rusify автоматически переносит принадлежащие ему старые отдельные пакеты в общую структуру и удаляет их, не затрагивая чужие ресурс-паки.
 - Встроенные переводы работают полностью офлайн и не требуют сторонних сервисов.
@@ -65,6 +65,7 @@
 | Create: Optical | 169 | `assets/create_optical/lang/ru_ru.json` |
 | Create: Deep Dark | 51 | `assets/create_deep_dark/lang/ru_ru.json` |
 | Copper Equipment | 37 | `assets/copperequipment/lang/ru_ru.json` |
+| Chunk Loaders | 28 | `assets/chunkloaders/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
