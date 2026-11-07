@@ -79,7 +79,8 @@ public final class ExportScreen extends Screen {
             selectedIndex = results.isEmpty() ? -1 : 0;
             scrollOffset = 0;
             long untranslated = results.stream()
-                    .filter(result -> result.englishKeys() > 0 && result.translatedKeys() == 0).count();
+                    .filter(result -> !TranslationPackManager.hasBuiltInTranslation(result.modId())
+                            && result.englishKeys() > 0 && result.translatedKeys() == 0).count();
             long rusify = results.stream()
                     .filter(result -> TranslationPackManager.hasBuiltInTranslation(result.modId())).count();
             long partial = results.stream()
