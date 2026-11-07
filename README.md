@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **71 встроенная локализация** для популярных модов.
+- **72 встроенные локализации** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 71 локализация · 9 680 переводимых ключей</strong></summary>
+<summary><strong>Все 72 локализации · 9 745 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -172,6 +172,7 @@ resourcepacks/
 | iChunUtil | 38 | [ichunutil](src/main/resources/data/rusify/translations/ichunutil/ru_ru.json) |
 | Just Enough Items (JEI) | 618 | [jei](src/main/resources/data/rusify/translations/jei/ru_ru.json) |
 | Jump Over Fences | 3 | [jumpoverfences](src/main/resources/data/rusify/translations/jumpoverfences/ru_ru.json) |
+| LambDynamicLights | 65 | [lambdynlights](src/main/resources/data/rusify/translations/lambdynlights/ru_ru.json) |
 | Kiwi Library | 75 | [kiwi](src/main/resources/data/rusify/translations/kiwi/ru_ru.json) |
 | L_Ender's Delight | 86 | [lendersdelight](src/main/resources/data/rusify/translations/lendersdelight/ru_ru.json) |
 | Lift n' Load | 14 | [create_lnl](src/main/resources/data/rusify/translations/create_lnl/ru_ru.json) |
