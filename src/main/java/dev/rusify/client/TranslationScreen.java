@@ -28,9 +28,11 @@ public final class TranslationScreen extends Screen {
         int center = width / 2;
         boolean carryOnEnabled = false;
         boolean offlineLanEnabled = false;
+        boolean aliEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
+            aliEnabled = TranslationPackManager.isAdvancedLootInfoEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -56,14 +58,24 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 156, 290, 22).build());
 
         addRenderableWidget(Button.builder(
+                        Component.literal("Перевод Advanced Loot Info: " + (aliEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("ali"))
+                .bounds(center - 145, 182, 290, 22).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод Advanced Loot Info"),
+                        button -> exportTranslation("ali", "Advanced Loot Info"))
+                .bounds(center - 145, 208, 290, 22).build());
+
+        addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 182, 290, 22).build());
+                .bounds(center - 145, 234, 290, 22).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 208, 290, 22).build());
+                .bounds(center - 145, 260, 290, 22).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -73,7 +85,12 @@ public final class TranslationScreen extends Screen {
         try {
             boolean enabled = !TranslationPackManager.isTranslationEnabled(modId);
             TranslationPackManager.setTranslationEnabled(modId, enabled);
-            String name = modId.equals("carryon") ? "Carry On" : "OfflineLAN";
+            String name = switch (modId) {
+                case "carryon" -> "Carry On";
+                case "offlinelan" -> "OfflineLAN";
+                case "ali" -> "Advanced Loot Info";
+                default -> modId;
+            };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
         } catch (IOException exception) {
             reopen("Не удалось переключить перевод: " + exception.getMessage());
