@@ -26,10 +26,14 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences"};
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator"};
         String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences"};
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator"};
+        int buttonWidth = Math.min(190, (width - 40 - 8) / 2);
+        int totalWidth = buttonWidth * 2 + 8;
         for (int i = 0; i < modIds.length; i++) {
+            int column = i % 2;
+            int row = i / 2;
             String modId = modIds[i];
             boolean enabled = false;
             try {
@@ -40,11 +44,11 @@ public final class TranslationScreen extends Screen {
             addRenderableWidget(Button.builder(
                             Component.literal(names[i] + ": " + (enabled ? "ВКЛ" : "ВЫКЛ")),
                             button -> toggleTranslation(modId))
-                    .bounds(center - 145, 60 + i * 19, 290, 18).build());
+                    .bounds(center - totalWidth / 2 + column * (buttonWidth + 8), 60 + row * 20, buttonWidth, 18).build());
         }
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 60 + modIds.length * 19 + 6, 290, 18).build());
+                .bounds(center - 145, 60 + ((modIds.length + 1) / 2) * 20 + 6, 290, 18).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
     }
