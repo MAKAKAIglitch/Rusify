@@ -1,5 +1,8 @@
 package dev.rusify.client;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
@@ -24,7 +27,6 @@ import java.util.regex.Pattern;
 public final class ModScanner {
     private static final Pattern MOD_ID = Pattern.compile("(?m)^\\s*modId\\s*=\\s*\"([^\"]+)\"");
     private static final Pattern DISPLAY_NAME = Pattern.compile("(?m)^\\s*displayName\\s*=\\s*\"([^\"]+)\"");
-    private static final Pattern LANG_KEY = Pattern.compile("\"((?:\\\\.|[^\"\\\\])*)\"\\s*:");
     private static final Pattern LANG_PATH = Pattern.compile("^assets/([^/]+)/lang/(en_us|ru_ru)\\.json$");
 
     private ModScanner() {
@@ -88,8 +90,8 @@ public final class ModScanner {
 
             Set<String> englishKeys = new LinkedHashSet<>();
             Set<String> russianKeys = new LinkedHashSet<>();
-            english.values().forEach(text -> englishKeys.addAll(extractKeys(text)));
-            russian.values().forEach(text -> russianKeys.addAll(extractKeys(text)));
+            english.forEach((entryName, text) -> addLocalizedKeys(englishKeys, entryName, text));
+            russian.forEach((entryName, text) -> addLocalizedKeys(russianKeys, entryName, text));
 
             int translated = 0;
             for (String key : englishKeys) {
@@ -137,11 +139,23 @@ public final class ModScanner {
         return modDirectory;
     }
 
-    private static List<String> extractKeys(String json) {
-        List<String> keys = new ArrayList<>();
-        Matcher matcher = LANG_KEY.matcher(json);
-        while (matcher.find()) keys.add(matcher.group(1));
-        return keys;
+    private static void addLocalizedKeys(Set<String> target, String entryName, String json) {
+        Matcher pathMatcher = LANG_PATH.matcher(entryName);
+        if (!pathMatcher.matches()) return;
+        String namespace = pathMatcher.group(1);
+
+        try {
+            JsonObject object = JsonParser.parseString(json).getAsJsonObject();
+            for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
+                JsonElement value = entry.getValue();
+                if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()
+                        && !value.getAsString().isBlank()) {
+                    target.add(namespace + ":" + entry.getKey());
+                }
+            }
+        } catch (RuntimeException exception) {
+            System.err.println("[Rusify] Некорректный lang JSON: " + entryName);
+        }
     }
 
     private static String readText(JarFile jar, String entryName) throws IOException {
