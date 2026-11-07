@@ -34,9 +34,10 @@ public final class RusifyClientForgeEvents {
         Minecraft minecraft = Minecraft.getInstance();
         if (!startupPackHandled) {
             startupPackHandled = true;
-            if (TranslationSettings.autoApplyBuiltInPacks()) {
+            if (!TranslationSettings.builtInTranslationsInitialized()) {
                 try {
                     TranslationPackManager.setAllBuiltInTranslationsEnabled(true);
+                    TranslationSettings.markBuiltInTranslationsInitialized();
                 } catch (IOException exception) {
                     System.err.println("[Rusify] Не удалось автоматически подключить переводы: "
                             + exception.getMessage());
