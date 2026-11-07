@@ -112,7 +112,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -132,7 +132,7 @@ public final class TranslationPackManager {
             case "offlinelan" -> new Translation("offlinelan", "OfflineLAN", "offlinelan");
             case "ali" -> new Translation("ali", "Advanced Loot Info", "ali");
             case "stonezone" -> new Translation("stonezone", "Stone Zone", "stonezone");
-            case "gemsrealm" -> new Translation("gemsrealm", "Gems Realm", "gemsrealm");
+            case "gemsrealm" -> new Translation("gemsrealm", "Gems Realm", "gemsrealm");\n            case "punchy" -> new Translation("punchy", "Punchy!", "punchy");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
