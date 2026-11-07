@@ -68,6 +68,49 @@ public final class ModScanner {
 
             String modId = firstMatch(MOD_ID, toml);
             String displayName = firstMatch(DISPLAY_NAME, toml);
+            String authors = firstMatch(AUTHORS, toml);
+            String homepageUrl = safeHttpUrl(firstMatch(DISPLAY_URL, toml));
+            String issuesUrl = safeHttpUrl(firstMatch(ISSUES_URL, toml));
+            String sourcesUrl = null;
+            List<ModScanResult.AuthorLink> authorLinks = new ArrayList<>();
+
+            // Fabric/Quilt metadata carries richer project and author contact links.
+            String fabricMetadata = readText(jar, "fabric.mod.json");
+            if (fabricMetadata == null) fabricMetadata = readText(jar, "quilt.mod.json");
+            if (fabricMetadata != null) {
+                try {
+                    JsonObject metadata = JsonParser.parseString(fabricMetadata).getAsJsonObject();
+                    JsonObject contact = metadata.has("contact") && metadata.get("contact").isJsonObject()
+                            ? metadata.getAsJsonObject("contact") : new JsonObject();
+                    homepageUrl = firstValid(homepageUrl, jsonString(contact, "homepage"));
+                    sourcesUrl = firstValid(sourcesUrl, jsonString(contact, "sources"));
+                    issuesUrl = firstValid(issuesUrl, jsonString(contact, "issues"));
+
+                    if (metadata.has("authors") && metadata.get("authors").isJsonArray()) {
+                        List<String> authorNames = new ArrayList<>();
+                        for (JsonElement author : metadata.getAsJsonArray("authors")) {
+                            if (author.isJsonPrimitive()) {
+                                authorNames.add(author.getAsString());
+                            } else if (author.isJsonObject()) {
+                                JsonObject person = author.getAsJsonObject();
+                                String name = jsonString(person, "name");
+                                if (name == null || name.isBlank()) continue;
+                                authorNames.add(name);
+                                JsonObject authorContact = person.has("contact") && person.get("contact").isJsonObject()
+                                        ? person.getAsJsonObject("contact") : new JsonObject();
+                                String authorUrl = firstValid(
+                                        jsonString(authorContact, "github"),
+                                        jsonString(authorContact, "homepage"),
+                                        jsonString(authorContact, "url"));
+                                if (authorUrl != null) authorLinks.add(new ModScanResult.AuthorLink(name, authorUrl));
+                            }
+                        }
+                        if (!authorNames.isEmpty()) authors = String.join(", ", authorNames);
+                    }
+                } catch (RuntimeException ignored) {
+                    System.err.println("[Rusify] Некорректный mod metadata JSON: " + path.getFileName());
+                }
+            }
             boolean hasModMetadata = modId != null && !modId.isBlank();
             if (modId == null || modId.isBlank()) {
                 modId = stripExtension(path.getFileName().toString()).toLowerCase().replaceAll("[^a-z0-9_.-]", "_");
@@ -106,7 +149,9 @@ public final class ModScanner {
             return new ModScanResult(
                     modId, displayName, path, List.copyOf(namespaces),
                     englishKeys.size(), translated, !russian.isEmpty(),
-                    List.copyOf(english.keySet()), List.copyOf(russian.keySet())
+                    List.copyOf(english.keySet()), List.copyOf(russian.keySet()),
+                    authors == null || authors.isBlank() ? "Не указаны в метаданных" : authors,
+                    homepageUrl, sourcesUrl, issuesUrl, List.copyOf(authorLinks)
             );
         }
     }
@@ -249,6 +294,36 @@ public final class ModScanner {
     private static String readText(JarFile jar, JarEntry entry) throws IOException {
         try (InputStream input = jar.getInputStream(entry)) {
             return new String(input.readNBytes(8 * 1024 * 1024), StandardCharsets.UTF_8);
+        }
+    }
+
+    private static String jsonString(JsonObject object, String key) {
+        if (!object.has(key) || !object.get(key).isJsonPrimitive()) return null;
+        try {
+            return object.get(key).getAsString();
+        } catch (RuntimeException ignored) {
+            return null;
+        }
+    }
+
+    private static String firstValid(String... values) {
+        for (String value : values) {
+            String valid = safeHttpUrl(value);
+            if (valid != null) return valid;
+        }
+        return null;
+    }
+
+    private static String safeHttpUrl(String value) {
+        if (value == null || value.isBlank()) return null;
+        try {
+            java.net.URI uri = java.net.URI.create(value.trim());
+            String scheme = uri.getScheme();
+            if (uri.getHost() == null || scheme == null
+                    || !(scheme.equalsIgnoreCase("https") || scheme.equalsIgnoreCase("http"))) return null;
+            return uri.toASCIIString();
+        } catch (IllegalArgumentException ignored) {
+            return null;
         }
     }
 
