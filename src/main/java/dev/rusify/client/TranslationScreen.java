@@ -34,6 +34,7 @@ public final class TranslationScreen extends Screen {
         boolean punchyEnabled = false;
         boolean sableEnabled = false;
         boolean tectonicEnabled = false;
+        boolean expandedDelightEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
@@ -43,6 +44,7 @@ public final class TranslationScreen extends Screen {
             punchyEnabled = TranslationPackManager.isPunchyEnabled();
             sableEnabled = TranslationPackManager.isSableEnabled();
             tectonicEnabled = TranslationPackManager.isTranslationEnabled("tectonic");
+            expandedDelightEnabled = TranslationPackManager.isExpandedDelightEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -128,15 +130,26 @@ public final class TranslationScreen extends Screen {
                         button -> exportTranslation("tectonic", "Tectonic"))
                 .bounds(center - 145, 388, 290, 20).build());
 
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Перевод Expanded Delight: " + (expandedDelightEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("expandeddelight"))
+                .bounds(center - 145, 410, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод Expanded Delight"),
+                        button -> exportTranslation("expandeddelight", "Expanded Delight"))
+                .bounds(center - 145, 432, 290, 20).build());
+
         addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 410, 290, 20).build());
+                .bounds(center - 145, 454, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 433, 290, 20).build());
+                .bounds(center - 145, 477, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -155,6 +168,7 @@ public final class TranslationScreen extends Screen {
                 case "punchy" -> "Punchy!";
                 case "sable" -> "Sable";
                 case "tectonic" -> "Tectonic";
+                case "expandeddelight" -> "Expanded Delight";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));

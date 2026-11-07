@@ -45,6 +45,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("sable");
     }
 
+    public static boolean isExpandedDelightEnabled() throws IOException {
+        return isTranslationEnabled("expandeddelight");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -76,6 +80,10 @@ public final class TranslationPackManager {
 
     public static Path exportSablePack() throws IOException {
         return exportTranslationPack("sable");
+    }
+
+    public static Path exportExpandedDelightPack() throws IOException {
+        return exportTranslationPack("expandeddelight");
     }
 
     public static Path exportTranslationPack(String modId) throws IOException {
@@ -113,6 +121,10 @@ public final class TranslationPackManager {
         setTranslationEnabled("sable", enabled);
     }
 
+    public static void setExpandedDelightEnabled(boolean enabled) throws IOException {
+        setTranslationEnabled("expandeddelight", enabled);
+    }
+
     public static void setTranslationEnabled(String modId, boolean enabled) throws IOException {
         Translation translation = translation(modId);
         Minecraft minecraft = Minecraft.getInstance();
@@ -136,7 +148,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic", "expandeddelight")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -160,6 +172,7 @@ public final class TranslationPackManager {
             case "punchy" -> new Translation("punchy", "Punchy!", "punchy");
             case "sable" -> new Translation("sable", "Sable", "sable");
             case "tectonic" -> new Translation("tectonic", "Tectonic", "tectonic");
+            case "expandeddelight" -> new Translation("expandeddelight", "Expanded Delight", "expandeddelight");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
