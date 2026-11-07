@@ -33,6 +33,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("stonezone");
     }
 
+    public static boolean isGemsRealmEnabled() throws IOException {
+        return isTranslationEnabled("gemsrealm");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -52,6 +56,10 @@ public final class TranslationPackManager {
 
     public static Path exportStoneZonePack() throws IOException {
         return exportTranslationPack("stonezone");
+    }
+
+    public static Path exportGemsRealmPack() throws IOException {
+        return exportTranslationPack("gemsrealm");
     }
 
     public static Path exportTranslationPack(String modId) throws IOException {
@@ -77,6 +85,10 @@ public final class TranslationPackManager {
         setTranslationEnabled("stonezone", enabled);
     }
 
+    public static void setGemsRealmEnabled(boolean enabled) throws IOException {
+        setTranslationEnabled("gemsrealm", enabled);
+    }
+
     public static void setTranslationEnabled(String modId, boolean enabled) throws IOException {
         Translation translation = translation(modId);
         Minecraft minecraft = Minecraft.getInstance();
@@ -100,7 +112,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -120,6 +132,7 @@ public final class TranslationPackManager {
             case "offlinelan" -> new Translation("offlinelan", "OfflineLAN", "offlinelan");
             case "ali" -> new Translation("ali", "Advanced Loot Info", "ali");
             case "stonezone" -> new Translation("stonezone", "Stone Zone", "stonezone");
+            case "gemsrealm" -> new Translation("gemsrealm", "Gems Realm", "gemsrealm");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
