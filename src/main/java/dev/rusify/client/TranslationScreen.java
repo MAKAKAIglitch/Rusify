@@ -46,11 +46,31 @@ public final class TranslationScreen extends Screen {
                             button -> toggleTranslation(modId))
                     .bounds(center - totalWidth / 2 + column * (buttonWidth + 8), 60 + row * 20, buttonWidth, 18).build());
         }
+        boolean allEnabled = false;
+        try {
+            allEnabled = TranslationPackManager.areAllBuiltInTranslationsEnabled();
+        } catch (IOException exception) {
+            message = "Не удалось проверить состояние переводов: " + exception.getMessage();
+        }
+        final boolean enableAll = !allEnabled;
+        addRenderableWidget(Button.builder(
+                        Component.literal(allEnabled ? "Отключить все переводы" : "Включить все переводы"),
+                        button -> toggleAllTranslations(enableAll))
+                .bounds(center - 145, 60 + ((modIds.length + 1) / 2) * 20 + 6, 290, 18).build());
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 60 + ((modIds.length + 1) / 2) * 20 + 6, 290, 18).build());
+                .bounds(center - 145, 60 + ((modIds.length + 1) / 2) * 20 + 28, 290, 18).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
+    }
+
+    private void toggleAllTranslations(boolean enabled) {
+        try {
+            TranslationPackManager.setAllBuiltInTranslationsEnabled(enabled);
+            reopen(enabled ? "Все встроенные переводы включены." : "Все встроенные переводы выключены.");
+        } catch (IOException exception) {
+            reopen("Не удалось переключить все переводы: " + exception.getMessage());
+        }
     }
 
     private void toggleTranslation(String modId) {
