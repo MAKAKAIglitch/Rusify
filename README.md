@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **72 встроенные локализации** для популярных модов.
+- **73 встроенные локализации** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 72 локализации · 9 745 переводимых ключей</strong></summary>
+<summary><strong>Все 73 локализации · 9 900 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -176,6 +176,7 @@ resourcepacks/
 | Kiwi Library | 75 | [kiwi](src/main/resources/data/rusify/translations/kiwi/ru_ru.json) |
 | L_Ender's Delight | 86 | [lendersdelight](src/main/resources/data/rusify/translations/lendersdelight/ru_ru.json) |
 | Lift n' Load | 14 | [create_lnl](src/main/resources/data/rusify/translations/create_lnl/ru_ru.json) |
+| ModernFix | 155 | [modernfix](src/main/resources/data/rusify/translations/modernfix/ru_ru.json) |
 | More Culling | 56 | [moreculling](src/main/resources/data/rusify/translations/moreculling/ru_ru.json) |
 | More Delight | 58 | [moredelight](src/main/resources/data/rusify/translations/moredelight/ru_ru.json) |
 | OfflineLAN | 2 | [offlinelan](src/main/resources/data/rusify/translations/offlinelan/ru_ru.json) |
