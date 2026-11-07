@@ -25,6 +25,29 @@ public final class TranslationPackManager {
         return java.util.Set.copyOf(MODS);
     }
 
+    public static boolean hasBuiltInTranslation(String modId) {
+        return MODS.contains(modId);
+    }
+
+    /**
+     * Copies the built-in Rusify translation into an exported mod folder.
+     */
+    public static void exportBuiltInTranslation(String modId, Path exportRoot) throws IOException {
+        if (!hasBuiltInTranslation(modId)) return;
+        Translation translation = translation(modId);
+        Path destination = exportRoot.resolve("assets").resolve(translation.namespace())
+                .resolve("lang").resolve("ru_ru.json").normalize();
+        if (!destination.startsWith(exportRoot.normalize())) {
+            throw new IOException("Недопустимый путь для встроенного перевода: " + modId);
+        }
+        Files.createDirectories(destination.getParent());
+        String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
+        try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
+            if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+            Files.copy(input, destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
     public static void enableNewBuiltInTranslations(java.util.Set<String> modIds) throws IOException {
         if (modIds.isEmpty()) return;
 
