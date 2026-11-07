@@ -2,14 +2,14 @@
 
 ## Current experimental translation menu
 
-The main Rusify screen now has a separate **«Переводы и настройки»** page. It can:
+The main Rusify screen has a separate **«Переводы и настройки»** page. It can:
 
-- enable or disable the built-in Carry On Russian resource pack;
-- export the Carry On resource pack into the game's `resourcepacks/Rusify-Built-in-Translations` directory;
-- enable or disable automatic activation of built-in packs on the next game launch;
-- open the existing installed-mod scan and export screen.
+- independently enable or disable the built-in Carry On, OfflineLAN, and Advanced Loot Info Russian resource packs;
+- export each built-in translation as its own resource pack;
+- enable or disable automatic activation of all built-in packs at client startup;
+- open the installed-mod scan and export screen.
 
-The auto-activation setting is stored in `config/rusify-client.json`. The Carry On pack is a normal Minecraft resource pack and does not modify the mod JAR. Rusify only manages its own generated resource-pack directory; if a folder with the same name already exists and is not marked as Rusify-owned, it is left untouched.
+The auto-activation setting is stored in `config/rusify-client.json`. Each pack is generated under its own `resourcepacks/Rusify-<mod-id>-Translation` directory and has a Rusify ownership marker. Existing directories without that marker are left untouched. The resource packs do not modify third-party mod JAR files.
 
 ## Built-in translation: Carry On
 
@@ -20,6 +20,21 @@ The included Russian file is based on the official Carry On project localization
 - Target game: Minecraft 1.21.1
 - Upstream project: https://github.com/Tschipp/CarryOn
 - License: LGPL-3.0
+
+## Built-in translation: OfflineLAN
+
+- Mod ID: `offlinelan`
+- Target namespace: `assets/offlinelan/lang/ru_ru.json`
+- Included strings: 2
+- Translation is packaged as an independent offline resource pack.
+
+## Built-in translation: Advanced Loot Info
+
+- Mod ID / language-key namespace: `ali`
+- Target namespace: `assets/ali/lang/ru_ru.json`
+- Included strings: 609
+- The translation covers descriptions, enum labels, loot conditions and functions, item predicates, loot-table names, and EMI category names.
+- Format placeholders such as `%s`, `%1$s`, and `%2$s` are preserved so dynamic values continue to render correctly.
 
 ## Installed mod exports
 
