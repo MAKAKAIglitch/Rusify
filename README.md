@@ -24,7 +24,8 @@
 | Advanced Loot Info | 609 | `assets/ali/lang/ru_ru.json` |
 | Stone Zone | 411 | `assets/stonezone/lang/ru_ru.json` |
 | Gems Realm | 304 | `assets/gemsrealm/lang/ru_ru.json` |
-| Punchy! | 275 | `assets/punchy/lang/ru_ru.json` |\n| Sable | 128 | `assets/sable/lang/ru_ru.json` |
+| Punchy! | 275 | `assets/punchy/lang/ru_ru.json` |
+| Sable | 128 | `assets/sable/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
