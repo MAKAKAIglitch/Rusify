@@ -40,42 +40,42 @@ public final class TranslationScreen extends Screen {
         addRenderableWidget(Button.builder(
                         Component.literal("Перевод Carry On: " + (carryOnEnabled ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleTranslation("carryon"))
-                .bounds(center - 145, 78, 290, 22).build());
+                .bounds(center - 145, 74, 290, 20).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Экспортировать перевод Carry On"),
                         button -> exportTranslation("carryon", "Carry On"))
-                .bounds(center - 145, 104, 290, 22).build());
+                .bounds(center - 145, 97, 290, 20).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Перевод OfflineLAN: " + (offlineLanEnabled ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleTranslation("offlinelan"))
-                .bounds(center - 145, 130, 290, 22).build());
+                .bounds(center - 145, 120, 290, 20).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Экспортировать перевод OfflineLAN"),
                         button -> exportTranslation("offlinelan", "OfflineLAN"))
-                .bounds(center - 145, 156, 290, 22).build());
+                .bounds(center - 145, 143, 290, 20).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Перевод Advanced Loot Info: " + (aliEnabled ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleTranslation("ali"))
-                .bounds(center - 145, 182, 290, 22).build());
+                .bounds(center - 145, 166, 290, 20).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Экспортировать перевод Advanced Loot Info"),
                         button -> exportTranslation("ali", "Advanced Loot Info"))
-                .bounds(center - 145, 208, 290, 22).build());
+                .bounds(center - 145, 189, 290, 20).build());
 
         addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 234, 290, 22).build());
+                .bounds(center - 145, 212, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 260, 290, 22).build());
+                .bounds(center - 145, 235, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -135,9 +135,9 @@ public final class TranslationScreen extends Screen {
         graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 24, 0xFFFFFF);
         graphics.drawCenteredString(font, "Встроенные переводы работают офлайн как ресурс-пак.", width / 2,
                 46, 0xB8B8B8);
-        graphics.drawCenteredString(font, "Автоподключение применяется при следующем запуске Minecraft.",
-                width / 2, 238, 0xA0A0A0);
-        graphics.drawCenteredString(font, trim(message, 110), width / 2, 254, 0xD0D0D0);
+        graphics.drawCenteredString(font, "Автоподключение применяется при запуске игры.",
+                width / 2, 265, 0xA0A0A0);
+        graphics.drawCenteredString(font, trim(message, 110), width / 2, 280, 0xD0D0D0);
     }
 
     private static String trim(String value, int max) {
