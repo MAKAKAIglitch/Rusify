@@ -7,7 +7,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 import java.io.IOException;
-import java.nio.file.Path;
 
 public final class TranslationScreen extends Screen {
     private final Screen parent;
@@ -84,15 +83,6 @@ public final class TranslationScreen extends Screen {
                     : "Автоподключение выключено.");
         } catch (IOException exception) {
             reopen("Не удалось сохранить настройки: " + exception.getMessage());
-        }
-    }
-
-    private void exportTranslation(String modId, String name) {
-        try {
-            Path path = TranslationPackManager.exportTranslationPack(modId);
-            reopen("Ресурс-пак " + name + " подготовлен: " + path);
-        } catch (IOException exception) {
-            reopen("Ошибка экспорта " + name + ": " + exception.getMessage());
         }
     }
 
