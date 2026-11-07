@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 77 локализаций · 9 941 переводимый ключ</strong></summary>
+<summary><strong>Все 78 локализаций · 9 970 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -187,6 +187,7 @@ resourcepacks/
 | Ragdoll Reactions | 75 | [ragdoll_reactions](src/main/resources/data/rusify/translations/ragdoll_reactions/ru_ru.json) |
 | RebindNarrator | 1 | [rebindnarrator](src/main/resources/data/rusify/translations/rebindnarrator/ru_ru.json) |
 | Resourceful Config | 28 | [resourcefulconfig](src/main/resources/data/rusify/translations/resourcefulconfig/ru_ru.json) |
+| RightClickHarvest | 29 | [rightclickharvest](src/main/resources/data/rusify/translations/rightclickharvest/ru_ru.json) |
 | Sable | 128 | [sable](src/main/resources/data/rusify/translations/sable/ru_ru.json) |
 | Sable: Physics Compat | 10 | [sablephysicscompat](src/main/resources/data/rusify/translations/sablephysicscompat/ru_ru.json) |
 | Sable Ragdolls | 43 | [sable_player_ragdoll](src/main/resources/data/rusify/translations/sable_player_ragdoll/ru_ru.json) |
