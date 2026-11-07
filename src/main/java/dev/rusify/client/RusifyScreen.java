@@ -19,6 +19,7 @@ public final class RusifyScreen extends Screen {
     private int scrollOffset = 0;
     private String message = "Нажмите «Сканировать», чтобы проверить папку mods.";
     private boolean scanning = false;
+    private boolean exporting = false;
 
     public RusifyScreen() {
         this(null);
@@ -35,7 +36,7 @@ public final class RusifyScreen extends Screen {
                 .bounds(this.width / 2 - 156, 12, 92, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Извлечь выбранный"), button -> extractSelected())
                 .bounds(this.width / 2 - 60, 12, 112, 20).build());
-        addRenderableWidget(Button.builder(Component.literal("Извлечь без RU"), button -> extractMissing())
+        addRenderableWidget(Button.builder(Component.literal("Экспорт <100%"), button -> exportIncomplete())
                 .bounds(this.width / 2 + 56, 12, 100, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(12, this.height - 34, 80, 20).build());
@@ -47,7 +48,7 @@ public final class RusifyScreen extends Screen {
     }
 
     private void scan() {
-        if (scanning) return;
+        if (scanning || exporting) return;
         scanning = true;
         message = "Сканирование JAR-файлов...";
         CompletableFuture.supplyAsync(() -> {
@@ -68,47 +69,69 @@ public final class RusifyScreen extends Screen {
             selectedIndex = results.isEmpty() ? -1 : 0;
             scrollOffset = 0;
             long missing = results.stream().filter(result -> !result.hasRussianFile()).count();
-            message = "Найдено модов с языковыми файлами: " + results.size()
-                    + " | без ru_ru.json: " + missing;
+            long incomplete = results.stream()
+                    .filter(result -> result.englishKeys() > 0 && result.coveragePercent() < 100).count();
+            message = "Модов с lang-файлами: " + results.size()
+                    + " | без RU: " + missing + " | неполных: " + incomplete;
         }));
     }
 
     private void extractSelected() {
+        if (exporting) return;
         if (selectedIndex < 0 || selectedIndex >= results.size()) {
             message = "Сначала выберите мод в списке.";
             return;
         }
-        extract(results.get(selectedIndex));
+        try {
+            var directory = ModScanner.extract(results.get(selectedIndex));
+            message = "Экспортировано: " + results.get(selectedIndex).displayName() + " → " + directory;
+        } catch (IOException exception) {
+            message = "Ошибка экспорта: " + exception.getMessage();
+        }
     }
 
-    private void extractMissing() {
-        List<ModScanResult> missing = results.stream()
-                .filter(result -> !result.hasRussianFile() && result.englishKeys() > 0)
+    private void exportIncomplete() {
+        if (scanning || exporting) return;
+        List<ModScanResult> incomplete = results.stream()
+                .filter(result -> result.englishKeys() > 0 && result.coveragePercent() < 100)
                 .toList();
-        if (missing.isEmpty()) {
-            message = "Модов без ru_ru.json не найдено.";
+        if (incomplete.isEmpty()) {
+            message = "Неполных переводов не найдено. Сначала нажмите «Сканировать».";
             return;
         }
-        int success = 0;
-        for (ModScanResult result : missing) {
-            try {
-                ModScanner.extract(result);
-                success++;
-            } catch (IOException exception) {
-                message = "Ошибка извлечения " + result.displayName() + ": " + exception.getMessage();
+
+        exporting = true;
+        message = "Экспорт неполных переводов: 0 из " + incomplete.size() + "...";
+        CompletableFuture.supplyAsync(() -> {
+            int success = 0;
+            List<String> failures = new ArrayList<>();
+            for (ModScanResult result : incomplete) {
+                try {
+                    ModScanner.extract(result);
+                    success++;
+                } catch (IOException exception) {
+                    failures.add(result.displayName() + ": " + exception.getMessage());
+                }
             }
-        }
-        message = "Извлечено модов: " + success + " из " + missing.size()
-                + ". Папка: Rusify/exports";
+            return new ExportSummary(success, incomplete.size(), failures);
+        }).whenComplete((summary, error) -> Minecraft.getInstance().execute(() -> {
+            exporting = false;
+            if (error != null) {
+                Throwable cause = error.getCause() == null ? error : error.getCause();
+                message = "Ошибка экспорта: " + cause.getMessage();
+                return;
+            }
+            message = "Экспортировано " + summary.success() + " из " + summary.total()
+                    + " модов. Папка: Rusify/exports";
+            if (!summary.failures().isEmpty()) {
+                message += " | Ошибок: " + summary.failures().size()
+                        + " (подробности в latest.log)";
+                summary.failures().forEach(failure -> System.err.println("[Rusify] Ошибка экспорта: " + failure));
+            }
+        }));
     }
 
-    private void extract(ModScanResult result) {
-        try {
-            var directory = ModScanner.extract(result);
-            message = "Извлечено: " + result.displayName() + " → " + directory;
-        } catch (IOException exception) {
-            message = "Ошибка извлечения: " + exception.getMessage();
-        }
+    private record ExportSummary(int success, int total, List<String> failures) {
     }
 
     @Override
@@ -142,7 +165,7 @@ public final class RusifyScreen extends Screen {
             graphics.drawCenteredString(font, scanning ? "Сканирование..." : "Список пока пуст", width / 2, height / 2, 0xB0B0B0);
         }
         graphics.drawString(font, trim(message, 105), 12, height - 52, 0xD0D0D0);
-        graphics.drawString(font, "Выберите мод в списке. Извлечение сохраняет исходные JAR без изменений.",
+        graphics.drawString(font, "Экспорт создаёт ru_ru.json: готовые строки сохраняются, пустые нужно перевести.",
                 12, height - 14, 0x888888);
     }
 
