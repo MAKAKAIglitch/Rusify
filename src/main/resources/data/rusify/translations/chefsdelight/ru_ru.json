@@ -1,0 +1,17 @@
+{
+  "entity.minecraft.villager.chefsdelight.chef": "Шеф-повар",
+  "entity.minecraft.villager.chefsdelight.cook": "Повар",
+  "chefsdelight.configuration.title": "Настройки генерации деревенских построек",
+  "chefsdelight.configuration.section.chefsdelight.common.toml": "Генерация деревенских построек",
+  "chefsdelight.configuration.section.chefsdelight.common.toml.title": "Настройки генерации деревенских построек",
+  "chefsdelight.configuration.cookHousePlains": "Дом повара на равнинах",
+  "chefsdelight.configuration.chefHousePlains": "Дом шеф-повара на равнинах",
+  "chefsdelight.configuration.cookHouseDesert": "Дом повара в пустыне",
+  "chefsdelight.configuration.chefHouseDesert": "Дом шеф-повара в пустыне",
+  "chefsdelight.configuration.cookHouseTaiga": "Дом повара в тайге",
+  "chefsdelight.configuration.chefHouseTaiga": "Дом шеф-повара в тайге",
+  "chefsdelight.configuration.cookHouseSavanna": "Дом повара в саванне",
+  "chefsdelight.configuration.chefHouseSavanna": "Дом шеф-повара в саванне",
+  "chefsdelight.configuration.cookHouseSnowy": "Дом повара в заснеженном биоме",
+  "chefsdelight.configuration.chefHouseSnowy": "Дом шеф-повара в заснеженном биоме"
+}
