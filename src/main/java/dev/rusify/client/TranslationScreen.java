@@ -104,12 +104,14 @@ public final class TranslationScreen extends Screen {
         addRenderableWidget(Button.builder(Component.literal("Отключить все"), button -> toggleAllTranslations(false))
                 .bounds(left + buttonWidth + gap, height - 76, buttonWidth, 20).build());
 
-        int exportWidth = Math.min(200, Math.max(150, width - 128));
+        int exportWidth = Math.min(200, Math.max(100, width - 124));
+        int footerWidth = exportWidth + 100;
+        int footerLeft = center - footerWidth / 2;
         addRenderableWidget(Button.builder(Component.literal("Экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - exportWidth / 2, height - 49, exportWidth, 20).build());
+                .bounds(footerLeft, height - 49, exportWidth, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
-                .bounds(width - 104, height - 49, 92, 20).build());
+                .bounds(footerLeft + exportWidth + 8, height - 49, 92, 20).build());
     }
 
     private void toggleAllTranslations(boolean enabled) {
