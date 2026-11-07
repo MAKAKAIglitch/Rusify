@@ -168,10 +168,19 @@ public final class ModScanner {
         if (result.englishEntries().isEmpty()) {
             throw new IOException("В этом моде нет en_us.json для подготовки перевода.");
         }
+        if (result.englishKeys() <= 0) {
+            throw new IOException("В этом моде нет строк en_us.json для перевода.");
+        }
+        if (result.translatedKeys() >= result.englishKeys()) {
+            throw new IOException("Русский перевод этого мода уже полный.");
+        }
+
         Path exportRoot = FMLPaths.GAMEDIR.get().resolve("Rusify").resolve("exports");
+        String category = result.translatedKeys() > 0 ? "Частичный перевод" : "Нет перевода";
+        Path categoryDirectory = exportRoot.resolve(category).normalize();
         String safeId = result.modId().replaceAll("[^a-zA-Z0-9_.-]", "_");
-        Path modDirectory = exportRoot.resolve(safeId).normalize();
-        if (!modDirectory.startsWith(exportRoot.normalize())) {
+        Path modDirectory = categoryDirectory.resolve(safeId).normalize();
+        if (!modDirectory.startsWith(categoryDirectory)) {
             throw new IOException("Недопустимый идентификатор мода: " + result.modId());
         }
         Files.createDirectories(modDirectory);
