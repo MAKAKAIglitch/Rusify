@@ -32,6 +32,7 @@ public final class TranslationScreen extends Screen {
         boolean stoneZoneEnabled = false;
         boolean gemsRealmEnabled = false;
         boolean punchyEnabled = false;
+        boolean sableEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
@@ -39,6 +40,7 @@ public final class TranslationScreen extends Screen {
             stoneZoneEnabled = TranslationPackManager.isStoneZoneEnabled();
             gemsRealmEnabled = TranslationPackManager.isGemsRealmEnabled();
             punchyEnabled = TranslationPackManager.isPunchyEnabled();
+            sableEnabled = TranslationPackManager.isSableEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -104,14 +106,24 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 300, 290, 20).build());
 
         addRenderableWidget(Button.builder(
+                        Component.literal("Перевод Sable: " + (sableEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("sable"))
+                .bounds(center - 145, 322, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод Sable"),
+                        button -> exportTranslation("sable", "Sable"))
+                .bounds(center - 145, 344, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 322, 290, 20).build());
+                .bounds(center - 145, 366, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 345, 290, 20).build());
+                .bounds(center - 145, 389, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -128,6 +140,7 @@ public final class TranslationScreen extends Screen {
                 case "stonezone" -> "Stone Zone";
                 case "gemsrealm" -> "Gems Realm";
                 case "punchy" -> "Punchy!";
+                case "sable" -> "Sable";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
