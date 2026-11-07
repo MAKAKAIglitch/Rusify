@@ -1,6 +1,6 @@
 {
   "advancements.get_sculk_flour.descr": "Измельчите скалк, чтобы получить скалковую муку",
-  "item.create_deep_dark.echo_cake_base": "База для торта эха",
+  "item.create_deep_dark.echo_cake_base": "Основа торта эха",
   "advancements.get_echo_shard.descr": "Добудьте осколок эха",
   "item.create_deep_dark.molten_echo_bucket": "Ведро расплавленного эха",
   "advancements.get_echo_shard.title": "Безмолвный самоцвет",
@@ -41,7 +41,7 @@
   "item.create_deep_dark.echo_armor_boots.description_1": "§7- §aСопротивление II §7(бесконечно)",
   "item.create_deep_dark.echo_armor_chestplate.description_2": "§7- §aСила II §7(бесконечно)",
   "item.create_deep_dark.echo_armor_boots.description_2": "§7- §aСила II §7(бесконечно)",
-  "item.create_deep_dark.echo_upgrade_smithing_template": "Шаблон кузнечного улучшения эха",
+  "item.create_deep_dark.echo_upgrade_smithing_template": "Кузнечный шаблон улучшения эха",
   "item.create_deep_dark.echo_upgrade_smithing_template.description_0": "§7Улучшение эха",
   "item.create_deep_dark.echo_upgrade_smithing_template.description_1": "",
   "item.create_deep_dark.echo_upgrade_smithing_template.description_2": "§7Применяется к:",
