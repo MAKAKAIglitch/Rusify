@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 71 локализация · 9 681 переводимый ключ</strong></summary>
+<summary><strong>Все 71 локализация · 9 680 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -163,7 +163,7 @@ resourcepacks/
 | Expanded Delight | 119 | [expandeddelight](src/main/resources/data/rusify/translations/expandeddelight/ru_ru.json) |
 | [Let's Do] Farm & Charm | 681 | [farm_and_charm](src/main/resources/data/rusify/translations/farm_and_charm/ru_ru.json) |
 | FastQuit | 26 | [fastquit](src/main/resources/data/rusify/translations/fastquit/ru_ru.json) |
-| Guard Villagers | 75 | [guardvillagers](src/main/resources/data/rusify/translations/guardvillagers/ru_ru.json) |
+| Guard Villagers | 74 | [guardvillagers](src/main/resources/data/rusify/translations/guardvillagers/ru_ru.json) |
 | Friends & Foes | 281 | [friendsandfoes](src/main/resources/data/rusify/translations/friendsandfoes/ru_ru.json) |
 | [Let's Do] Furniture | 393 | [furniture](src/main/resources/data/rusify/translations/furniture/ru_ru.json) |
 | Gems Realm | 304 | [gemsrealm](src/main/resources/data/rusify/translations/gemsrealm/ru_ru.json) |
