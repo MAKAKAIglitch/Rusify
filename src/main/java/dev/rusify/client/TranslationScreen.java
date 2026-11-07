@@ -35,6 +35,7 @@ public final class TranslationScreen extends Screen {
         boolean sableEnabled = false;
         boolean tectonicEnabled = false;
         boolean expandedDelightEnabled = false;
+        boolean screenshotViewerEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
@@ -45,6 +46,7 @@ public final class TranslationScreen extends Screen {
             sableEnabled = TranslationPackManager.isSableEnabled();
             tectonicEnabled = TranslationPackManager.isTranslationEnabled("tectonic");
             expandedDelightEnabled = TranslationPackManager.isExpandedDelightEnabled();
+            screenshotViewerEnabled = TranslationPackManager.isScreenshotViewerEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -142,6 +144,16 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 432, 290, 20).build());
 
         addRenderableWidget(Button.builder(
+                        Component.literal("Перевод Screenshot Viewer: " + (screenshotViewerEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("screenshot_viewer"))
+                .bounds(center - 145, 454, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод Screenshot Viewer"),
+                        button -> exportTranslation("screenshot_viewer", "Screenshot Viewer"))
+                .bounds(center - 145, 476, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
@@ -169,6 +181,7 @@ public final class TranslationScreen extends Screen {
                 case "sable" -> "Sable";
                 case "tectonic" -> "Tectonic";
                 case "expandeddelight" -> "Expanded Delight";
+                case "screenshot_viewer" -> "Screenshot Viewer";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
