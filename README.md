@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 75 локализаций · 9 913 переводимых ключей</strong></summary>
+<summary><strong>Все 76 локализаций · 9 927 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -195,6 +195,7 @@ resourcepacks/
 | Sodium Extra | 418 | [sodium_extra](src/main/resources/data/rusify/translations/sodium_extra/ru_ru.json) |
 | Stone Zone | 411 | [stonezone](src/main/resources/data/rusify/translations/stonezone/ru_ru.json) |
 | Tectonic | 109 | [tectonic](src/main/resources/data/rusify/translations/tectonic/ru_ru.json) |
+| Tool Trims | 14 | [tooltrims](src/main/resources/data/rusify/translations/tooltrims/ru_ru.json) |
 | Trimmed | 2 | [trimmed](src/main/resources/data/rusify/translations/trimmed/ru_ru.json) |
 | Ukulib | 14 | [ukulib](src/main/resources/data/rusify/translations/ukulib/ru_ru.json) |
 | [Let's Do] Vinery | 500 | [vinery](src/main/resources/data/rusify/translations/vinery/ru_ru.json) |
