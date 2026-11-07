@@ -29,11 +29,13 @@ The mod JAR is written to `build/libs/`.
 
 ## Update sources from GitHub
 
-Run `update-sources.bat` from a Git clone of the official repository.
+Run `update-sources.bat` from the Rusify project root. It works both in a Git clone and in a folder extracted from the GitHub ZIP — **Git for Windows is not required**.
 
-The updater checks the repository origin, current branch (`main`), local modifications, and local-only commits. It updates with `git merge --ff-only`; it does not reset, force-pull, or overwrite uncommitted work.
+The updater downloads the latest ZIP archive of the official `main` branch directly from GitHub over HTTPS, checks that the archive contains the expected project files, and copies the updated source files into the current folder. It keeps user/game data such as `mods`, `config`, `saves`, `logs`, `build`, `.tools`, and `.gradle` untouched.
 
-Requirements: Git for Windows and Windows PowerShell 5.1. A ZIP-extracted folder is not a Git clone; clone the repository before using the updater.
+Before replacing an existing source file that differs from GitHub, the updater copies the old file into `.rusify-backups/<timestamp>/`. It also removes obsolete project files only when they were listed in the manifest from a previous successful run. The updater does not invoke Git, reset the folder, or delete arbitrary files.
+
+Requirements: Windows PowerShell 5.1 and an internet connection to GitHub. After updating, run `build.bat` if you want to compile the new source code.
 
 ## Caches
 
