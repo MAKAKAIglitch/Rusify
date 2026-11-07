@@ -84,9 +84,22 @@ public final class TranslationPackManager {
     }
 
     public static void setAllBuiltInTranslationsEnabled(boolean enabled) throws IOException {
-        setCarryOnEnabled(enabled);
-        setOfflineLanEnabled(enabled);
-        setAdvancedLootInfoEnabled(enabled);
+        Minecraft minecraft = Minecraft.getInstance();
+        List<String> selected = selectedPacks(minecraft);
+        selected.removeIf(LEGACY_PACK_ID::equals);
+
+        for (String modId : List.of("carryon", "offlinelan", "ali")) {
+            Translation translation = translation(modId);
+            preparePack(packDirectory(translation), translation);
+            if (enabled) {
+                if (!selected.contains(translation.packId())) selected.add(translation.packId());
+            } else {
+                selected.removeIf(translation.packId()::equals);
+            }
+        }
+
+        minecraft.options.save();
+        minecraft.reloadResourcePacks();
     }
 
     private static Translation translation(String modId) throws IOException {
