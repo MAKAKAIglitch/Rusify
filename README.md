@@ -64,7 +64,7 @@
 | Create: Hypertubes | 64 | `assets/create_hypertube/lang/ru_ru.json` |
 | Create: Optical | 169 | `assets/create_optical/lang/ru_ru.json` |
 | Create: Deep Dark | 51 | `assets/create_deep_dark/lang/ru_ru.json` |
-| Copper Equipment | 36 | `assets/copperequipment/lang/ru_ru.json` |
+| Copper Equipment | 37 | `assets/copperequipment/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
