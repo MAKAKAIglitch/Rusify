@@ -34,7 +34,7 @@ public record ModScanResult(
         if (namespaces.isEmpty()) return "Нет lang-файлов";
         if (englishEntries.isEmpty()) return "Нет en_us.json";
         if (englishKeys == 0) return "Пустой en_us.json";
-        if (!hasRussianFile) return "Нет русского";
+        if (translatedKeys == 0) return "Нет перевода";
         if (translatedKeys >= englishKeys) return "Перевод найден";
         return "Частичный перевод";
     }
