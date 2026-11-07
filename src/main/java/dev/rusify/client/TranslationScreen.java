@@ -101,7 +101,7 @@ public final class TranslationScreen extends Screen {
         renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        graphics.drawCenteredString(font, "Переводы Rusify", width / 2,  thirty(), 0xFFFFFF);
+        graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 30, 0xFFFFFF);
         graphics.drawCenteredString(font, "Готовые переводы работают как отдельный ресурс-пак.",
                 width / 2, 54, 0xB8B8B8);
         graphics.drawCenteredString(font, "Carry On: русский перевод из официального репозитория автора.",
@@ -111,17 +111,6 @@ public final class TranslationScreen extends Screen {
         graphics.drawCenteredString(font, trim(message, 110), width / 2, 237, 0xD0D0D0);
     }
 
-    private int thirty() {
-        return  thirtyValue();
-    }
-
-    private int thirtyValue() {
-        return  thirtyConstant();
-    }
-
-    private int thirtyConstant() {
-        return 30;
-    }
 
     private static String trim(String value, int max) {
         if (value.length() <= max) return value;
