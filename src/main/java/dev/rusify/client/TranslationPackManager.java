@@ -117,6 +117,13 @@ public final class TranslationPackManager {
         minecraft.reloadResourcePacks();
     }
 
+    public static boolean areAllBuiltInTranslationsEnabled() throws IOException {
+        for (String modId : MODS) {
+            if (!isTranslationEnabled(modId)) return false;
+        }
+        return true;
+    }
+
     public static void setAllBuiltInTranslationsEnabled(boolean enabled) throws IOException {
         for (String modId : MODS) {
             Translation translation = translation(modId);
