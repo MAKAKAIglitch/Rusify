@@ -36,6 +36,7 @@ public final class TranslationScreen extends Screen {
         boolean tectonicEnabled = false;
         boolean expandedDelightEnabled = false;
         boolean screenshotViewerEnabled = false;
+        boolean ragdollReactionsEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
@@ -47,6 +48,7 @@ public final class TranslationScreen extends Screen {
             tectonicEnabled = TranslationPackManager.isTranslationEnabled("tectonic");
             expandedDelightEnabled = TranslationPackManager.isExpandedDelightEnabled();
             screenshotViewerEnabled = TranslationPackManager.isScreenshotViewerEnabled();
+            ragdollReactionsEnabled = TranslationPackManager.isRagdollReactionsEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -154,14 +156,19 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 476, 290, 20).build());
 
         addRenderableWidget(Button.builder(
+                        Component.literal("Перевод Ragdoll Reactions: " + (ragdollReactionsEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("ragdoll_reactions"))
+                .bounds(center - 145, 498, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 498, 290, 20).build());
+                .bounds(center - 145, 520, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 521, 290, 20).build());
+                .bounds(center - 145, 543, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -182,6 +189,7 @@ public final class TranslationScreen extends Screen {
                 case "tectonic" -> "Tectonic";
                 case "expandeddelight" -> "Expanded Delight";
                 case "screenshot_viewer" -> "Screenshot Viewer";
+                case "ragdoll_reactions" -> "Ragdoll Reactions";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));

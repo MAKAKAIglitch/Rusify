@@ -53,6 +53,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("screenshot_viewer");
     }
 
+    public static boolean isRagdollReactionsEnabled() throws IOException {
+        return isTranslationEnabled("ragdoll_reactions");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -160,7 +164,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic", "expandeddelight", "screenshot_viewer")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -186,6 +190,7 @@ public final class TranslationPackManager {
             case "tectonic" -> new Translation("tectonic", "Tectonic", "tectonic");
             case "expandeddelight" -> new Translation("expandeddelight", "Expanded Delight", "expandeddelight");
             case "screenshot_viewer" -> new Translation("screenshot_viewer", "Screenshot Viewer", "screenshot_viewer");
+            case "ragdoll_reactions" -> new Translation("ragdoll_reactions", "Ragdoll Reactions", "ragdoll_reactions");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
