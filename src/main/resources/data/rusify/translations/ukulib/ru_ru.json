@@ -1,0 +1,16 @@
+{
+  "ukulib.position": "Положение",
+  "ukulib.position.topLeft": "Сверху слева",
+  "ukulib.position.topRight": "Сверху справа",
+  "ukulib.position.bottomLeft": "Снизу слева",
+  "ukulib.position.bottomRight": "Снизу справа",
+  "ukulib.position.middle": "Над полосой опыта",
+  "ukulib.position.desc": "Нажмите в любом месте экрана, чтобы изменить положение элемента.",
+  "ukulib.position.desc.move": "Используйте §eклавиши со стрелками§r для точной настройки положения элемента.",
+  "ukulib.option.invalid": "Некоторые введённые в конфигурации значения недопустимы: %s.\nВы всё ещё можете выйти, нажав ESC, но конфигурация не будет сохранена.",
+  "ukulib.option.reset": "Сбросить настройки",
+  "ukulib.config.title": "Настройки Ukulib",
+  "ukulib.config.buttonInOptions": "Кнопка в настройках",
+  "ukulib.config.modMenuIntegration": "Интеграция с ModMenu",
+  "ukulib.config.headName": "Имя пользователя для головы в настройках"
+}
