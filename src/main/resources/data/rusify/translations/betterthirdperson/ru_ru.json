@@ -1,0 +1,10 @@
+{
+  "text.autoconfig.betterthirdperson.title": "Улучшенный вид от третьего лица",
+  "text.autoconfig.betterthirdperson.option.aimOnInteract": "Поворачивать игрока при взаимодействии",
+  "text.autoconfig.betterthirdperson.option.followYaw": "Следовать за углом поворота",
+  "text.autoconfig.betterthirdperson.option.freeCameraDuringElytraFlight": "Свободная камера во время полёта на элитрах",
+  "text.autoconfig.betterthirdperson.option.skipThirdPersonFrontView": "Пропускать вид от третьего лица спереди",
+  "text.autoconfig.betterthirdperson.option.playerRotationSpeed": "Скорость поворота игрока",
+  "text.autoconfig.betterthirdperson.option.aimDuration": "Длительность наведения",
+  "text.autoconfig.betterthirdperson.option.pitchChangeSpeed": "Скорость изменения наклона"
+}
