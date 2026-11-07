@@ -80,13 +80,17 @@ public final class ExportScreen extends Screen {
             scrollOffset = 0;
             long untranslated = results.stream()
                     .filter(result -> result.englishKeys() > 0 && result.translatedKeys() == 0).count();
+            long rusify = results.stream()
+                    .filter(result -> TranslationPackManager.hasBuiltInTranslation(result.modId())).count();
             long partial = results.stream()
-                    .filter(result -> result.englishKeys() > 0
+                    .filter(result -> !TranslationPackManager.hasBuiltInTranslation(result.modId())
+                            && result.englishKeys() > 0
                             && result.translatedKeys() > 0
                             && result.translatedKeys() < result.englishKeys()).count();
             message = "Модов: " + results.size()
-                    + " | частичный перевод: " + partial
-                    + " | нет перевода: " + untranslated;
+                    + " | перевод Rusify: " + rusify
+                    + " | частичный: " + partial
+                    + " | нет: " + untranslated;
         }));
     }
 
@@ -117,19 +121,21 @@ public final class ExportScreen extends Screen {
         exporting = true;
         message = "Экспорт неполных переводов: 0 из " + incomplete.size() + "...";
         CompletableFuture.supplyAsync(() -> {
+            int rusifySuccess = 0;
             int partialSuccess = 0;
             int untranslatedSuccess = 0;
             List<String> failures = new ArrayList<>();
             for (ModScanResult result : incomplete) {
                 try {
                     ModScanner.extract(result);
-                    if (result.translatedKeys() > 0) partialSuccess++;
+                    if (TranslationPackManager.hasBuiltInTranslation(result.modId())) rusifySuccess++;
+                    else if (result.translatedKeys() > 0) partialSuccess++;
                     else untranslatedSuccess++;
                 } catch (IOException exception) {
                     failures.add(result.displayName() + ": " + exception.getMessage());
                 }
             }
-            return new ExportSummary(partialSuccess, untranslatedSuccess, incomplete.size(), failures);
+            return new ExportSummary(rusifySuccess, partialSuccess, untranslatedSuccess, incomplete.size(), failures);
         }).whenComplete((summary, error) -> Minecraft.getInstance().execute(() -> {
             exporting = false;
             if (error != null) {
@@ -137,7 +143,8 @@ public final class ExportScreen extends Screen {
                 message = "Ошибка экспорта: " + cause.getMessage();
                 return;
             }
-            message = "Экспорт: частичный — " + summary.partialSuccess()
+            message = "Экспорт: Rusify — " + summary.rusifySuccess()
+                    + ", частичный — " + summary.partialSuccess()
                     + ", без перевода — " + summary.untranslatedSuccess()
                     + ". Папки: Rusify/exports";
             if (!summary.failures().isEmpty()) {
@@ -148,7 +155,8 @@ public final class ExportScreen extends Screen {
         }));
     }
 
-    private record ExportSummary(int partialSuccess, int untranslatedSuccess, int total, List<String> failures) {
+    private record ExportSummary(int rusifySuccess, int partialSuccess, int untranslatedSuccess,
+                                  int total, List<String> failures) {
     }
 
     @Override
@@ -158,7 +166,7 @@ public final class ExportScreen extends Screen {
 
         graphics.drawCenteredString(font, "Rusify", width / 2, 42, 0xFFFFFF);
         graphics.drawString(font, "Мод", 18, 62, 0xA0A0A0);
-        graphics.drawString(font, "Статус русского", width - 150, 62, 0xA0A0A0);
+        graphics.drawString(font, "Статус русского", width - 190, 62, 0xA0A0A0);
 
         int listTop = 76;
         int listBottom = height - 66;
@@ -172,17 +180,20 @@ public final class ExportScreen extends Screen {
             int background = selected ? 0x804A7198 : 0x60303030;
             graphics.fill(12, y - 3, width - 12, y + ROW_HEIGHT - 4, background);
             graphics.drawString(font, trim(result.displayName(), 30), 20, y + 3, 0xFFFFFF);
-            String status = result.status();
-            if (result.englishKeys() > 0) status += " (" + result.coveragePercent() + "%)";
-            graphics.drawString(font, trim(status, 24), width - 150, y + 3,
-                    !result.hasRussianFile() ? 0xFF7777 : (result.coveragePercent() < 100 ? 0xFFCC66 : 0x77DD88));
+            boolean hasRusifyTranslation = TranslationPackManager.hasBuiltInTranslation(result.modId());
+            String status = hasRusifyTranslation ? "Есть перевод Rusify" : result.status();
+            if (result.englishKeys() > 0) status += " (" + result.coveragePercent() + "% в моде)";
+            graphics.drawString(font, trim(status, 30), width - 190, y + 3,
+                    hasRusifyTranslation ? 0x77DD88
+                            : (!result.hasRussianFile() ? 0xFF7777
+                            : (result.coveragePercent() < 100 ? 0xFFCC66 : 0x77DD88)));
         }
 
         if (results.isEmpty()) {
             graphics.drawCenteredString(font, scanning ? "Сканирование..." : "Список пока пуст", width / 2, height / 2, 0xB0B0B0);
         }
         graphics.drawString(font, trim(message, 105), 12, height - 52, 0xD0D0D0);
-        graphics.drawString(font, "Экспорт разделяется на папки: «Частичный перевод» и «Нет перевода».",
+        graphics.drawString(font, "Папки: «Есть перевод Rusify», «Частичный перевод», «Нет перевода».",
                 12, height - 14, 0x888888);
     }
 
