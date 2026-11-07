@@ -39,6 +39,7 @@
 | Sable Ragdolls | 43 | `assets/sable_player_ragdoll/lang/ru_ru.json` |
 | AdvancedCoreInfo | 67 | `assets/aci/lang/ru_ru.json` |
 | iChunUtil | 38 | `assets/ichunutil/lang/ru_ru.json` |
+| Resourceful Config | 28 | `assets/resourcefulconfig/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
