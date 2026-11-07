@@ -30,6 +30,10 @@ import java.util.regex.Pattern;
 public final class ModScanner {
     private static final Pattern MOD_ID = Pattern.compile("(?m)^\\s*modId\\s*=\\s*\"([^\"]+)\"");
     private static final Pattern DISPLAY_NAME = Pattern.compile("(?m)^\\s*displayName\\s*=\\s*\"([^\"]+)\"");
+    private static final Pattern AUTHORS = Pattern.compile("(?m)^\\s*authors\\s*=\\s*\"([^\"]*)\"");
+    private static final Pattern DISPLAY_URL = Pattern.compile("(?m)^\\s*displayURL\\s*=\\s*\"([^\"]+)\"");
+    private static final Pattern ISSUES_URL = Pattern.compile("(?m)^\\s*issueTrackerURL\\s*=\\s*\"([^\"]+)\"");
+    private static final Pattern SOURCES_URL = Pattern.compile("(?m)^\\s*sources\\s*=\\s*\"([^\"]+)\"");
     private static final Pattern LANG_PATH = Pattern.compile("^assets/([^/]+)/lang/(en_us|ru_ru)\\.json$");
     private static final Gson PRETTY_GSON = new GsonBuilder().setPrettyPrinting().create();
 
@@ -69,9 +73,10 @@ public final class ModScanner {
             String modId = firstMatch(MOD_ID, toml);
             String displayName = firstMatch(DISPLAY_NAME, toml);
             String authors = firstMatch(AUTHORS, toml);
-            String homepageUrl = safeHttpUrl(firstMatch(DISPLAY_URL, toml));
+            String repositoryUrl = firstValid(
+                    safeRepositoryUrl(firstMatch(DISPLAY_URL, toml)),
+                    safeHttpUrl(firstMatch(SOURCES_URL, toml)));
             String issuesUrl = safeHttpUrl(firstMatch(ISSUES_URL, toml));
-            String sourcesUrl = null;
             List<ModScanResult.AuthorLink> authorLinks = new ArrayList<>();
 
             // Fabric/Quilt metadata carries richer project and author contact links.
@@ -82,8 +87,7 @@ public final class ModScanner {
                     JsonObject metadata = JsonParser.parseString(fabricMetadata).getAsJsonObject();
                     JsonObject contact = metadata.has("contact") && metadata.get("contact").isJsonObject()
                             ? metadata.getAsJsonObject("contact") : new JsonObject();
-                    homepageUrl = firstValid(homepageUrl, jsonString(contact, "homepage"));
-                    sourcesUrl = firstValid(sourcesUrl, jsonString(contact, "sources"));
+                    repositoryUrl = firstValid(repositoryUrl, safeHttpUrl(jsonString(contact, "sources")));
                     issuesUrl = firstValid(issuesUrl, jsonString(contact, "issues"));
 
                     if (metadata.has("authors") && metadata.get("authors").isJsonArray()) {
@@ -151,7 +155,7 @@ public final class ModScanner {
                     englishKeys.size(), translated, !russian.isEmpty(),
                     List.copyOf(english.keySet()), List.copyOf(russian.keySet()),
                     authors == null || authors.isBlank() ? "Не указаны в метаданных" : authors,
-                    homepageUrl, sourcesUrl, issuesUrl, List.copyOf(authorLinks)
+                    repositoryUrl, issuesUrl, List.copyOf(authorLinks)
             );
         }
     }
@@ -312,6 +316,22 @@ public final class ModScanner {
             if (valid != null) return valid;
         }
         return null;
+    }
+
+    private static String safeRepositoryUrl(String value) {
+        String url = safeHttpUrl(value);
+        if (url == null) return null;
+        try {
+            java.net.URI uri = java.net.URI.create(url);
+            String host = uri.getHost().toLowerCase(java.util.Locale.ROOT);
+            boolean knownGitHost = host.equals("github.com") || host.equals("www.github.com")
+                    || host.equals("gitlab.com") || host.equals("www.gitlab.com")
+                    || host.equals("codeberg.org") || host.equals("www.codeberg.org");
+            String path = uri.getPath();
+            return knownGitHost && path != null && path.split("/").length >= 3 ? url : null;
+        } catch (RuntimeException ignored) {
+            return null;
+        }
     }
 
     private static String safeHttpUrl(String value) {
