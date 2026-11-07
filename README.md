@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **75 встроенных локализаций** для популярных модов.
+- **80 встроенных локализаций** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 79 локализаций · 10 095 переводимых ключей</strong></summary>
+<summary><strong>Все 80 локализаций · 10 696 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -136,6 +136,7 @@ resourcepacks/
 | YUNG's Better End Island | 13 | [betterendisland](src/main/resources/data/rusify/translations/betterendisland/ru_ru.json) |
 | Better Third Person | 8 | [betterthirdperson](src/main/resources/data/rusify/translations/betterthirdperson/ru_ru.json) |
 | Better Zoom | 30 | [betterzoom](src/main/resources/data/rusify/translations/betterzoom/ru_ru.json) |
+| Biomes O' Plenty | 601 | [biomesoplenty](src/main/resources/data/rusify/translations/biomesoplenty/ru_ru.json) |
 | Borderless Window | 21 | [borderless](src/main/resources/data/rusify/translations/borderless/ru_ru.json) |
 | BreakingPlace 211 neo | 3 | [breakingplace211neo](src/main/resources/data/rusify/translations/breakingplace211neo/ru_ru.json) |
 | Carry On | 12 | [carryon](src/main/resources/data/rusify/translations/carryon/ru_ru.json) |
