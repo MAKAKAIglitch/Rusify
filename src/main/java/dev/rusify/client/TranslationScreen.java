@@ -26,9 +26,9 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator"};
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse"};
         String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator"};
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator", "Better Biome ReBlend", "Sable: Ragdoll Corpse"};
         int buttonWidth = Math.min(190, (width - 40 - 8) / 2);
         int totalWidth = buttonWidth * 2 + 8;
         for (int i = 0; i < modIds.length; i++) {
@@ -81,6 +81,13 @@ public final class TranslationScreen extends Screen {
                 case "create_more_automation" -> "Create: More Automation";
                 case "create_trimmed" -> "Create: Trimmed";
                 case "jumpoverfences" -> "Jump Over Fences";
+                case "breakingplace211neo" -> "BreakingPlace 211 neo";
+                case "trimmed" -> "Trimmed";
+                case "curios_for_ammo_box" -> "Curios for Ammo Box";
+                case "betteradvancements" -> "Better Advancements";
+                case "rebindnarrator" -> "RebindNarrator";
+                case "betterbiomereblend" -> "Better Biome ReBlend";
+                case "ragdoll_corpse" -> "Sable: Ragdoll Corpse";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));

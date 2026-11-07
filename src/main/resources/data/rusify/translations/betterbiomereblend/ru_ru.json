@@ -1,0 +1,11 @@
+{
+  "options.biomeBlendRadius.17": "17×17 (Большой)",
+  "options.biomeBlendRadius.19": "19×19 (Очень большой)",
+  "options.biomeBlendRadius.21": "21×21 (Огромный)",
+  "options.biomeBlendRadius.23": "23×23 (Головокружительный)",
+  "options.biomeBlendRadius.25": "25×25 (Запредельный)",
+  "options.biomeBlendRadius.27": "27×27 (Возвышенный)",
+  "options.biomeBlendRadius.29": "29×29 (НИЧЕГО СЕБЕ!)",
+  "bbb.biomeBlendRadius": "Better Biome ReBlend",
+  "bbb.biomeBlendRadius.tooltip": "Управляет радиусом смешивания биомов, используемым Better Biome ReBlend."
+}

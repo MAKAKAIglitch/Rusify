@@ -1,0 +1,8 @@
+{
+  "ragdoll_corpse.configuration.title": "Труп-рэгдолл",
+  "ragdoll_corpse.configuration.spawn_empty_inventory_corpses": "Создавать трупы при пустом инвентаре",
+  "ragdoll_corpse.configuration.corpse_lifetime_minutes": "Время существования трупа",
+  "ragdoll_corpse.configuration.empty_corpse_despawn_seconds": "Задержка исчезновения пустого трупа",
+  "container.ragdoll_corpse.corpse": "Труп игрока %s",
+  "container.ragdoll_corpse.release": "Убрать труп"
+}
