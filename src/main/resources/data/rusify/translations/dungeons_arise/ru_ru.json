@@ -103,5 +103,19 @@
   "advancement.dungeons_arise.find_bathhouse.title": "Проклятия",
   "advancement.dungeons_arise.find_bathhouse.desc": "Найдите баню",
   "advancement.dungeons_arise.find_mechanical_nest.title": "Добро пожаловать в машину",
-  "advancement.dungeons_arise.find_mechanical_nest.desc": "Найдите механическое гнездо"
+  "advancement.dungeons_arise.find_mechanical_nest.desc": "Найдите механическое гнездо",
+  "advancement.dungeons_arise.find_kisegi_sanctuary.title": "Сочувствие дьяволу",
+  "advancement.dungeons_arise.find_kisegi_sanctuary.desc": "Найдите святилище Кисеги",
+  "advancement.dungeons_arise.find_mining_complex.title": "Накормить машину",
+  "advancement.dungeons_arise.find_mining_complex.desc": "Найдите шахтный комплекс",
+  "enchantment.dungeons_arise.purification": "Очищение",
+  "enchantment.dungeons_arise.purification.desc": "Даёт шанс полностью нейтрализовать входящие эффекты отравления и иссушения, высвобождая всплеск энергии, который наносит урон ближайшим врагам.",
+  "enchantment.dungeons_arise.voltaic_shot": "Электрический выстрел",
+  "enchantment.dungeons_arise.voltaic_shot.desc": "Заряжает стрелы электрической энергией: они летят по прямой и при попадании вызывают взрыв.",
+  "enchantment.dungeons_arise.discharge": "Разряд",
+  "enchantment.dungeons_arise.discharge.desc": "Атаки по врагам постепенно увеличивают скорость, однако при достижении высоких значений накопленная скорость высвобождается мощным взрывом, наносящим урон и цели, и атакующему.",
+  "enchantment.dungeons_arise.lolths_curse": "Проклятие Ллос",
+  "enchantment.dungeons_arise.lolths_curse.desc": "Даёт шанс восстановить здоровье при атаке врагов, но из их тел могут вырваться пауки. При нанесении урона членистоногому часть урона отражается на владельца.",
+  "enchantment.dungeons_arise.ensnaring": "Опутывание",
+  "enchantment.dungeons_arise.ensnaring.desc": "Даёт шанс значительно замедлить врага при нанесении урона и призывает клыки, атакующие всех окружающих монстров."
 }
