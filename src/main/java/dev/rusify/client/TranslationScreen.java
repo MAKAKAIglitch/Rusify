@@ -56,7 +56,7 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 156, 290, 22).build());
 
         addRenderableWidget(Button.builder(
-                        Component.literal("Автоподключение готовых переводов: "
+                        Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
                 .bounds(center - 145, 182, 290, 22).build());
