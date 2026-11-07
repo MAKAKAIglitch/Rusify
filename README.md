@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 76 локализаций · 9 927 переводимых ключей</strong></summary>
+<summary><strong>Все 77 локализаций · 9 941 переводимый ключ</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -191,6 +191,7 @@ resourcepacks/
 | Sable: Physics Compat | 10 | [sablephysicscompat](src/main/resources/data/rusify/translations/sablephysicscompat/ru_ru.json) |
 | Sable Ragdolls | 43 | [sable_player_ragdoll](src/main/resources/data/rusify/translations/sable_player_ragdoll/ru_ru.json) |
 | Screenshot Viewer | 74 | [screenshot_viewer](src/main/resources/data/rusify/translations/screenshot_viewer/ru_ru.json) |
+| Smooth Swapping | 14 | [smoothswapping](src/main/resources/data/rusify/translations/smoothswapping/ru_ru.json) |
 | Snow! Real Magic! | 74 | [snowrealmagic](src/main/resources/data/rusify/translations/snowrealmagic/ru_ru.json) |
 | Sodium Extra | 418 | [sodium_extra](src/main/resources/data/rusify/translations/sodium_extra/ru_ru.json) |
 | Stone Zone | 411 | [stonezone](src/main/resources/data/rusify/translations/stonezone/ru_ru.json) |
