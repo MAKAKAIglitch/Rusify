@@ -21,6 +21,36 @@ public final class TranslationPackManager {
 
     private TranslationPackManager() {}
 
+    public static java.util.Set<String> builtInTranslationIds() {
+        return java.util.Set.copyOf(MODS);
+    }
+
+    public static void enableNewBuiltInTranslations(java.util.Set<String> modIds) throws IOException {
+        if (modIds.isEmpty()) return;
+
+        Minecraft minecraft = Minecraft.getInstance();
+        Path pack = packDirectory();
+        preparePack(pack);
+
+        for (String modId : modIds) {
+            if (!MODS.contains(modId)) continue;
+            Translation translation = translation(modId);
+            Path file = translationFile(translation);
+            Files.createDirectories(file.getParent());
+            String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
+            try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
+                if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+                Files.copy(input, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+
+        List<String> selected = selectedPacks(minecraft);
+        removeLegacyPacks(selected);
+        if (hasAnyTranslation(pack) && !selected.contains(PACK_ID)) selected.add(PACK_ID);
+        minecraft.options.save();
+        minecraft.reloadResourcePacks();
+    }
+
     public static boolean isCarryOnEnabled() throws IOException { return isTranslationEnabled("carryon"); }
     public static boolean isOfflineLanEnabled() throws IOException { return isTranslationEnabled("offlinelan"); }
     public static boolean isAdvancedLootInfoEnabled() throws IOException { return isTranslationEnabled("ali"); }

@@ -9,59 +9,117 @@ import net.minecraft.network.chat.Component;
 import java.io.IOException;
 
 public final class TranslationScreen extends Screen {
+    private static final String[] MOD_IDS = {
+            "carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic",
+            "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info",
+            "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom",
+            "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed",
+            "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse",
+            "dungeons_arise", "curios", "everycomp", "distanthorizons", "artifacts", "sodium_extra", "jei",
+            "createnuclear", "vinery", "snowrealmagic", "furniture", "farm_and_charm", "puffish_skills",
+            "moredelight", "moreculling", "golemoverhaul", "fastquit", "create_hypertube", "create_optical",
+            "create_deep_dark", "copperequipment", "chunkloaders"
+    };
+
+    private static final String[] NAMES = {
+            "Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!", "Sable",
+            "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight",
+            "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil",
+            "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences",
+            "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator",
+            "Better Biome ReBlend", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat",
+            "Distant Horizons", "Artifacts", "Sodium Extra", "Just Enough Items (JEI)", "Create Nuclear",
+            "[Let's Do] Vinery", "Snow! Real Magic!", "[Let's Do] Furniture", "[Let's Do] Farm & Charm",
+            "Pufferfish's Skills", "More Delight", "More Culling", "Golem Overhaul", "FastQuit",
+            "Create: Hypertubes", "Create: Optical", "Create: Deep Dark", "Copper Equipment", "Chunk Loaders"
+    };
+
+    private static final int ROW_HEIGHT = 23;
     private final Screen parent;
     private String message;
+    private double scrollOffset;
+    private final boolean[] translationStates = new boolean[MOD_IDS.length];
 
     public TranslationScreen(Screen parent) {
-        this(parent, "Выберите готовый перевод или откройте экспорт модов.");
+        this(parent, "Выберите готовый перевод или откройте экспорт модов.", 0);
     }
 
-    private TranslationScreen(Screen parent, String message) {
+    private TranslationScreen(Screen parent, String message, double scrollOffset) {
         super(Component.literal("Rusify — переводы"));
         this.parent = parent;
         this.message = message;
+        this.scrollOffset = scrollOffset;
+    }
+
+    private int listTop() {
+        return 66;
+    }
+
+    private int listBottom() {
+        return Math.max(listTop() + 24, height - 100);
+    }
+
+    private int columns() {
+        return width >= 420 ? 2 : 1;
+    }
+
+    private int listLeft() {
+        return 12;
+    }
+
+    private int listRight() {
+        return width - 12;
+    }
+
+    private int columnGap() {
+        return 8;
+    }
+
+    private int cellWidth() {
+        return Math.max(1, (listRight() - listLeft() - (columns() - 1) * columnGap()) / columns());
+    }
+
+    private int rowCount() {
+        return (MOD_IDS.length + columns() - 1) / columns();
+    }
+
+    private double maxScroll() {
+        return Math.max(0, rowCount() * ROW_HEIGHT - (listBottom() - listTop()));
+    }
+
+    private void clampScroll() {
+        scrollOffset = Math.max(0, Math.min(scrollOffset, maxScroll()));
     }
 
     @Override
     protected void init() {
-        int center = width / 2;
-        String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse", "dungeons_arise", "curios", "everycomp", "distanthorizons", "artifacts", "sodium_extra", "jei", "createnuclear", "vinery", "snowrealmagic", "furniture", "farm_and_charm", "puffish_skills", "moredelight", "moreculling", "golemoverhaul", "fastquit", "create_hypertube", "create_optical", "create_deep_dark", "copperequipment", "chunkloaders"};
-        String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator", "Better Biome ReBlend", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat", "Distant Horizons", "Artifacts", "Sodium Extra", "Just Enough Items (JEI)", "Create Nuclear", "[Let's Do] Vinery", "Snow! Real Magic!", "[Let's Do] Furniture", "[Let's Do] Farm & Charm", "Pufferfish's Skills", "More Delight", "More Culling", "Golem Overhaul", "FastQuit", "Create: Hypertubes", "Create: Optical", "Create: Deep Dark", "Copper Equipment", "Chunk Loaders"};
-        int buttonWidth = Math.min(190, (width - 40 - 8) / 2);
-        int totalWidth = buttonWidth * 2 + 8;
-        for (int i = 0; i < modIds.length; i++) {
-            int column = i % 2;
-            int row = i / 2;
-            String modId = modIds[i];
-            boolean enabled = false;
+        clampScroll();
+        for (int i = 0; i < MOD_IDS.length; i++) {
             try {
-                enabled = TranslationPackManager.isTranslationEnabled(modId);
+                translationStates[i] = TranslationPackManager.isTranslationEnabled(MOD_IDS[i]);
             } catch (IOException exception) {
                 message = "Не удалось прочитать состояние переводов: " + exception.getMessage();
             }
-            addRenderableWidget(Button.builder(
-                            Component.literal(names[i] + ": " + (enabled ? "ВКЛ" : "ВЫКЛ")),
-                            button -> toggleTranslation(modId))
-                    .bounds(center - totalWidth / 2 + column * (buttonWidth + 8), 60 + row * 20, buttonWidth, 18).build());
         }
-        boolean allEnabled = false;
-        try {
-            allEnabled = TranslationPackManager.areAllBuiltInTranslationsEnabled();
-        } catch (IOException exception) {
-            message = "Не удалось проверить состояние переводов: " + exception.getMessage();
-        }
-        final boolean enableAll = !allEnabled;
-        addRenderableWidget(Button.builder(
-                        Component.literal(allEnabled ? "Отключить все переводы" : "Включить все переводы"),
-                        button -> toggleAllTranslations(enableAll))
-                .bounds(center - 145, 60 + ((modIds.length + 1) / 2) * 20 + 6, 290, 18).build());
-        addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
+        int center = width / 2;
+        int buttonWidth = Math.min(145, Math.max(100, (width - 28) / 2));
+        int gap = 8;
+        int total = buttonWidth * 2 + gap;
+        int left = center - total / 2;
+
+        addRenderableWidget(Button.builder(Component.literal("Включить все"), button -> toggleAllTranslations(true))
+                .bounds(left, height - 76, buttonWidth, 20).build());
+        addRenderableWidget(Button.builder(Component.literal("Отключить все"), button -> toggleAllTranslations(false))
+                .bounds(left + buttonWidth + gap, height - 76, buttonWidth, 20).build());
+
+        int exportWidth = Math.min(200, Math.max(100, width - 124));
+        int footerWidth = exportWidth + 100;
+        int footerLeft = center - footerWidth / 2;
+        addRenderableWidget(Button.builder(Component.literal("Экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 60 + ((modIds.length + 1) / 2) * 20 + 28, 290, 18).build());
+                .bounds(footerLeft, height - 49, exportWidth, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
-                .bounds(center - 50, height - 28, 100, 20).build());
+                .bounds(footerLeft + exportWidth + 8, height - 49, 92, 20).build());
     }
 
     private void toggleAllTranslations(boolean enabled) {
@@ -69,7 +127,7 @@ public final class TranslationScreen extends Screen {
             TranslationPackManager.setAllBuiltInTranslationsEnabled(enabled);
             reopen(enabled ? "Все встроенные переводы включены." : "Все встроенные переводы выключены.");
         } catch (IOException exception) {
-            reopen("Не удалось переключить все переводы: " + exception.getMessage());
+            reopen("Не удалось переключить переводы: " + exception.getMessage());
         }
     }
 
@@ -77,81 +135,22 @@ public final class TranslationScreen extends Screen {
         try {
             boolean enabled = !TranslationPackManager.isTranslationEnabled(modId);
             TranslationPackManager.setTranslationEnabled(modId, enabled);
-            String name = switch (modId) {
-                case "carryon" -> "Carry On";
-                case "offlinelan" -> "OfflineLAN";
-                case "ali" -> "Advanced Loot Info";
-                case "stonezone" -> "Stone Zone";
-                case "gemsrealm" -> "Gems Realm";
-                case "punchy" -> "Punchy!";
-                case "sable" -> "Sable";
-                case "tectonic" -> "Tectonic";
-                case "expandeddelight" -> "Expanded Delight";
-                case "screenshot_viewer" -> "Screenshot Viewer";
-                case "ragdoll_reactions" -> "Ragdoll Reactions";
-                case "lendersdelight" -> "L_Ender's Delight";
-                case "held_item_info" -> "Held Item Info";
-                case "kiwi" -> "Kiwi Library";
-                case "pingwheel" -> "Ping Wheel";
-                case "sable_player_ragdoll" -> "Sable Ragdolls";
-                case "aci" -> "AdvancedCoreInfo";
-                case "ichunutil" -> "iChunUtil";
-                case "resourcefulconfig" -> "Resourceful Config";
-                case "betterzoom" -> "Better Zoom";
-                case "create_more_automation" -> "Create: More Automation";
-                case "create_trimmed" -> "Create: Trimmed";
-                case "jumpoverfences" -> "Jump Over Fences";
-                case "breakingplace211neo" -> "BreakingPlace 211 neo";
-                case "trimmed" -> "Trimmed";
-                case "curios_for_ammo_box" -> "Curios for Ammo Box";
-                case "betteradvancements" -> "Better Advancements";
-                case "rebindnarrator" -> "RebindNarrator";
-                case "betterbiomereblend" -> "Better Biome ReBlend";
-                case "ragdoll_corpse" -> "Sable: Ragdoll Corpse";
-                case "dungeons_arise" -> "When Dungeons Arise";
-                case "curios" -> "Curios";
-                case "everycomp" -> "Every Compat";
-                case "distanthorizons" -> "Distant Horizons";
-                case "artifacts" -> "Artifacts";
-                case "sodium_extra" -> "Sodium Extra";
-                case "jei" -> "Just Enough Items (JEI)";
-                case "createnuclear" -> "Create Nuclear";
-                case "vinery" -> "[Let's Do] Vinery";
-                case "snowrealmagic" -> "Snow! Real Magic!";
-                case "furniture" -> "[Let's Do] Furniture";
-                case "farm_and_charm" -> "[Let's Do] Farm & Charm";
-                case "puffish_skills" -> "Pufferfish's Skills";
-                case "moredelight" -> "More Delight";
-                case "moreculling" -> "More Culling";
-                case "golemoverhaul" -> "Golem Overhaul";
-                case "fastquit" -> "FastQuit";
-                case "create_hypertube" -> "Create: Hypertubes";
-                case "create_optical" -> "Create: Optical";
-                case "create_deep_dark" -> "Create: Deep Dark";
-                case "copperequipment" -> "Copper Equipment";
-                case "chunkloaders" -> "Chunk Loaders";
-                default -> modId;
-            };
+            String name = nameFor(modId);
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
         } catch (IOException exception) {
             reopen("Не удалось переключить перевод: " + exception.getMessage());
         }
     }
 
-    private void toggleAutoApply() {
-        try {
-            boolean enabled = !TranslationSettings.autoApplyBuiltInPacks();
-            TranslationSettings.setAutoApplyBuiltInPacks(enabled);
-            reopen(enabled
-                    ? "Готовые переводы будут подключаться при следующем запуске игры."
-                    : "Автоподключение выключено.");
-        } catch (IOException exception) {
-            reopen("Не удалось сохранить настройки: " + exception.getMessage());
+    private static String nameFor(String modId) {
+        for (int i = 0; i < MOD_IDS.length; i++) {
+            if (MOD_IDS[i].equals(modId)) return NAMES[i];
         }
+        return modId;
     }
 
     private void reopen(String nextMessage) {
-        Minecraft.getInstance().setScreen(new TranslationScreen(parent, nextMessage));
+        Minecraft.getInstance().setScreen(new TranslationScreen(parent, nextMessage, scrollOffset));
     }
 
     @Override
@@ -160,16 +159,74 @@ public final class TranslationScreen extends Screen {
     }
 
     @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (button == 0 && mouseY >= listTop() && mouseY < listBottom()
+                && mouseX >= listLeft() && mouseX < listRight()) {
+            int relativeX = (int) mouseX - listLeft();
+            int stride = cellWidth() + columnGap();
+            int column = Math.min(columns() - 1, relativeX / stride);
+            int withinColumn = relativeX - column * stride;
+            if (withinColumn < cellWidth()) {
+                int row = (int) ((mouseY - listTop() + scrollOffset) / ROW_HEIGHT);
+                int index = row * columns() + column;
+                if (index >= 0 && index < MOD_IDS.length) {
+                    toggleTranslation(MOD_IDS[index]);
+                    return true;
+                }
+            }
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (mouseX >= listLeft() && mouseX < listRight()
+                && mouseY >= listTop() && mouseY < listBottom()) {
+            scrollOffset -= scrollY * ROW_HEIGHT * 2.5;
+            clampScroll();
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
+    }
+
+    @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
 
-        graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 24, 0xFFFFFF);
-        graphics.drawCenteredString(font, "Все включённые переводы находятся в одном динамическом ресурс-паке.",
-                width / 2, 43, 0xB8B8B8);
-        graphics.drawCenteredString(font, "При выключении перевод удаляется из общего пакета.",
-                width / 2, height - 48, 0xA0A0A0);
-        graphics.drawCenteredString(font, trim(message, 110), width / 2, height - 35, 0xD0D0D0);
+        graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 22, 0xFFFFFF);
+        graphics.drawCenteredString(font, "Нажмите на перевод, чтобы включить или выключить его", width / 2,
+                42, 0xB8B8B8);
+        graphics.drawCenteredString(font, "Колёсико мыши — прокрутка списка", width / 2, 54, 0xA0A0A0);
+
+        int left = listLeft();
+        int top = listTop();
+        int right = listRight();
+        int bottom = listBottom();
+        int cellWidth = cellWidth();
+        int cols = columns();
+
+        graphics.enableScissor(left, top, right, bottom);
+        for (int i = 0; i < MOD_IDS.length; i++) {
+            int column = i % cols;
+            int row = i / cols;
+            int x = left + column * (cellWidth + columnGap());
+            int y = top + row * ROW_HEIGHT - (int) scrollOffset;
+            boolean hovered = mouseX >= x && mouseX < x + cellWidth
+                    && mouseY >= y && mouseY < y + ROW_HEIGHT - 3;
+            boolean enabled = translationStates[i];
+
+            int background = hovered ? 0xFF454545 : 0xFF292929;
+            graphics.fill(x, y, x + cellWidth, y + ROW_HEIGHT - 3, background);
+            graphics.fill(x, y, x + 2, y + ROW_HEIGHT - 3, enabled ? 0xFF55C878 : 0xFF777777);
+            String label = NAMES[i] + (enabled ? "  ✓" : "  —");
+            String visibleLabel = font.plainSubstrByWidth(label, Math.max(12, cellWidth - 14));
+            graphics.drawCenteredString(font, visibleLabel, x + cellWidth / 2, y + 5,
+                    enabled ? 0xFFFFFF : 0xB8B8B8);
+        }
+        graphics.disableScissor();
+
+        graphics.drawCenteredString(font, trim(message, 90), width / 2, height - 88, 0xD0D0D0);
     }
 
     private static String trim(String value, int max) {
