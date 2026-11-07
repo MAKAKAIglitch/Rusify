@@ -39,7 +39,6 @@ public final class RusifyClientEvents {
     @SubscribeEvent
     public static void applyBuiltInTranslations(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            if (!TranslationSettings.autoApplyBuiltInPacks()) return;
             try {
                 TranslationPackManager.ensureDynamicPackEnabled();
             } catch (IOException exception) {
