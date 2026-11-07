@@ -157,11 +157,11 @@ public final class TranslationScreen extends Screen {
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 454, 290, 20).build());
+                .bounds(center - 145, 498, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 477, 290, 20).build());
+                .bounds(center - 145, 521, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
