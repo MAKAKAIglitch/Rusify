@@ -1,8 +1,11 @@
 package dev.rusify.client;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import net.neoforged.fml.loading.FMLPaths;
 
 import java.io.IOException;
@@ -28,6 +31,7 @@ public final class ModScanner {
     private static final Pattern MOD_ID = Pattern.compile("(?m)^\\s*modId\\s*=\\s*\"([^\"]+)\"");
     private static final Pattern DISPLAY_NAME = Pattern.compile("(?m)^\\s*displayName\\s*=\\s*\"([^\"]+)\"");
     private static final Pattern LANG_PATH = Pattern.compile("^assets/([^/]+)/lang/(en_us|ru_ru)\\.json$");
+    private static final Gson PRETTY_GSON = new GsonBuilder().setPrettyPrinting().create();
 
     private ModScanner() {
     }
@@ -107,29 +111,72 @@ public final class ModScanner {
         }
     }
 
+    /**
+     * Exports source language files and creates editable Russian templates.
+     * Existing non-empty Russian translations are retained; missing values are empty strings.
+     */
     public static Path extract(ModScanResult result) throws IOException {
         if (result.englishEntries().isEmpty()) {
             throw new IOException("В этом моде нет en_us.json для подготовки перевода.");
         }
         Path exportRoot = FMLPaths.GAMEDIR.get().resolve("Rusify").resolve("exports");
         String safeId = result.modId().replaceAll("[^a-zA-Z0-9_.-]", "_");
-        Path modDirectory = exportRoot.resolve(safeId);
+        Path modDirectory = exportRoot.resolve(safeId).normalize();
+        if (!modDirectory.startsWith(exportRoot.normalize())) {
+            throw new IOException("Недопустимый идентификатор мода: " + result.modId());
+        }
         Files.createDirectories(modDirectory);
 
         try (JarFile jar = new JarFile(result.jarPath().toFile())) {
-            List<String> languageEntries = new ArrayList<>(result.englishEntries());
-            languageEntries.addAll(result.russianEntries());
-            for (String entryName : languageEntries) {
-                Path destination = modDirectory.resolve(entryName).normalize();
-                if (!destination.startsWith(modDirectory)) {
-                    throw new IOException("Недопустимый путь внутри JAR: " + entryName);
-                }
+            // Keep the original source files and any Russian-only language files in the export.
+            List<String> originalEntries = new ArrayList<>(result.englishEntries());
+            originalEntries.addAll(result.russianEntries());
+            for (String entryName : originalEntries) {
+                Path destination = safeResolve(modDirectory, entryName);
                 Files.createDirectories(destination.getParent());
                 JarEntry sourceEntry = jar.getJarEntry(entryName);
                 if (sourceEntry == null) continue;
                 try (InputStream input = jar.getInputStream(sourceEntry)) {
                     Files.copy(input, destination, StandardCopyOption.REPLACE_EXISTING);
                 }
+            }
+
+            // Build one ru_ru.json for every en_us.json, including namespaces with no Russian file.
+            for (String englishEntryName : result.englishEntries()) {
+                String russianEntryName = englishEntryName.replace("/en_us.json", "/ru_ru.json");
+                JarEntry englishEntry = jar.getJarEntry(englishEntryName);
+                if (englishEntry == null) continue;
+
+                JsonObject source = readJsonObject(jar, englishEntry);
+                JarEntry russianEntry = jar.getJarEntry(russianEntryName);
+                JsonObject existingRussian = russianEntry == null
+                        ? new JsonObject()
+                        : readJsonObject(jar, russianEntry);
+
+                JsonObject template = new JsonObject();
+                for (Map.Entry<String, JsonElement> entry : source.entrySet()) {
+                    JsonElement current = existingRussian.get(entry.getKey());
+                    if (isNonEmptyString(current)) {
+                        template.add(entry.getKey(), current.deepCopy());
+                    } else if (entry.getValue().isJsonPrimitive()
+                            && entry.getValue().getAsJsonPrimitive().isString()) {
+                        template.add(entry.getKey(), new JsonPrimitive(""));
+                    } else {
+                        template.add(entry.getKey(), entry.getValue().deepCopy());
+                    }
+                }
+
+                // Keep valid Russian-only keys too; they may be used by the mod at runtime.
+                for (Map.Entry<String, JsonElement> entry : existingRussian.entrySet()) {
+                    if (!template.has(entry.getKey())) {
+                        template.add(entry.getKey(), entry.getValue().deepCopy());
+                    }
+                }
+
+                Path destination = safeResolve(modDirectory, russianEntryName);
+                Files.createDirectories(destination.getParent());
+                Files.writeString(destination, PRETTY_GSON.toJson(template) + System.lineSeparator(),
+                        StandardCharsets.UTF_8);
             }
         }
 
@@ -141,10 +188,38 @@ public final class ModScanner {
                 + "  \"source_language\": \"en_us\",\n"
                 + "  \"target_language\": \"ru_ru\",\n"
                 + "  \"english_keys\": " + result.englishKeys() + ",\n"
-                + "  \"translated_keys\": " + result.translatedKeys() + "\n"
+                + "  \"translated_keys\": " + result.translatedKeys() + ",\n"
+                + "  \"missing_keys\": " + result.missingKeys() + ",\n"
+                + "  \"coverage_percent\": " + result.coveragePercent() + "\n"
                 + "}\n";
         Files.writeString(modDirectory.resolve("mod-info.json"), metadata, StandardCharsets.UTF_8);
         return modDirectory;
+    }
+
+    private static Path safeResolve(Path root, String entryName) throws IOException {
+        Path destination = root.resolve(entryName).normalize();
+        if (!destination.startsWith(root.normalize())) {
+            throw new IOException("Недопустимый путь внутри JAR: " + entryName);
+        }
+        return destination;
+    }
+
+    private static JsonObject readJsonObject(JarFile jar, JarEntry entry) throws IOException {
+        try (InputStream input = jar.getInputStream(entry)) {
+            String json = new String(input.readNBytes(8 * 1024 * 1024), StandardCharsets.UTF_8);
+            try {
+                JsonElement parsed = JsonParser.parseString(json);
+                if (!parsed.isJsonObject()) throw new IOException("Ожидался JSON-объект: " + entry.getName());
+                return parsed.getAsJsonObject();
+            } catch (RuntimeException exception) {
+                throw new IOException("Некорректный JSON в " + entry.getName(), exception);
+            }
+        }
+    }
+
+    private static boolean isNonEmptyString(JsonElement value) {
+        return value != null && value.isJsonPrimitive()
+                && value.getAsJsonPrimitive().isString() && !value.getAsString().isBlank();
     }
 
     private static void addLocalizedKeys(Set<String> target, String entryName, String json) {
@@ -189,6 +264,7 @@ public final class ModScanner {
     }
 
     private static String jsonEscape(String value) {
-        return value.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n").replace("\r", "\\r");
+        return value.replace("\\", "\\\\").replace("\"", "\\\"")
+                .replace("\n", "\\n").replace("\r", "\\r");
     }
 }
