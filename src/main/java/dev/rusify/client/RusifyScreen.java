@@ -27,11 +27,11 @@ public final class RusifyScreen extends Screen {
     protected void init() {
         int buttonY = this.height - 34;
         addRenderableWidget(Button.builder(Component.literal("Сканировать"), button -> scan())
-                .bounds(this.width / 2 - 154, 12, 100, 20).build());
+                .bounds(this.width / 2 - 156, 12, 92, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Извлечь выбранный"), button -> extractSelected())
-                .bounds(this.width / 2 - 48, 12, 112, 20).build());
+                .bounds(this.width / 2 - 60, 12, 112, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Извлечь без RU"), button -> extractMissing())
-                .bounds(this.width / 2 + 70, 12, 84, 20).build());
+                .bounds(this.width / 2 + 56, 12, 100, 20).build());
     }
 
     private void scan() {
