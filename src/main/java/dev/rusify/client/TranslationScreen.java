@@ -30,11 +30,13 @@ public final class TranslationScreen extends Screen {
         boolean offlineLanEnabled = false;
         boolean aliEnabled = false;
         boolean stoneZoneEnabled = false;
+        boolean gemsRealmEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
             aliEnabled = TranslationPackManager.isAdvancedLootInfoEnabled();
             stoneZoneEnabled = TranslationPackManager.isStoneZoneEnabled();
+            gemsRealmEnabled = TranslationPackManager.isGemsRealmEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -80,14 +82,24 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 212, 290, 20).build());
 
         addRenderableWidget(Button.builder(
+                        Component.literal("Перевод Gems Realm: " + (gemsRealmEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("gemsrealm"))
+                .bounds(center - 145, 234, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод Gems Realm"),
+                        button -> exportTranslation("gemsrealm", "Gems Realm"))
+                .bounds(center - 145, 256, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 234, 290, 20).build());
+                .bounds(center - 145, 278, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 257, 290, 20).build());
+                .bounds(center - 145, 301, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -102,6 +114,7 @@ public final class TranslationScreen extends Screen {
                 case "offlinelan" -> "OfflineLAN";
                 case "ali" -> "Advanced Loot Info";
                 case "stonezone" -> "Stone Zone";
+                case "gemsrealm" -> "Gems Realm";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
