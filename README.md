@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **74 встроенные локализации** для популярных модов.
+- **75 встроенных локализаций** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 74 локализации · 9 903 переводимых ключа</strong></summary>
+<summary><strong>Все 75 локализаций · 9 913 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -199,6 +199,7 @@ resourcepacks/
 | Ukulib | 14 | [ukulib](src/main/resources/data/rusify/translations/ukulib/ru_ru.json) |
 | [Let's Do] Vinery | 500 | [vinery](src/main/resources/data/rusify/translations/vinery/ru_ru.json) |
 | YUNG's API | 3 | [yungsapi](src/main/resources/data/rusify/translations/yungsapi/ru_ru.json) |
+| Zeta | 11 | [zeta](src/main/resources/data/rusify/translations/zeta/ru_ru.json) |
 
 </details>
 
