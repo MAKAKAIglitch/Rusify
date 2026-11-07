@@ -1,0 +1,5 @@
+{
+  "text.autoconfig.jumpoverfences.title": "Прыжки через заборы",
+  "text.autoconfig.jumpoverfences.option.client": "Клиент",
+  "text.autoconfig.jumpoverfences.option.client.jumpTheseToo": "Прыгать также через эти ограждения"
+}

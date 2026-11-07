@@ -8,7 +8,7 @@
 
 - Открывает главное меню клавишей `O`, командой `/rusify` или через настройки мода.
 - Отдельная вкладка **«Переводы и настройки»** управляет готовыми переводами.
-- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic, Expanded Delight, Screenshot Viewer, Ragdoll Reactions, L_Ender's Delight, iChunUtil, Resourceful Config и Better Zoom.
+- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic, Expanded Delight, Screenshot Viewer, Ragdoll Reactions, L_Ender's Delight, iChunUtil, Resourceful Config, Better Zoom, Create: More Automation, Create: Trimmed и Jump Over Fences.
 - Все включённые переводы динамически объединяются в один ресурс-пак `Rusify-Translations`. При отключении мода его `ru_ru.json` удаляется из этого пакета; отдельные пакеты для каждого мода не создаются.
 - При запуске Rusify автоматически переносит принадлежащие ему старые отдельные пакеты в общую структуру и удаляет их, не затрагивая чужие ресурс-паки.
 - Встроенные переводы работают полностью офлайн и не требуют сторонних сервисов.
@@ -41,6 +41,9 @@
 | iChunUtil | 38 | `assets/ichunutil/lang/ru_ru.json` |
 | Resourceful Config | 28 | `assets/resourcefulconfig/lang/ru_ru.json` |
 | Better Zoom | 30 | `assets/betterzoom/lang/ru_ru.json` |
+| Create: More Automation | 3 | `assets/create_more_automation/lang/ru_ru.json` |
+| Create: Trimmed | 4 | `assets/create_trimmed/lang/ru_ru.json` |
+| Jump Over Fences | 3 | `assets/jumpoverfences/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 

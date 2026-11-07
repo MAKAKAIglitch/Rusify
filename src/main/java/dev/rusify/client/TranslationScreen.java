@@ -26,9 +26,9 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom"};
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences"};
         String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom"};
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences"};
         for (int i = 0; i < modIds.length; i++) {
             String modId = modIds[i];
             boolean enabled = false;
@@ -40,11 +40,11 @@ public final class TranslationScreen extends Screen {
             addRenderableWidget(Button.builder(
                             Component.literal(names[i] + ": " + (enabled ? "ВКЛ" : "ВЫКЛ")),
                             button -> toggleTranslation(modId))
-                    .bounds(center - 145, 65 + i * 25, 290, 21).build());
+                    .bounds(center - 145, 60 + i * 19, 290, 18).build());
         }
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 65 + modIds.length * 25 + 8, 290, 21).build());
+                .bounds(center - 145, 60 + modIds.length * 19 + 6, 290, 18).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
     }
@@ -74,6 +74,9 @@ public final class TranslationScreen extends Screen {
                 case "ichunutil" -> "iChunUtil";
                 case "resourcefulconfig" -> "Resourceful Config";
                 case "betterzoom" -> "Better Zoom";
+                case "create_more_automation" -> "Create: More Automation";
+                case "create_trimmed" -> "Create: Trimmed";
+                case "jumpoverfences" -> "Jump Over Fences";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
