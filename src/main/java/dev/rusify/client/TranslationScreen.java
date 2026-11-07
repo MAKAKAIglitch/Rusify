@@ -26,9 +26,9 @@ public final class TranslationScreen extends Screen {
     protected void init() {
         int center = width / 2;
         String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
-                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse", "dungeons_arise", "curios", "everycomp"};
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info", "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom", "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed", "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "ragdoll_corpse", "dungeons_arise", "curios", "everycomp", "distanthorizons"};
         String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
-                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator", "Better Biome ReBlend", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat"};
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight", "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil", "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences", "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator", "Better Biome ReBlend", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat", "Distant Horizons"};
         int buttonWidth = Math.min(190, (width - 40 - 8) / 2);
         int totalWidth = buttonWidth * 2 + 8;
         for (int i = 0; i < modIds.length; i++) {
@@ -111,6 +111,7 @@ public final class TranslationScreen extends Screen {
                 case "dungeons_arise" -> "When Dungeons Arise";
                 case "curios" -> "Curios";
                 case "everycomp" -> "Every Compat";
+                case "distanthorizons" -> "Distant Horizons";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
