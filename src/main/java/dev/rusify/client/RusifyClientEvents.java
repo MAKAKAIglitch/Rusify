@@ -1,6 +1,8 @@
 package dev.rusify.client;
 
 import dev.rusify.Rusify;
+
+import java.io.IOException;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -34,4 +36,16 @@ public final class RusifyClientEvents {
             container.registerExtensionPoint(IConfigScreenFactory.class, screenFactory);
         }));
     }
+    @SubscribeEvent
+    public static void applyBuiltInTranslations(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            if (!TranslationSettings.autoApplyBuiltInPacks()) return;
+            try {
+                TranslationPackManager.setAllBuiltInTranslationsEnabled(true);
+            } catch (IOException exception) {
+                Rusify.LOGGER.error("Не удалось автоматически подключить встроенные переводы Rusify.", exception);
+            }
+        });
+    }
+
 }
