@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **80 встроенных локализаций** для популярных модов.
+- **81 встроенная локализация** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 80 локализаций · 10 696 переводимых ключей</strong></summary>
+<summary><strong>Все 81 локализация · 11 449 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -198,6 +198,7 @@ resourcepacks/
 | Snow! Real Magic! | 74 | [snowrealmagic](src/main/resources/data/rusify/translations/snowrealmagic/ru_ru.json) |
 | Sodium Extra | 418 | [sodium_extra](src/main/resources/data/rusify/translations/sodium_extra/ru_ru.json) |
 | Stone Zone | 411 | [stonezone](src/main/resources/data/rusify/translations/stonezone/ru_ru.json) |
+| Subtle Effects | 753 | [subtle_effects](src/main/resources/data/rusify/translations/subtle_effects/ru_ru.json) |
 | Tectonic | 109 | [tectonic](src/main/resources/data/rusify/translations/tectonic/ru_ru.json) |
 | Tool Trims | 14 | [tooltrims](src/main/resources/data/rusify/translations/tooltrims/ru_ru.json) |
 | Trimmed | 2 | [trimmed](src/main/resources/data/rusify/translations/trimmed/ru_ru.json) |
