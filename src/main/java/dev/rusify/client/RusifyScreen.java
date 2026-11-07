@@ -13,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 
 public final class RusifyScreen extends Screen {
     private static final int ROW_HEIGHT = 25;
+    private final Screen parent;
     private final List<ModScanResult> results = new ArrayList<>();
     private int selectedIndex = -1;
     private int scrollOffset = 0;
@@ -20,18 +21,29 @@ public final class RusifyScreen extends Screen {
     private boolean scanning = false;
 
     public RusifyScreen() {
+        this(null);
+    }
+
+    public RusifyScreen(Screen parent) {
         super(Component.literal("Rusify"));
+        this.parent = parent;
     }
 
     @Override
     protected void init() {
-        int buttonY = this.height - 34;
         addRenderableWidget(Button.builder(Component.literal("Сканировать"), button -> scan())
                 .bounds(this.width / 2 - 156, 12, 92, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Извлечь выбранный"), button -> extractSelected())
                 .bounds(this.width / 2 - 60, 12, 112, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Извлечь без RU"), button -> extractMissing())
                 .bounds(this.width / 2 + 56, 12, 100, 20).build());
+        addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
+                .bounds(12, this.height - 34, 80, 20).build());
+    }
+
+    @Override
+    public void onClose() {
+        Minecraft.getInstance().setScreen(parent);
     }
 
     private void scan() {
@@ -47,7 +59,8 @@ public final class RusifyScreen extends Screen {
         }).whenComplete((found, error) -> Minecraft.getInstance().execute(() -> {
             scanning = false;
             if (error != null) {
-                message = "Ошибка сканирования: " + error.getCause().getMessage();
+                Throwable cause = error.getCause() == null ? error : error.getCause();
+                message = "Ошибка сканирования: " + cause.getMessage();
                 return;
             }
             results.clear();
