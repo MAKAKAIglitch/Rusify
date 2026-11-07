@@ -11,6 +11,8 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterClientCommandsEvent;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 @EventBusSubscriber(modid = Rusify.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
 public final class RusifyClientForgeEvents {
@@ -34,14 +36,29 @@ public final class RusifyClientForgeEvents {
         Minecraft minecraft = Minecraft.getInstance();
         if (!startupPackHandled) {
             startupPackHandled = true;
-            if (!TranslationSettings.builtInTranslationsInitialized()) {
-                try {
+            try {
+                Set<String> currentTranslations = TranslationPackManager.builtInTranslationIds();
+                Set<String> knownTranslations = TranslationSettings.knownBuiltInTranslations();
+
+                // Migration from older Rusify versions: activate the built-in translations once.
+                // Future updates only activate newly added translations and preserve user choices.
+                if (!TranslationSettings.builtInTranslationsInitialized() || knownTranslations.isEmpty()) {
                     TranslationPackManager.setAllBuiltInTranslationsEnabled(true);
-                    TranslationSettings.markBuiltInTranslationsInitialized();
-                } catch (IOException exception) {
-                    System.err.println("[Rusify] Не удалось автоматически подключить переводы: "
-                            + exception.getMessage());
+                } else {
+                    Set<String> newlyAdded = new HashSet<>(currentTranslations);
+                    newlyAdded.removeAll(knownTranslations);
+                    if (!newlyAdded.isEmpty()) {
+                        TranslationPackManager.enableNewBuiltInTranslations(newlyAdded);
+                    }
                 }
+
+                TranslationSettings.setKnownBuiltInTranslations(currentTranslations);
+                if (!TranslationSettings.builtInTranslationsInitialized()) {
+                    TranslationSettings.markBuiltInTranslationsInitialized();
+                }
+            } catch (IOException exception) {
+                System.err.println("[Rusify] Не удалось автоматически подключить переводы: "
+                        + exception.getMessage());
             }
         }
 
