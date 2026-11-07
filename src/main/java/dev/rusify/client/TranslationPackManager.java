@@ -144,7 +144,8 @@ public final class TranslationPackManager {
             case "offlinelan" -> new Translation("offlinelan", "OfflineLAN", "offlinelan");
             case "ali" -> new Translation("ali", "Advanced Loot Info", "ali");
             case "stonezone" -> new Translation("stonezone", "Stone Zone", "stonezone");
-            case "gemsrealm" -> new Translation("gemsrealm", "Gems Realm", "gemsrealm");\n            case "punchy" -> new Translation("punchy", "Punchy!", "punchy");
+            case "gemsrealm" -> new Translation("gemsrealm", "Gems Realm", "gemsrealm");
+            case "punchy" -> new Translation("punchy", "Punchy!", "punchy");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
