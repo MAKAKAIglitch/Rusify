@@ -8,7 +8,7 @@
 
 - Открывает главное меню клавишей `O`, командой `/rusify` или через настройки мода.
 - Отдельная вкладка **«Переводы и настройки»** управляет готовыми переводами.
-- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic, Expanded Delight, Screenshot Viewer, Ragdoll Reactions, L_Ender's Delight, iChunUtil, Resourceful Config, Better Zoom, Create: More Automation, Create: Trimmed, Jump Over Fences, BreakingPlace 211 neo, Trimmed, Curios for Ammo Box, Better Advancements, RebindNarrator, Better Biome ReBlend и Sable: Ragdoll Corpse и When Dungeons Arise.
+- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic, Expanded Delight, Screenshot Viewer, Ragdoll Reactions, L_Ender's Delight, iChunUtil, Resourceful Config, Better Zoom, Create: More Automation, Create: Trimmed, Jump Over Fences, BreakingPlace 211 neo, Trimmed, Curios for Ammo Box, Better Advancements, RebindNarrator, Better Biome ReBlend, Sable: Ragdoll Corpse, When Dungeons Arise и [Let's Do] Vinery.
 - Все включённые переводы динамически объединяются в один ресурс-пак `Rusify-Translations`. При отключении мода его `ru_ru.json` удаляется из этого пакета; отдельные пакеты для каждого мода не создаются.
 - При запуске Rusify автоматически переносит принадлежащие ему старые отдельные пакеты в общую структуру и удаляет их, не затрагивая чужие ресурс-паки.
 - Встроенные переводы работают полностью офлайн и не требуют сторонних сервисов.
@@ -52,6 +52,7 @@
 | Better Biome ReBlend | 9 | `assets/betterbiomereblend/lang/ru_ru.json` |
 | Sable: Ragdoll Corpse | 6 | `assets/ragdoll_corpse/lang/ru_ru.json` |
 | When Dungeons Arise | 105 | `assets/dungeons_arise/lang/ru_ru.json` |
+| [Let's Do] Vinery | 500 | `assets/vinery/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 
