@@ -29,10 +29,25 @@ try {
         throw "Git for Windows is not installed or git.exe is not available in PATH. Install Git, then run this updater again."
     }
 
-    $GitRoot = (& git -C $ProjectRoot rev-parse --show-toplevel 2>$null)
-    if ($LASTEXITCODE -ne 0 -or !$GitRoot) {
-        throw "This folder is not a Git clone. Clone https://github.com/$Repository.git first; the updater intentionally does not overwrite ZIP-extracted folders."
+    # Check for Git metadata before invoking Git. This also avoids leaking
+    # the raw "fatal: not a git repository" message from ZIP installations.
+    $GitMetadata = Join-Path $ProjectRoot ".git"
+    if (!(Test-Path -LiteralPath $GitMetadata)) {
+        throw @"
+This Rusify folder is not a Git clone (the .git directory is missing).
+The source updater can update only a repository created with:
+  git clone -b main https://github.com/$Repository.git
+If you downloaded Rusify as a ZIP, first clone the repository into a new folder,
+then use update-sources.bat from that cloned folder. Your current files were not changed.
+"@
     }
+
+    $GitRootOutput = @(& git -C $ProjectRoot rev-parse --show-toplevel 2>&1)
+    $GitRootExitCode = $LASTEXITCODE
+    if ($GitRootExitCode -ne 0 -or !$GitRootOutput) {
+        throw "Git metadata exists, but this folder is not a valid Git working tree. Check that the .git directory is intact."
+    }
+    $GitRoot = $GitRootOutput | Select-Object -First 1
 
     $GitRoot = [IO.Path]::GetFullPath(($GitRoot | Select-Object -First 1).Trim())
     $ExpectedRoot = [IO.Path]::GetFullPath($ProjectRoot)
