@@ -37,6 +37,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("gemsrealm");
     }
 
+    public static boolean isPunchyEnabled() throws IOException {
+        return isTranslationEnabled("punchy");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -60,6 +64,10 @@ public final class TranslationPackManager {
 
     public static Path exportGemsRealmPack() throws IOException {
         return exportTranslationPack("gemsrealm");
+    }
+
+    public static Path exportPunchyPack() throws IOException {
+        return exportTranslationPack("punchy");
     }
 
     public static Path exportTranslationPack(String modId) throws IOException {
@@ -87,6 +95,10 @@ public final class TranslationPackManager {
 
     public static void setGemsRealmEnabled(boolean enabled) throws IOException {
         setTranslationEnabled("gemsrealm", enabled);
+    }
+
+    public static void setPunchyEnabled(boolean enabled) throws IOException {
+        setTranslationEnabled("punchy", enabled);
     }
 
     public static void setTranslationEnabled(String modId, boolean enabled) throws IOException {
