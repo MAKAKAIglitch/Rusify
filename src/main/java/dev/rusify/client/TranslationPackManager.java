@@ -41,6 +41,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("punchy");
     }
 
+    public static boolean isSableEnabled() throws IOException {
+        return isTranslationEnabled("sable");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -68,6 +72,10 @@ public final class TranslationPackManager {
 
     public static Path exportPunchyPack() throws IOException {
         return exportTranslationPack("punchy");
+    }
+
+    public static Path exportSablePack() throws IOException {
+        return exportTranslationPack("sable");
     }
 
     public static Path exportTranslationPack(String modId) throws IOException {
@@ -101,6 +109,10 @@ public final class TranslationPackManager {
         setTranslationEnabled("punchy", enabled);
     }
 
+    public static void setSableEnabled(boolean enabled) throws IOException {
+        setTranslationEnabled("sable", enabled);
+    }
+
     public static void setTranslationEnabled(String modId, boolean enabled) throws IOException {
         Translation translation = translation(modId);
         Minecraft minecraft = Minecraft.getInstance();
@@ -124,7 +136,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -146,6 +158,7 @@ public final class TranslationPackManager {
             case "stonezone" -> new Translation("stonezone", "Stone Zone", "stonezone");
             case "gemsrealm" -> new Translation("gemsrealm", "Gems Realm", "gemsrealm");
             case "punchy" -> new Translation("punchy", "Punchy!", "punchy");
+            case "sable" -> new Translation("sable", "Sable", "sable");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }
