@@ -12,8 +12,16 @@ public record ModScanResult(
         int translatedKeys,
         boolean hasRussianFile,
         List<String> englishEntries,
-        List<String> russianEntries
+        List<String> russianEntries,
+        String authors,
+        String homepageUrl,
+        String sourcesUrl,
+        String issuesUrl,
+        List<AuthorLink> authorLinks
 ) {
+    public record AuthorLink(String name, String url) {
+    }
+
     public int missingKeys() {
         return Math.max(0, englishKeys - translatedKeys);
     }
