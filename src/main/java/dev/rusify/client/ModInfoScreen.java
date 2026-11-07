@@ -8,6 +8,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 public final class ModInfoScreen extends Screen {
     private final Screen parent;
     private final ModScanResult mod;
