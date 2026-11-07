@@ -57,6 +57,10 @@ public final class TranslationPackManager {
         return isTranslationEnabled("ragdoll_reactions");
     }
 
+    public static boolean isLendersDelightEnabled() throws IOException {
+        return isTranslationEnabled("lendersdelight");
+    }
+
     public static boolean isTranslationEnabled(String modId) throws IOException {
         Translation translation = translation(modId);
         return selectedPacks(Minecraft.getInstance()).contains(translation.packId());
@@ -164,7 +168,7 @@ public final class TranslationPackManager {
         List<String> selected = selectedPacks(minecraft);
         selected.removeIf(LEGACY_PACK_ID::equals);
 
-        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions")) {
+        for (String modId : List.of("carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight")) {
             Translation translation = translation(modId);
             preparePack(packDirectory(translation), translation);
             if (enabled) {
@@ -191,6 +195,7 @@ public final class TranslationPackManager {
             case "expandeddelight" -> new Translation("expandeddelight", "Expanded Delight", "expandeddelight");
             case "screenshot_viewer" -> new Translation("screenshot_viewer", "Screenshot Viewer", "screenshot_viewer");
             case "ragdoll_reactions" -> new Translation("ragdoll_reactions", "Ragdoll Reactions", "ragdoll_reactions");
+            case "lendersdelight" -> new Translation("lendersdelight", "L_Ender's Delight", "lendersdelight");
             default -> throw new IOException("Неизвестный встроенный перевод: " + modId);
         };
     }

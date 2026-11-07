@@ -8,7 +8,7 @@
 
 - Открывает главное меню клавишей `O`, командой `/rusify` или через настройки мода.
 - Отдельная вкладка **«Переводы и настройки»** управляет готовыми переводами.
-- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic и Expanded Delight, Screenshot Viewer и Ragdoll Reactions, экспортировать каждый как отдельный ресурс-пак и включить автоподключение всех встроенных переводов при запуске.
+- В меню можно независимо включать/выключать встроенные переводы Carry On, OfflineLAN, Advanced Loot Info, Stone Zone, Gems Realm, Punchy!, Sable, Tectonic и Expanded Delight, Screenshot Viewer и Ragdoll Reactions и L_Ender's Delight, экспортировать каждый как отдельный ресурс-пак и включить автоподключение всех встроенных переводов при запуске.
 - Встроенные переводы работают полностью офлайн и не требуют сторонних сервисов.
 - Отдельный экран сканирует JAR-файлы из папки `mods` и экспортирует неполные/отсутствующие переводы.
 - Исходные JAR-файлы модов не изменяются.
@@ -30,6 +30,7 @@
 | Expanded Delight | 119 | `assets/expandeddelight/lang/ru_ru.json` |
 | Screenshot Viewer | 74 | `assets/screenshot_viewer/lang/ru_ru.json` |
 | Ragdoll Reactions | 75 | `assets/ragdoll_reactions/lang/ru_ru.json` |
+| L_Ender's Delight | 86 | `assets/lendersdelight/lang/ru_ru.json` |
 
 Для Advanced Loot Info сохранены исходные идентификаторы ключей и форматные параметры вроде `%s`, `%1$s` и `%2$s`.
 

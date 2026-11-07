@@ -37,6 +37,7 @@ public final class TranslationScreen extends Screen {
         boolean expandedDelightEnabled = false;
         boolean screenshotViewerEnabled = false;
         boolean ragdollReactionsEnabled = false;
+        boolean lendersDelightEnabled = false;
         try {
             carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
             offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
@@ -49,6 +50,7 @@ public final class TranslationScreen extends Screen {
             expandedDelightEnabled = TranslationPackManager.isExpandedDelightEnabled();
             screenshotViewerEnabled = TranslationPackManager.isScreenshotViewerEnabled();
             ragdollReactionsEnabled = TranslationPackManager.isRagdollReactionsEnabled();
+            lendersDelightEnabled = TranslationPackManager.isLendersDelightEnabled();
         } catch (IOException exception) {
             message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
         }
@@ -161,14 +163,24 @@ public final class TranslationScreen extends Screen {
                 .bounds(center - 145, 498, 290, 20).build());
 
         addRenderableWidget(Button.builder(
+                        Component.literal("Перевод L_Ender's Delight: " + (lendersDelightEnabled ? "ВКЛ" : "ВЫКЛ")),
+                        button -> toggleTranslation("lendersdelight"))
+                .bounds(center - 145, 520, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
+                        Component.literal("Экспортировать перевод L_Ender's Delight"),
+                        button -> exportTranslation("lendersdelight", "L_Ender's Delight"))
+                .bounds(center - 145, 542, 290, 20).build());
+
+        addRenderableWidget(Button.builder(
                         Component.literal("Автоподключение всех переводов: "
                                 + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
                         button -> toggleAutoApply())
-                .bounds(center - 145, 520, 290, 20).build());
+                .bounds(center - 145, 564, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 543, 290, 20).build());
+                .bounds(center - 145, 587, 290, 20).build());
 
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
@@ -190,6 +202,7 @@ public final class TranslationScreen extends Screen {
                 case "expandeddelight" -> "Expanded Delight";
                 case "screenshot_viewer" -> "Screenshot Viewer";
                 case "ragdoll_reactions" -> "Ragdoll Reactions";
+                case "lendersdelight" -> "L_Ender's Delight";
                 default -> modId;
             };
             reopen("Перевод " + name + (enabled ? " включён." : " выключен."));
