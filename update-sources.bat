@@ -13,7 +13,7 @@ set "UPDATE_EXIT=%ERRORLEVEL%"
 
 echo.
 if "%UPDATE_EXIT%"=="0" (
-    echo [SUCCESS] Rusify sources are up to date.
+    echo [SUCCESS] Rusify sources have been updated from GitHub.
 ) else (
     echo [FAILED] Source update failed with exit code %UPDATE_EXIT%.
 )
