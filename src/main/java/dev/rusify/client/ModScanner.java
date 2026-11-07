@@ -64,6 +64,7 @@ public final class ModScanner {
 
             String modId = firstMatch(MOD_ID, toml);
             String displayName = firstMatch(DISPLAY_NAME, toml);
+            boolean hasModMetadata = modId != null && !modId.isBlank();
             if (modId == null || modId.isBlank()) {
                 modId = stripExtension(path.getFileName().toString()).toLowerCase().replaceAll("[^a-z0-9_.-]", "_");
             }
@@ -86,7 +87,7 @@ public final class ModScanner {
                 else russian.put(entry.getName(), readText(jar, entry));
             }
 
-            if (english.isEmpty() && russian.isEmpty()) return null;
+            if (!hasModMetadata && english.isEmpty() && russian.isEmpty()) return null;
 
             Set<String> englishKeys = new LinkedHashSet<>();
             Set<String> russianKeys = new LinkedHashSet<>();
@@ -107,19 +108,26 @@ public final class ModScanner {
     }
 
     public static Path extract(ModScanResult result) throws IOException {
+        if (result.englishEntries().isEmpty()) {
+            throw new IOException("В этом моде нет en_us.json для подготовки перевода.");
+        }
         Path exportRoot = FMLPaths.GAMEDIR.get().resolve("Rusify").resolve("exports");
         String safeId = result.modId().replaceAll("[^a-zA-Z0-9_.-]", "_");
         Path modDirectory = exportRoot.resolve(safeId);
         Files.createDirectories(modDirectory);
 
         try (JarFile jar = new JarFile(result.jarPath().toFile())) {
-            for (String entryName : result.englishEntries()) {
+            List<String> languageEntries = new ArrayList<>(result.englishEntries());
+            languageEntries.addAll(result.russianEntries());
+            for (String entryName : languageEntries) {
                 Path destination = modDirectory.resolve(entryName).normalize();
                 if (!destination.startsWith(modDirectory)) {
                     throw new IOException("Недопустимый путь внутри JAR: " + entryName);
                 }
                 Files.createDirectories(destination.getParent());
-                try (InputStream input = jar.getInputStream(jar.getJarEntry(entryName))) {
+                JarEntry sourceEntry = jar.getJarEntry(entryName);
+                if (sourceEntry == null) continue;
+                try (InputStream input = jar.getInputStream(sourceEntry)) {
                     Files.copy(input, destination, StandardCopyOption.REPLACE_EXISTING);
                 }
             }
