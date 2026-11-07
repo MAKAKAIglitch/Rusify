@@ -176,7 +176,10 @@ public final class ModScanner {
         }
 
         Path exportRoot = FMLPaths.GAMEDIR.get().resolve("Rusify").resolve("exports");
-        String category = result.translatedKeys() > 0 ? "Частичный перевод" : "Нет перевода";
+        boolean hasRusifyTranslation = TranslationPackManager.hasBuiltInTranslation(result.modId());
+        String category = hasRusifyTranslation
+                ? "Есть перевод Rusify"
+                : (result.translatedKeys() > 0 ? "Частичный перевод" : "Нет перевода");
         Path categoryDirectory = exportRoot.resolve(category).normalize();
         String safeId = result.modId().replaceAll("[^a-zA-Z0-9_.-]", "_");
         Path modDirectory = categoryDirectory.resolve(safeId).normalize();
@@ -238,6 +241,11 @@ public final class ModScanner {
             }
         }
 
+        // Include the actual bundled Rusify translation, not an empty template from the mod JAR.
+        if (hasRusifyTranslation) {
+            TranslationPackManager.exportBuiltInTranslation(result.modId(), modDirectory);
+        }
+
         String metadata = "{\n"
                 + "  \"mod_id\": \"" + jsonEscape(result.modId()) + "\",\n"
                 + "  \"display_name\": \"" + jsonEscape(result.displayName()) + "\",\n"
@@ -248,7 +256,8 @@ public final class ModScanner {
                 + "  \"english_keys\": " + result.englishKeys() + ",\n"
                 + "  \"translated_keys\": " + result.translatedKeys() + ",\n"
                 + "  \"missing_keys\": " + result.missingKeys() + ",\n"
-                + "  \"coverage_percent\": " + result.coveragePercent() + "\n"
+                + "  \"coverage_percent\": " + result.coveragePercent() + ",\n"
+                + "  \"has_rusify_translation\": " + hasRusifyTranslation + "\n"
                 + "}\n";
         Files.writeString(modDirectory.resolve("mod-info.json"), metadata, StandardCharsets.UTF_8);
         return modDirectory;
