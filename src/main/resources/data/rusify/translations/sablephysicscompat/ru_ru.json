@@ -1,0 +1,12 @@
+{
+  "itemGroup.sablephysicscompat": "Вкладка примера мода",
+  "block.sablephysicscompat.example_block": "Пример блока",
+  "item.sablephysicscompat.example_item": "Пример предмета",
+  "sablephysicscompat.configuration.title": "Настройки совместимости Sable: Physics",
+  "sablephysicscompat.configuration.section.sablephysicscompat.common.toml": "Настройки совместимости Sable: Physics",
+  "sablephysicscompat.configuration.section.sablephysicscompat.common.toml.title": "Настройки совместимости Sable: Physics",
+  "sablephysicscompat.configuration.items": "Список предметов",
+  "sablephysicscompat.configuration.logDirtBlock": "Записывать блок земли в журнал",
+  "sablephysicscompat.configuration.magicNumberIntroduction": "Описание магического числа",
+  "sablephysicscompat.configuration.magicNumber": "Магическое число"
+}
