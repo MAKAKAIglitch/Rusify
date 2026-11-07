@@ -26,162 +26,26 @@ public final class TranslationScreen extends Screen {
     @Override
     protected void init() {
         int center = width / 2;
-        boolean carryOnEnabled = false;
-        boolean offlineLanEnabled = false;
-        boolean aliEnabled = false;
-        boolean stoneZoneEnabled = false;
-        boolean gemsRealmEnabled = false;
-        boolean punchyEnabled = false;
-        boolean sableEnabled = false;
-        boolean tectonicEnabled = false;
-        boolean expandedDelightEnabled = false;
-        boolean screenshotViewerEnabled = false;
-        boolean ragdollReactionsEnabled = false;
-        boolean lendersDelightEnabled = false;
-        try {
-            carryOnEnabled = TranslationPackManager.isCarryOnEnabled();
-            offlineLanEnabled = TranslationPackManager.isOfflineLanEnabled();
-            aliEnabled = TranslationPackManager.isAdvancedLootInfoEnabled();
-            stoneZoneEnabled = TranslationPackManager.isStoneZoneEnabled();
-            gemsRealmEnabled = TranslationPackManager.isGemsRealmEnabled();
-            punchyEnabled = TranslationPackManager.isPunchyEnabled();
-            sableEnabled = TranslationPackManager.isSableEnabled();
-            tectonicEnabled = TranslationPackManager.isTranslationEnabled("tectonic");
-            expandedDelightEnabled = TranslationPackManager.isExpandedDelightEnabled();
-            screenshotViewerEnabled = TranslationPackManager.isScreenshotViewerEnabled();
-            ragdollReactionsEnabled = TranslationPackManager.isRagdollReactionsEnabled();
-            lendersDelightEnabled = TranslationPackManager.isLendersDelightEnabled();
-        } catch (IOException exception) {
-            message = "Не удалось прочитать активные ресурс-паки: " + exception.getMessage();
+        String[] modIds = {"carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy",
+                "sable", "tectonic", "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight"};
+        String[] names = {"Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!",
+                "Sable", "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight"};
+        for (int i = 0; i < modIds.length; i++) {
+            String modId = modIds[i];
+            boolean enabled = false;
+            try {
+                enabled = TranslationPackManager.isTranslationEnabled(modId);
+            } catch (IOException exception) {
+                message = "Не удалось прочитать состояние переводов: " + exception.getMessage();
+            }
+            addRenderableWidget(Button.builder(
+                            Component.literal(names[i] + ": " + (enabled ? "ВКЛ" : "ВЫКЛ")),
+                            button -> toggleTranslation(modId))
+                    .bounds(center - 145, 65 + i * 25, 290, 21).build());
         }
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Carry On: " + (carryOnEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("carryon"))
-                .bounds(center - 145, 58, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Carry On"),
-                        button -> exportTranslation("carryon", "Carry On"))
-                .bounds(center - 145, 80, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод OfflineLAN: " + (offlineLanEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("offlinelan"))
-                .bounds(center - 145, 102, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод OfflineLAN"),
-                        button -> exportTranslation("offlinelan", "OfflineLAN"))
-                .bounds(center - 145, 124, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Advanced Loot Info: " + (aliEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("ali"))
-                .bounds(center - 145, 146, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Advanced Loot Info"),
-                        button -> exportTranslation("ali", "Advanced Loot Info"))
-                .bounds(center - 145, 168, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Stone Zone: " + (stoneZoneEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("stonezone"))
-                .bounds(center - 145, 190, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Stone Zone"),
-                        button -> exportTranslation("stonezone", "Stone Zone"))
-                .bounds(center - 145, 212, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Gems Realm: " + (gemsRealmEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("gemsrealm"))
-                .bounds(center - 145, 234, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Gems Realm"),
-                        button -> exportTranslation("gemsrealm", "Gems Realm"))
-                .bounds(center - 145, 256, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Punchy!: " + (punchyEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("punchy"))
-                .bounds(center - 145, 278, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Punchy!"),
-                        button -> exportTranslation("punchy", "Punchy!"))
-                .bounds(center - 145, 300, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Sable: " + (sableEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("sable"))
-                .bounds(center - 145, 322, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Sable"),
-                        button -> exportTranslation("sable", "Sable"))
-                .bounds(center - 145, 344, 290, 20).build());
-
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Tectonic: " + (tectonicEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("tectonic"))
-                .bounds(center - 145, 366, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Tectonic"),
-                        button -> exportTranslation("tectonic", "Tectonic"))
-                .bounds(center - 145, 388, 290, 20).build());
-
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Expanded Delight: " + (expandedDelightEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("expandeddelight"))
-                .bounds(center - 145, 410, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Expanded Delight"),
-                        button -> exportTranslation("expandeddelight", "Expanded Delight"))
-                .bounds(center - 145, 432, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Screenshot Viewer: " + (screenshotViewerEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("screenshot_viewer"))
-                .bounds(center - 145, 454, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод Screenshot Viewer"),
-                        button -> exportTranslation("screenshot_viewer", "Screenshot Viewer"))
-                .bounds(center - 145, 476, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод Ragdoll Reactions: " + (ragdollReactionsEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("ragdoll_reactions"))
-                .bounds(center - 145, 498, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Перевод L_Ender's Delight: " + (lendersDelightEnabled ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleTranslation("lendersdelight"))
-                .bounds(center - 145, 520, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Экспортировать перевод L_Ender's Delight"),
-                        button -> exportTranslation("lendersdelight", "L_Ender's Delight"))
-                .bounds(center - 145, 542, 290, 20).build());
-
-        addRenderableWidget(Button.builder(
-                        Component.literal("Автоподключение всех переводов: "
-                                + (TranslationSettings.autoApplyBuiltInPacks() ? "ВКЛ" : "ВЫКЛ")),
-                        button -> toggleAutoApply())
-                .bounds(center - 145, 564, 290, 20).build());
-
         addRenderableWidget(Button.builder(Component.literal("Переводы и экспорт установленных модов"),
                         button -> Minecraft.getInstance().setScreen(new ExportScreen(this)))
-                .bounds(center - 145, 587, 290, 20).build());
-
+                .bounds(center - 145, 65 + modIds.length * 25 + 8, 290, 21).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(center - 50, height - 28, 100, 20).build());
     }
@@ -247,9 +111,9 @@ public final class TranslationScreen extends Screen {
         super.render(graphics, mouseX, mouseY, partialTick);
 
         graphics.drawCenteredString(font, "Переводы Rusify", width / 2, 24, 0xFFFFFF);
-        graphics.drawCenteredString(font, "Встроенные переводы работают офлайн как ресурс-пак.", width / 2,
-                46, 0xB8B8B8);
-        graphics.drawCenteredString(font, "Автоподключение применяется при запуске игры.",
+        graphics.drawCenteredString(font, "Все включённые переводы находятся в одном динамическом ресурс-паке.",
+                width / 2, 43, 0xB8B8B8);
+        graphics.drawCenteredString(font, "При выключении перевод удаляется из общего пакета.",
                 width / 2, height - 48, 0xA0A0A0);
         graphics.drawCenteredString(font, trim(message, 110), width / 2, height - 35, 0xD0D0D0);
     }

@@ -41,7 +41,7 @@ public final class RusifyClientEvents {
         event.enqueueWork(() -> {
             if (!TranslationSettings.autoApplyBuiltInPacks()) return;
             try {
-                TranslationPackManager.setAllBuiltInTranslationsEnabled(true);
+                TranslationPackManager.ensureDynamicPackEnabled();
             } catch (IOException exception) {
                 System.err.println("[Rusify] Не удалось автоматически подключить встроенные переводы: " + exception.getMessage());
             }
