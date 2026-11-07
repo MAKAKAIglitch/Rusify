@@ -38,6 +38,7 @@ public final class TranslationScreen extends Screen {
     private final Screen parent;
     private String message;
     private double scrollOffset;
+    private final boolean[] translationStates = new boolean[MOD_IDS.length];
 
     public TranslationScreen(Screen parent) {
         this(parent, "Выберите готовый перевод или откройте экспорт модов.", 0);
@@ -93,6 +94,13 @@ public final class TranslationScreen extends Screen {
     @Override
     protected void init() {
         clampScroll();
+        for (int i = 0; i < MOD_IDS.length; i++) {
+            try {
+                translationStates[i] = TranslationPackManager.isTranslationEnabled(MOD_IDS[i]);
+            } catch (IOException exception) {
+                message = "Не удалось прочитать состояние переводов: " + exception.getMessage();
+            }
+        }
         int center = width / 2;
         int buttonWidth = Math.min(145, Math.max(100, (width - 28) / 2));
         int gap = 8;
@@ -206,12 +214,7 @@ public final class TranslationScreen extends Screen {
             int y = top + row * ROW_HEIGHT - (int) scrollOffset;
             boolean hovered = mouseX >= x && mouseX < x + cellWidth
                     && mouseY >= y && mouseY < y + ROW_HEIGHT - 3;
-            boolean enabled = false;
-            try {
-                enabled = TranslationPackManager.isTranslationEnabled(MOD_IDS[i]);
-            } catch (IOException exception) {
-                message = "Ошибка чтения состояния: " + exception.getMessage();
-            }
+            boolean enabled = translationStates[i];
 
             int background = hovered ? 0xFF454545 : 0xFF292929;
             graphics.fill(x, y, x + cellWidth, y + ROW_HEIGHT - 3, background);
