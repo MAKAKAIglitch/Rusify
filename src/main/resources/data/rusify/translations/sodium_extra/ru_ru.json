@@ -415,6 +415,6 @@
   "sodium-extra.overlay.light_updates": "Обновления света отключены",
   "sodium-extra.suggestRSO.header": "Рекомендуем установить Reese’s Sodium Options",
   "sodium-extra.suggestRSO.message": "Настоятельно рекомендуем установить Reese’s Sodium Options вместе с Sodium Extra. По мере добавления новых функций экран настроек графики Sodium становится сложнее для навигации без этого дополнения.",
-  "sodium-extra.units.blocks": "Блоков: %s",
+  "sodium-extra.units.blocks": "%s блоков",
   "sodium-extra.units.ticks": "Тактов: %s"
 }
