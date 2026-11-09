@@ -50,6 +50,24 @@ The included Russian file is based on the official Carry On project localization
 - The translation covers descriptions, enum labels, loot conditions and functions, item predicates, loot-table names, and EMI category names.
 - Format placeholders such as `%s`, `%1$s`, and `%2$s` are preserved so dynamic values continue to render correctly.
 
+## Built-in translation: Better Search
+
+- Mod ID / language-key namespace: `bettersearch`
+- Target namespace: `assets/bettersearch/lang/ru_ru.json`
+- Included strings: 153
+- Target game: Minecraft 1.21.1
+- Upstream project: https://github.com/rivalzin/bettersearch
+- Upstream source: `versions/mc1_21_1/common/src/main/resources/assets/bettersearch/lang/en_us.json`
+- License: MIT
+- Format placeholders such as `%s` and `Alt + %s` are preserved.
+
+## Built-in translation: Borderless Window
+
+- Mod ID / language-key namespace: `borderless`
+- Target namespace: `assets/borderless/lang/ru_ru.json`
+- Included strings: 21
+- The existing translation is now available as an individual toggle in the built-in translation menu.
+
 ## Installed mod exports
 
 Bulk export writes each mod into its own subfolder under `<game-directory>/Rusify/exports`:

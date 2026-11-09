@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **90 встроенных локализаций** для популярных модов.
+- **91 встроенная локализация** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 90 локализаций · 11 916 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (91) · 12 069 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -134,6 +134,7 @@ resourcepacks/
 | Better Advanced Tooltips | 5 | [betteradvancedtooltips](src/main/resources/data/rusify/translations/betteradvancedtooltips/ru_ru.json) |
 | Better Advancements | 1 | [betteradvancements](src/main/resources/data/rusify/translations/betteradvancements/ru_ru.json) |
 | Better Biome ReBlend | 9 | [betterbiomereblend](src/main/resources/data/rusify/translations/betterbiomereblend/ru_ru.json) |
+| Better Search | 153 | [bettersearch](src/main/resources/data/rusify/translations/bettersearch/ru_ru.json) |
 | YUNG's Better End Island | 13 | [betterendisland](src/main/resources/data/rusify/translations/betterendisland/ru_ru.json) |
 | Better Third Person | 8 | [betterthirdperson](src/main/resources/data/rusify/translations/betterthirdperson/ru_ru.json) |
 | Better Zoom | 30 | [betterzoom](src/main/resources/data/rusify/translations/betterzoom/ru_ru.json) |
