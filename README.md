@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 81 локализация · 11 449 переводимых ключей</strong></summary>
+<summary><strong>Все 84 локализации · 11 707 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -146,6 +146,7 @@ resourcepacks/
 | Citadel | 24 | [citadel](src/main/resources/data/rusify/translations/citadel/ru_ru.json) |
 | Copper Equipment | 37 | [copperequipment](src/main/resources/data/rusify/translations/copperequipment/ru_ru.json) |
 | Create: Deep Dark | 51 | [create_deep_dark](src/main/resources/data/rusify/translations/create_deep_dark/ru_ru.json) |
+| Create Dupe Fix | 3 | [create_dupe_fix](src/main/resources/data/rusify/translations/create_dupe_fix/ru_ru.json) |
 | Create: Hypertubes | 64 | [create_hypertube](src/main/resources/data/rusify/translations/create_hypertube/ru_ru.json) |
 | Create: More Automation | 3 | [create_more_automation](src/main/resources/data/rusify/translations/create_more_automation/ru_ru.json) |
 | Create: Optical | 169 | [create_optical](src/main/resources/data/rusify/translations/create_optical/ru_ru.json) |
@@ -180,6 +181,7 @@ resourcepacks/
 | ModernFix | 155 | [modernfix](src/main/resources/data/rusify/translations/modernfix/ru_ru.json) |
 | More Culling | 56 | [moreculling](src/main/resources/data/rusify/translations/moreculling/ru_ru.json) |
 | More Delight | 58 | [moredelight](src/main/resources/data/rusify/translations/moredelight/ru_ru.json) |
+| Naturalist Delight | 10 | [farmerd_naturalist_compat](src/main/resources/data/rusify/translations/farmerd_naturalist_compat/ru_ru.json) |
 | OfflineLAN | 2 | [offlinelan](src/main/resources/data/rusify/translations/offlinelan/ru_ru.json) |
 | Ping Wheel | 61 | [pingwheel](src/main/resources/data/rusify/translations/pingwheel/ru_ru.json) |
 | Pufferfish's Skills | 50 | [puffish_skills](src/main/resources/data/rusify/translations/puffish_skills/ru_ru.json) |
@@ -200,6 +202,7 @@ resourcepacks/
 | Stone Zone | 411 | [stonezone](src/main/resources/data/rusify/translations/stonezone/ru_ru.json) |
 | Subtle Effects | 753 | [subtle_effects](src/main/resources/data/rusify/translations/subtle_effects/ru_ru.json) |
 | Tectonic | 109 | [tectonic](src/main/resources/data/rusify/translations/tectonic/ru_ru.json) |
+| TaCZ Tweaks | 244 | [tacztweaks](src/main/resources/data/rusify/translations/tacztweaks/ru_ru.json) |
 | Tool Trims | 14 | [tooltrims](src/main/resources/data/rusify/translations/tooltrims/ru_ru.json) |
 | Trimmed | 2 | [trimmed](src/main/resources/data/rusify/translations/trimmed/ru_ru.json) |
 | Ukulib | 14 | [ukulib](src/main/resources/data/rusify/translations/ukulib/ru_ru.json) |
@@ -300,3 +303,5 @@ src/main/resources/data/rusify/translations/<modid>/ru_ru.json
 ## Лицензия
 
 Rusify распространяется под лицензией **MIT**. Подробности — в файле [LICENSE](LICENSE).
+
+Локализация TaCZ Tweaks является отдельным сторонним материалом и распространяется под **GPL-3.0-only**. Подробности и атрибуция: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) и [LICENSES/GPL-3.0.txt](LICENSES/GPL-3.0.txt).
