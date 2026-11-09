@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public final class TranslationScreen extends Screen {
     private static final String[] MOD_IDS = {
-            "carryon", "offlinelan", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic",
+            "carryon", "offlinelan", "defaultoptions", "armorhud", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic",
             "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info",
             "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom",
             "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed",
@@ -22,7 +22,7 @@ public final class TranslationScreen extends Screen {
     };
 
     private static final String[] NAMES = {
-            "Carry On", "OfflineLAN", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!", "Sable",
+            "Carry On", "OfflineLAN", "Default Options", "uku's Armor Hud", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!", "Sable",
             "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight",
             "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil",
             "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences",

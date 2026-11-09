@@ -4,12 +4,12 @@
 
 The main Rusify screen has a separate **«Переводы и настройки»** page. It can:
 
-- independently enable or disable the built-in Carry On, OfflineLAN, and Advanced Loot Info Russian resource packs;
+- independently enable or disable the built-in Russian translations exposed in the menu, including Carry On, OfflineLAN, Armor HUD, Default Options, and Advanced Loot Info;
 - export each built-in translation as its own resource pack;
 - enable or disable automatic activation of all built-in packs at client startup;
 - open the installed-mod scan and export screen.
 
-The auto-activation setting is stored in `config/rusify-client.json`. Each pack is generated under its own `resourcepacks/Rusify-<mod-id>-Translation` directory and has a Rusify ownership marker. Existing directories without that marker are left untouched. The resource packs do not modify third-party mod JAR files.
+The auto-activation setting is stored in `config/rusify-client.json`. Selected translations are combined into the `resourcepacks/Rusify-Translations` resource pack, which has a Rusify ownership marker. Existing directories without that marker are left untouched. The resource pack does not modify third-party mod JAR files.
 
 ## Built-in translation: Carry On
 
@@ -27,6 +27,20 @@ The included Russian file is based on the official Carry On project localization
 - Target namespace: `assets/offlinelan/lang/ru_ru.json`
 - Included strings: 2
 - Translation is packaged as an independent offline resource pack.
+
+## Built-in translation: Armor HUD
+
+- Mod ID / language-key namespace: `armorhud`
+- Target namespace: `assets/armorhud/lang/ru_ru.json`
+- Included strings: 33
+- Covers the armor HUD widget, layout options, warning thresholds, and keybinding.
+
+## Built-in translation: Default Options
+
+- Mod ID / language-key namespace: `defaultoptions`
+- Target namespace: `assets/defaultoptions/lang/ru_ru.json`
+- Included strings: 7, including the configuration title and all current English option labels and tooltips.
+- Upstream project: https://github.com/TwelveIterations/DefaultOptions
 
 ## Built-in translation: Advanced Loot Info
 

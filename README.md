@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **89 встроенных локализаций** для популярных модов.
+- **90 встроенных локализаций** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 89 локализаций · 11 909 переводимых ключей</strong></summary>
+<summary><strong>Все 90 локализаций · 11 916 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -159,6 +159,7 @@ resourcepacks/
 | Cruor | 5 | [cruor](src/main/resources/data/rusify/translations/cruor/ru_ru.json) |
 | Curios | 48 | [curios](src/main/resources/data/rusify/translations/curios/ru_ru.json) |
 | Curios for Ammo Box | 1 | [curios_for_ammo_box](src/main/resources/data/rusify/translations/curios_for_ammo_box/ru_ru.json) |
+| Default Options | 7 | [defaultoptions](src/main/resources/data/rusify/translations/defaultoptions/ru_ru.json) |
 | Distant Horizons | 490 | [distanthorizons](src/main/resources/data/rusify/translations/distanthorizons/ru_ru.json) |
 | Dynamic FPS | 86 | [dynamic_fps](src/main/resources/data/rusify/translations/dynamic_fps/ru_ru.json) |
 | When Dungeons Arise | 119 | [dungeons_arise](src/main/resources/data/rusify/translations/dungeons_arise/ru_ru.json) |
