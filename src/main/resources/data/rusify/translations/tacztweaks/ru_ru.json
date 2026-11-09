@@ -117,7 +117,7 @@
   "tacztweaks.config.group.audioAndVisuals.system.name": "Система",
   "tacztweaks.config.group.audioAndVisuals.system.description": "Включение и отключение системных функций.",
   "tacztweaks.config.option.audioAndVisuals.system.mixToMono.name": "Преобразование в моно",
-  "tacztweaks.config.option.audioAndVisuals.system.mixToMono.description": "Улучшает преобразователь стереозвука TaCZ в моно.\nЭта реализация смешивает оба канала в один, тогда как TaCZ просто отбрасывает…",
+  "tacztweaks.config.option.audioAndVisuals.system.mixToMono.description": "Улучшает преобразователь стереозвука TaCZ в моно.\nЭта реализация смешивает оба канала в один, тогда как TaCZ просто отбрасывает один из каналов.",
   "tacztweaks.config.group.audioAndVisuals.audio.name": "Аудио",
   "tacztweaks.config.group.audioAndVisuals.audio.description": "Настройки звука.",
   "tacztweaks.config.option.audioAndVisuals.audio.broadcastFirstPersonGunSounds.name": "Передавать звуки оружия от первого лица",
