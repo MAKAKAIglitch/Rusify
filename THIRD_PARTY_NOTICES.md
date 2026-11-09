@@ -1,5 +1,9 @@
 # Сторонние материалы
 
+## Goblin Traders
+
+Русская локализация 11 строк проекта [MrCrayfish/GoblinTraders](https://github.com/MrCrayfish/GoblinTraders/tree/multiloader/1.21.1), Minecraft 1.21.1. Автор: MrCrayfish. Исходный проект распространяется по лицензии MIT; её текст сохранён в `LICENSES/MIT-GoblinTraders.txt`.
+
 ## TaCZ Tweaks
 
 Файл `src/main/resources/data/rusify/translations/tacztweaks/ru_ru.json` — русская локализация на основе английского языкового файла проекта [MUKSC/TaCZTweaks](https://github.com/MUKSC/TaCZTweaks).

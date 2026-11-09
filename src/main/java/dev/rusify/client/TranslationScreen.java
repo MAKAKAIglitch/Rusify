@@ -9,30 +9,11 @@ import net.minecraft.network.chat.Component;
 import java.io.IOException;
 
 public final class TranslationScreen extends Screen {
-    private static final String[] MOD_IDS = {
-            "carryon", "offlinelan", "defaultoptions", "armorhud", "ali", "stonezone", "gemsrealm", "punchy", "sable", "tectonic",
-            "expandeddelight", "screenshot_viewer", "ragdoll_reactions", "lendersdelight", "held_item_info",
-            "kiwi", "pingwheel", "sable_player_ragdoll", "aci", "ichunutil", "resourcefulconfig", "betterzoom",
-            "create_more_automation", "create_trimmed", "jumpoverfences", "breakingplace211neo", "trimmed",
-            "curios_for_ammo_box", "betteradvancements", "rebindnarrator", "betterbiomereblend", "borderless", "bettersearch", "ragdoll_corpse",
-            "dungeons_arise", "curios", "everycomp", "distanthorizons", "artifacts", "sodium_extra", "jei",
-            "createnuclear", "vinery", "snowrealmagic", "furniture", "farm_and_charm", "puffish_skills",
-            "moredelight", "moreculling", "golemoverhaul", "fastquit", "create_hypertube", "create_optical",
-            "create_deep_dark", "copperequipment", "chunkloaders", "mes", "tctcore", "matmos_tct", "guardvillagerstaczsupport", "alexsdelight", "dogslie", "examplemod", "fusion"
-    };
-
-    private static final String[] NAMES = {
-            "Carry On", "OfflineLAN", "Default Options", "uku's Armor Hud", "Advanced Loot Info", "Stone Zone", "Gems Realm", "Punchy!", "Sable",
-            "Tectonic", "Expanded Delight", "Screenshot Viewer", "Ragdoll Reactions", "L_Ender's Delight",
-            "Held Item Info", "Kiwi Library", "Ping Wheel", "Sable Ragdolls", "AdvancedCoreInfo", "iChunUtil",
-            "Resourceful Config", "Better Zoom", "Create: More Automation", "Create: Trimmed", "Jump Over Fences",
-            "BreakingPlace 211 neo", "Trimmed", "Curios for Ammo Box", "Better Advancements", "RebindNarrator",
-            "Better Biome ReBlend", "Borderless Window", "Better Search", "Sable: Ragdoll Corpse", "When Dungeons Arise", "Curios", "Every Compat",
-            "Distant Horizons", "Artifacts", "Sodium Extra", "Just Enough Items (JEI)", "Create Nuclear",
-            "[Let's Do] Vinery", "Snow! Real Magic!", "[Let's Do] Furniture", "[Let's Do] Farm & Charm",
-            "Pufferfish's Skills", "More Delight", "More Culling", "Golem Overhaul", "FastQuit",
-            "Create: Hypertubes", "Create: Optical", "Create: Deep Dark", "Copper Equipment", "Chunk Loaders", "MES - Moog's End Structures", "TCTcore", "Matmos TCT", "Guard Villagers TACZ Support", "Alex's Delight", "Let Sleeping Dogs Lie", "Пример мода (шаблон)", "Fusion"
-    };
+    private static final String[] MOD_IDS =
+            TranslationPackManager.builtInTranslationIdsInOrder().toArray(String[]::new);
+    private static final String[] NAMES = java.util.Arrays.stream(MOD_IDS)
+            .map(TranslationPackManager::builtInTranslationName)
+            .toArray(String[]::new);
 
     private static final int ROW_HEIGHT = 23;
     private final Screen parent;

@@ -1,0 +1,13 @@
+{
+  "entity.goblintraders.goblin_trader": "Гоблин-торговец",
+  "entity.goblintraders.vein_goblin_trader": "Незерский гоблин-торговец",
+  "subtitle.goblintraders.goblin_trader.annoyed_grunt": "Раздражённое ворчание",
+  "subtitle.goblintraders.goblin_trader.idle_grunt": "Спокойное ворчание",
+  "item.goblintraders.goblin_trader_spawn_egg": "Яйцо призыва гоблина-торговца",
+  "item.goblintraders.vein_goblin_trader_spawn_egg": "Яйцо призыва незерского гоблина-торговца",
+  "stat.goblintraders.trade_with_goblin": "Сделок с гоблинами",
+  "custom.goblintraders.tuned": "Доработано гоблином",
+  "custom.goblintraders.lore": "Особый предмет, переделанный гоблином и наделённый улучшенными свойствами.",
+  "custom.goblintraders.moon_boots": "Лунные ботинки",
+  "custom.goblintraders.mystery_map": "Загадочная карта"
+}

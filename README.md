@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (94) · 12 099 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (95) · 12 110 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -177,6 +177,7 @@ resourcepacks/
 | [Let's Do] Furniture | 393 | [furniture](src/main/resources/data/rusify/translations/furniture/ru_ru.json) |
 | Gems Realm | 304 | [gemsrealm](src/main/resources/data/rusify/translations/gemsrealm/ru_ru.json) |
 | Golem Overhaul | 59 | [golemoverhaul](src/main/resources/data/rusify/translations/golemoverhaul/ru_ru.json) |
+| Goblin Traders | 11 | [goblintraders](src/main/resources/data/rusify/translations/goblintraders/ru_ru.json) |
 | Held Item Info | 56 | [held_item_info](src/main/resources/data/rusify/translations/held_item_info/ru_ru.json) |
 | iChunUtil | 38 | [ichunutil](src/main/resources/data/rusify/translations/ichunutil/ru_ru.json) |
 | Just Enough Items (JEI) | 618 | [jei](src/main/resources/data/rusify/translations/jei/ru_ru.json) |
