@@ -18,7 +18,7 @@ public final class TranslationScreen extends Screen {
             "dungeons_arise", "curios", "everycomp", "distanthorizons", "artifacts", "sodium_extra", "jei",
             "createnuclear", "vinery", "snowrealmagic", "furniture", "farm_and_charm", "puffish_skills",
             "moredelight", "moreculling", "golemoverhaul", "fastquit", "create_hypertube", "create_optical",
-            "create_deep_dark", "copperequipment", "chunkloaders", "mes", "tctcore", "matmos_tct", "guardvillagerstaczsupport", "alexsdelight"
+            "create_deep_dark", "copperequipment", "chunkloaders", "mes", "tctcore", "matmos_tct", "guardvillagerstaczsupport", "alexsdelight", "dogslie", "examplemod", "fusion"
     };
 
     private static final String[] NAMES = {
@@ -31,7 +31,7 @@ public final class TranslationScreen extends Screen {
             "Distant Horizons", "Artifacts", "Sodium Extra", "Just Enough Items (JEI)", "Create Nuclear",
             "[Let's Do] Vinery", "Snow! Real Magic!", "[Let's Do] Furniture", "[Let's Do] Farm & Charm",
             "Pufferfish's Skills", "More Delight", "More Culling", "Golem Overhaul", "FastQuit",
-            "Create: Hypertubes", "Create: Optical", "Create: Deep Dark", "Copper Equipment", "Chunk Loaders", "MES - Moog's End Structures", "TCTcore", "Matmos TCT", "Guard Villagers TACZ Support", "Alex's Delight"
+            "Create: Hypertubes", "Create: Optical", "Create: Deep Dark", "Copper Equipment", "Chunk Loaders", "MES - Moog's End Structures", "TCTcore", "Matmos TCT", "Guard Villagers TACZ Support", "Alex's Delight", "Let Sleeping Dogs Lie", "Пример мода (шаблон)", "Fusion"
     };
 
     private static final int ROW_HEIGHT = 23;

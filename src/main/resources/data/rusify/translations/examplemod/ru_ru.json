@@ -1,0 +1,12 @@
+{
+  "itemGroup.examplemod": "Вкладка Example Mod",
+  "block.examplemod.example_block": "Тестовый блок",
+  "item.examplemod.example_item": "Тестовый предмет",
+  "examplemod.configuration.title": "Настройки Example Mod",
+  "examplemod.configuration.section.examplemod.common.toml": "Настройки Example Mod",
+  "examplemod.configuration.section.examplemod.common.toml.title": "Настройки Example Mod",
+  "examplemod.configuration.items": "Список предметов",
+  "examplemod.configuration.logDirtBlock": "Записывать блок земли в журнал",
+  "examplemod.configuration.magicNumberIntroduction": "Текст о магическом числе",
+  "examplemod.configuration.magicNumber": "Магическое число"
+}

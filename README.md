@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (91) · 12 069 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (94) · 12 099 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -162,8 +162,10 @@ resourcepacks/
 | Curios for Ammo Box | 1 | [curios_for_ammo_box](src/main/resources/data/rusify/translations/curios_for_ammo_box/ru_ru.json) |
 | Default Options | 7 | [defaultoptions](src/main/resources/data/rusify/translations/defaultoptions/ru_ru.json) |
 | Distant Horizons | 490 | [distanthorizons](src/main/resources/data/rusify/translations/distanthorizons/ru_ru.json) |
+| Let Sleeping Dogs Lie | 12 | [dogslie](src/main/resources/data/rusify/translations/dogslie/ru_ru.json) |
 | Dynamic FPS | 86 | [dynamic_fps](src/main/resources/data/rusify/translations/dynamic_fps/ru_ru.json) |
 | When Dungeons Arise | 119 | [dungeons_arise](src/main/resources/data/rusify/translations/dungeons_arise/ru_ru.json) |
+| Example Mod (template) | 10 | [examplemod](src/main/resources/data/rusify/translations/examplemod/ru_ru.json) |
 | Every Compat | 1 180 | [everycomp](src/main/resources/data/rusify/translations/everycomp/ru_ru.json) |
 | Expanded Delight | 119 | [expandeddelight](src/main/resources/data/rusify/translations/expandeddelight/ru_ru.json) |
 | [Let's Do] Farm & Charm | 681 | [farm_and_charm](src/main/resources/data/rusify/translations/farm_and_charm/ru_ru.json) |
@@ -171,6 +173,7 @@ resourcepacks/
 | Guard Villagers TACZ Support | 52 | [guardvillagerstaczsupport](src/main/resources/data/rusify/translations/guardvillagerstaczsupport/ru_ru.json) |
 | Guard Villagers | 74 | [guardvillagers](src/main/resources/data/rusify/translations/guardvillagers/ru_ru.json) |
 | Friends & Foes | 281 | [friendsandfoes](src/main/resources/data/rusify/translations/friendsandfoes/ru_ru.json) |
+| Fusion | 8 | [fusion](src/main/resources/data/rusify/translations/fusion/ru_ru.json) |
 | [Let's Do] Furniture | 393 | [furniture](src/main/resources/data/rusify/translations/furniture/ru_ru.json) |
 | Gems Realm | 304 | [gemsrealm](src/main/resources/data/rusify/translations/gemsrealm/ru_ru.json) |
 | Golem Overhaul | 59 | [golemoverhaul](src/main/resources/data/rusify/translations/golemoverhaul/ru_ru.json) |

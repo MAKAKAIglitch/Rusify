@@ -4,7 +4,7 @@
 
 The main Rusify screen has a separate **«Переводы и настройки»** page. It can:
 
-- independently enable or disable the built-in Russian translations exposed in the menu, including Carry On, OfflineLAN, Armor HUD, Default Options, and Advanced Loot Info;
+- independently enable or disable the built-in Russian translations exposed in the menu, including Carry On, OfflineLAN, Armor HUD, Default Options, Let Sleeping Dogs Lie, Example Mod, Fusion, Better Search, and Advanced Loot Info;
 - export each built-in translation as its own resource pack;
 - enable or disable automatic activation of all built-in packs at client startup;
 - open the installed-mod scan and export screen.
@@ -41,6 +41,28 @@ The included Russian file is based on the official Carry On project localization
 - Target namespace: `assets/defaultoptions/lang/ru_ru.json`
 - Included strings: 7, including the configuration title and all current English option labels and tooltips.
 - Upstream project: https://github.com/TwelveIterations/DefaultOptions
+
+## Built-in translation: Let Sleeping Dogs Lie
+
+- Mod ID / language-key namespace: `dogslie`
+- Target namespace: `assets/dogslie/lang/ru_ru.json`
+- Included strings: 12
+- Upstream project: https://github.com/iChun/LetSleepingDogsLie
+- The accepted values `NOBODY`, `OWNER`, `PLAYERS`, and `ANY_LIVING_ENTITY` are preserved exactly.
+
+## Built-in translation: Example Mod (template namespace)
+
+- Mod ID / language-key namespace: `examplemod`
+- Target namespace: `assets/examplemod/lang/ru_ru.json`
+- Included strings: 10
+- Generic Example Mod / NeoForge template strings for projects using the `examplemod` namespace.
+
+## Built-in translation: Fusion
+
+- Mod ID / language-key namespace: `fusion`
+- Target namespace: `assets/fusion/lang/ru_ru.json`
+- Included strings: 8
+- Upstream project: https://github.com/SuperMartijn642/Fusion
 
 ## Built-in translation: Advanced Loot Info
 
