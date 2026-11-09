@@ -1,14 +1,14 @@
 {
   "config.dogslie.prop.dogsSpawnLying.name": "Появление собак лёжа",
-  "config.dogslie.prop.dogsSpawnLying.desc": "Появляются ли собаки в мире уже лежащими, если перед этим они сидели.",
-  "config.dogslie.prop.timeBeforeLie.name": "Задержка перед тем, как лечь",
-  "config.dogslie.prop.timeBeforeLie.desc": "Время, в течение которого собака сидит перед тем, как лечь (в тиках).",
-  "config.dogslie.prop.rangeBeforeGettingUp.name": "Расстояние до подъёма",
-  "config.dogslie.prop.rangeBeforeGettingUp.desc": "Расстояние, на которое цель должна приблизиться к собаке, прежде чем та встанет (в блоках).",
-  "config.dogslie.prop.getsUpFor.name": "Встаёт ради...",
-  "config.dogslie.prop.getsUpFor.desc": "Для кого собака встаёт?\nДопустимые значения: NOBODY, OWNER, PLAYERS, ANY_LIVING_ENTITY",
+  "config.dogslie.prop.dogsSpawnLying.desc": "Появляются ли собаки в мире лежащими, если до этого они сидели?",
+  "config.dogslie.prop.timeBeforeLie.name": "Время до того, как собака ляжет",
+  "config.dogslie.prop.timeBeforeLie.desc": "Сколько тактов собака должна просидеть, прежде чем лечь.",
+  "config.dogslie.prop.rangeBeforeGettingUp.name": "Радиус, в котором собака встаёт",
+  "config.dogslie.prop.rangeBeforeGettingUp.desc": "Расстояние в блоках, на которое цель должна приблизиться к собаке, чтобы та встала.",
+  "config.dogslie.prop.getsUpFor.name": "Для кого собака встаёт",
+  "config.dogslie.prop.getsUpFor.desc": "Кто может заставить собаку встать?\nДопустимые значения: NOBODY, OWNER, PLAYERS, ANY_LIVING_ENTITY",
   "config.dogslie.prop.playSoundWhenLieStateChanges.name": "Звук при смене положения",
   "config.dogslie.prop.playSoundWhenLieStateChanges.desc": "Воспроизводить лай или скулёж, когда собака встаёт или ложится?",
-  "config.dogslie.prop.enabledPoses.name": "Разрешённые позы лёжа",
-  "config.dogslie.prop.enabledPoses.desc": "Позы, в которых собакам разрешено лежать. Если мод не найдёт совместимые позы, он случайным образом выберет один из наборов."
+  "config.dogslie.prop.enabledPoses.name": "Доступные позы для сна",
+  "config.dogslie.prop.enabledPoses.desc": "Позы, в которых собакам разрешено лежать. Если мод не найдёт совместимых поз, он случайным образом выберет один из наборов."
 }
