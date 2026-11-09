@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **81 встроенная локализация** для популярных модов.
+- **89 встроенных локализаций** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все 84 локализации · 11 707 переводимых ключей</strong></summary>
+<summary><strong>Все 89 локализаций · 11 909 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -127,6 +127,7 @@ resourcepacks/
 |---|---:|---|
 | Advanced Loot Info | 609 | [ali](src/main/resources/data/rusify/translations/ali/ru_ru.json) |
 | AdvancedCoreInfo | 67 | [aci](src/main/resources/data/rusify/translations/aci/ru_ru.json) |
+| Alex's Delight | 24 | [alexsdelight](src/main/resources/data/rusify/translations/alexsdelight/ru_ru.json) |
 | Artifacts | 448 | [artifacts](src/main/resources/data/rusify/translations/artifacts/ru_ru.json) |
 | uku's Armor Hud | 33 | [armorhud](src/main/resources/data/rusify/translations/armorhud/ru_ru.json) |
 | Balm | 36 | [balm](src/main/resources/data/rusify/translations/balm/ru_ru.json) |
@@ -165,6 +166,7 @@ resourcepacks/
 | Expanded Delight | 119 | [expandeddelight](src/main/resources/data/rusify/translations/expandeddelight/ru_ru.json) |
 | [Let's Do] Farm & Charm | 681 | [farm_and_charm](src/main/resources/data/rusify/translations/farm_and_charm/ru_ru.json) |
 | FastQuit | 26 | [fastquit](src/main/resources/data/rusify/translations/fastquit/ru_ru.json) |
+| Guard Villagers TACZ Support | 52 | [guardvillagerstaczsupport](src/main/resources/data/rusify/translations/guardvillagerstaczsupport/ru_ru.json) |
 | Guard Villagers | 74 | [guardvillagers](src/main/resources/data/rusify/translations/guardvillagers/ru_ru.json) |
 | Friends & Foes | 281 | [friendsandfoes](src/main/resources/data/rusify/translations/friendsandfoes/ru_ru.json) |
 | [Let's Do] Furniture | 393 | [furniture](src/main/resources/data/rusify/translations/furniture/ru_ru.json) |
@@ -174,10 +176,12 @@ resourcepacks/
 | iChunUtil | 38 | [ichunutil](src/main/resources/data/rusify/translations/ichunutil/ru_ru.json) |
 | Just Enough Items (JEI) | 618 | [jei](src/main/resources/data/rusify/translations/jei/ru_ru.json) |
 | Jump Over Fences | 3 | [jumpoverfences](src/main/resources/data/rusify/translations/jumpoverfences/ru_ru.json) |
+| Matmos TCT | 65 | [matmos_tct](src/main/resources/data/rusify/translations/matmos_tct/ru_ru.json) |
 | LambDynamicLights | 65 | [lambdynlights](src/main/resources/data/rusify/translations/lambdynlights/ru_ru.json) |
 | Kiwi Library | 75 | [kiwi](src/main/resources/data/rusify/translations/kiwi/ru_ru.json) |
 | L_Ender's Delight | 86 | [lendersdelight](src/main/resources/data/rusify/translations/lendersdelight/ru_ru.json) |
 | Lift n' Load | 14 | [create_lnl](src/main/resources/data/rusify/translations/create_lnl/ru_ru.json) |
+| MES - Moog's End Structures | 7 | [mes](src/main/resources/data/rusify/translations/mes/ru_ru.json) |
 | ModernFix | 155 | [modernfix](src/main/resources/data/rusify/translations/modernfix/ru_ru.json) |
 | More Culling | 56 | [moreculling](src/main/resources/data/rusify/translations/moreculling/ru_ru.json) |
 | More Delight | 58 | [moredelight](src/main/resources/data/rusify/translations/moredelight/ru_ru.json) |
@@ -203,6 +207,7 @@ resourcepacks/
 | Subtle Effects | 753 | [subtle_effects](src/main/resources/data/rusify/translations/subtle_effects/ru_ru.json) |
 | Tectonic | 109 | [tectonic](src/main/resources/data/rusify/translations/tectonic/ru_ru.json) |
 | TaCZ Tweaks | 244 | [tacztweaks](src/main/resources/data/rusify/translations/tacztweaks/ru_ru.json) |
+| TCTcore | 54 | [tctcore](src/main/resources/data/rusify/translations/tctcore/ru_ru.json) |
 | Tool Trims | 14 | [tooltrims](src/main/resources/data/rusify/translations/tooltrims/ru_ru.json) |
 | Trimmed | 2 | [trimmed](src/main/resources/data/rusify/translations/trimmed/ru_ru.json) |
 | Ukulib | 14 | [ukulib](src/main/resources/data/rusify/translations/ukulib/ru_ru.json) |
