@@ -44,6 +44,18 @@ The upstream Russian file contained 10 of the 12 keys. Rusify keeps those transl
 
 The upstream Russian file contained 62 entries, but most still had English text. Rusify provides a reviewed Russian translation for all 72 English keys. Format placeholders and the `§6` warning color code are preserved.
 
+## Built-in translation: Sound Physics Remastered
+
+- Mod ID / language-key namespace: `sound_physics_remastered`
+- Target namespace: `assets/sound_physics_remastered/lang/ru_ru.json`
+- Included strings: 72 (all keys in the upstream English file)
+- Target game: Minecraft 1.21.1, NeoForge
+- Upstream project: https://github.com/henkelmax/sound-physics-remastered/tree/1.21.1
+- Source revision: `904527a720858a8a79f59b6a6bab2ebfafab0538`
+- License: GPL-3.0; the original license text is already preserved in [LICENSES/GPL-3.0.txt](../LICENSES/GPL-3.0.txt).
+
+The upstream Russian file contained 66 of the 72 English keys. Rusify adds the six missing settings and descriptions. The English source key set is fully covered.
+
 ## Built-in translation: AppleSkin
 
 - Mod ID / language-key namespace: `appleskin`
