@@ -3,9 +3,23 @@ name: Build
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE*'
+      - 'LICENSES/**'
+      - 'docs/**'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE*'
+      - 'LICENSES/**'
+      - 'docs/**'
   workflow_dispatch:
+
+concurrency:
+  group: rusify-build-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -13,6 +27,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,8 +44,23 @@ jobs:
       - name: Set up Gradle cache
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Compile and package with the repository wrapper
+      - name: Compile and package
         run: ./gradlew build --no-daemon --build-cache
+
+      - name: Validate PowerShell scripts
+        shell: pwsh
+        run: |
+          $files = @("scripts/build.ps1", "scripts/update-sources.ps1")
+          foreach ($file in $files) {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD $file), [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count -gt 0) {
+              $errors | Format-List
+              exit 1
+            }
+            Write-Host "PowerShell syntax is valid: $file"
+          }
 
       - name: Upload mod JAR
         uses: actions/upload-artifact@v4
@@ -38,24 +68,4 @@ jobs:
           name: Rusify-${{ github.sha }}
           path: build/libs/*.jar
           if-no-files-found: error
-
-  validate-windows-builder:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Validate PowerShell scripts
-        shell: powershell
-        run: |
-          $files = @("$PWD\scripts\build.ps1", "$PWD\scripts\update-sources.ps1")
-          foreach ($file in $files) {
-            $tokens = $null
-            $errors = $null
-            [System.Management.Automation.Language.Parser]::ParseFile($file, [ref]$tokens, [ref]$errors) | Out-Null
-            if ($errors.Count -gt 0) {
-              $errors | Format-List
-              exit 1
-            }
-            Write-Host "PowerShell syntax is valid: $file"
-          }
+          retention-days: 3
