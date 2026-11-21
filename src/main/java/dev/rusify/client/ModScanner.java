@@ -178,7 +178,7 @@ public final class ModScanner {
         Path exportRoot = FMLPaths.GAMEDIR.get().resolve("Rusify").resolve("exports");
         boolean hasRusifyTranslation = TranslationPackManager.hasBuiltInTranslation(result.modId());
         String category = hasRusifyTranslation
-                ? "Есть перевод Rusify"
+                ? "Неполные переводы Rusify"
                 : (result.translatedKeys() > 0 ? "Частичный перевод" : "Нет перевода");
         Path categoryDirectory = exportRoot.resolve(category).normalize();
         String safeId = result.modId().replaceAll("[^a-zA-Z0-9_.-]", "_");
@@ -241,9 +241,10 @@ public final class ModScanner {
             }
         }
 
-        // Include the actual bundled Rusify translation, not an empty template from the mod JAR.
+        // Merge the bundled Rusify translation into the source-based template.
+        // Existing translated strings are retained; source keys still missing in Rusify stay empty.
         if (hasRusifyTranslation) {
-            TranslationPackManager.exportBuiltInTranslation(result.modId(), modDirectory);
+            TranslationPackManager.mergeBuiltInTranslation(result.modId(), modDirectory);
         }
 
         String metadata = "{\n"
