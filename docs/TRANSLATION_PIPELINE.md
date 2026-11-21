@@ -21,6 +21,17 @@ The included Russian file is based on the official Carry On project localization
 - Upstream project: https://github.com/Tschipp/CarryOn
 - License: LGPL-3.0
 
+## Built-in translation: Controlling
+
+- Mod ID / language-key namespace: `controlling`
+- Target namespace: `assets/controlling/lang/ru_ru.json`
+- Included strings: 12 (all keys in the upstream English file)
+- Target game: Minecraft 1.21.1, NeoForge
+- Upstream project: https://github.com/jaredlll08/Controlling/tree/1.21.1
+- Source revision: `7be58eb38962e9e1e1e932c84d9f57c65719a23c`
+- License: MIT; the original license notice is preserved in [LICENSES/MIT-Controlling.txt](../LICENSES/MIT-Controlling.txt).
+
+The upstream Russian file contained 10 of the 12 keys. Rusify keeps those translations and adds the two missing key-sorting labels. The English source key set is fully covered.
 ## Built-in translation: AppleSkin
 
 - Mod ID / language-key namespace: `appleskin`
