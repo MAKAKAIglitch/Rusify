@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (96) · 12 599 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (97) · 12 621 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -128,6 +128,7 @@ resourcepacks/
 | Advanced Loot Info | 609 | [ali](src/main/resources/data/rusify/translations/ali/ru_ru.json) |
 | AdvancedCoreInfo | 67 | [aci](src/main/resources/data/rusify/translations/aci/ru_ru.json) |
 | Alex's Delight | 24 | [alexsdelight](src/main/resources/data/rusify/translations/alexsdelight/ru_ru.json) |
+| AppleSkin | 22 | [appleskin](src/main/resources/data/rusify/translations/appleskin/ru_ru.json) |
 | Artifacts | 448 | [artifacts](src/main/resources/data/rusify/translations/artifacts/ru_ru.json) |
 | uku's Armor Hud | 33 | [armorhud](src/main/resources/data/rusify/translations/armorhud/ru_ru.json) |
 | Balm | 36 | [balm](src/main/resources/data/rusify/translations/balm/ru_ru.json) |
