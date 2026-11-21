@@ -10,7 +10,7 @@
 
 - Исходный проект: Timeless & Classics Guns: Zero.
 - Лицензия исходного проекта и локализации: GNU General Public License v3.0 (GPL-3.0).
-- Версия исходников: `4a038593b980b901941f54c397afc7854f8b017a`.
+- Версия исходников: `0c18675405838eae703d71a87d553a0f111220a4`.
 - Текст лицензии: [LICENSES/GPL-3.0.txt](LICENSES/GPL-3.0.txt).
 
 ## TaCZ Tweaks
