@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **100 встроенных локализаций** для популярных модов.
+- **102 встроенные локализации** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (101) · 12 985 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (102) · 13 032 переводимых ключа</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -151,6 +151,7 @@ resourcepacks/
 | Copper Equipment | 37 | [copperequipment](src/main/resources/data/rusify/translations/copperequipment/ru_ru.json) |
 | Controlling | 12 | [controlling](src/main/resources/data/rusify/translations/controlling/ru_ru.json) |
 | Configured | 72 | [configured](src/main/resources/data/rusify/translations/configured/ru_ru.json) |
+| CreativeCore | 47 | [creativecore](src/main/resources/data/rusify/translations/creativecore/ru_ru.json) |
 | Create: Deep Dark | 51 | [create_deep_dark](src/main/resources/data/rusify/translations/create_deep_dark/ru_ru.json) |
 | Create Dupe Fix | 3 | [create_dupe_fix](src/main/resources/data/rusify/translations/create_dupe_fix/ru_ru.json) |
 | Create: Hypertubes | 64 | [create_hypertube](src/main/resources/data/rusify/translations/create_hypertube/ru_ru.json) |

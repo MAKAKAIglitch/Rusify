@@ -44,6 +44,18 @@ The upstream Russian file contained 10 of the 12 keys. Rusify keeps those transl
 
 The upstream Russian file contained 62 entries, but most still had English text. Rusify provides a reviewed Russian translation for all 72 English keys. Format placeholders and the `§6` warning color code are preserved.
 
+## Built-in translation: CreativeCore
+
+- Mod ID / language-key namespace: `creativecore`
+- Target namespace: `assets/creativecore/lang/ru_ru.json`
+- Included strings: 47 (all keys in the upstream English file)
+- Target game: Minecraft 1.21.1, NeoForge
+- Upstream project: https://github.com/CreativeMD/CreativeCore/tree/1.21.x
+- Source revision: `8d663de3916936fd469f54a9fffb2bf4eb29e09f`
+- License: LGPL-3.0-or-later; the original license text is preserved in [LICENSES/LGPL-3.0-CreativeCore.txt](../LICENSES/LGPL-3.0-CreativeCore.txt).
+
+The upstream Russian file contained 44 of the 47 English keys. Rusify preserves those translations and adds the missing boolean labels and sound-preview action. The English source key set is fully covered.
+
 ## Built-in translation: Sound Physics Remastered
 
 - Mod ID / language-key namespace: `sound_physics_remastered`

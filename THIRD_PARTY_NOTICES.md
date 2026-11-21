@@ -24,6 +24,17 @@
 - Оригинальный текст лицензии сохранён в [LICENSES/LGPL-3.0-Configured.txt](LICENSES/LGPL-3.0-Configured.txt).
 - Перевод включает все 72 ключа английского файла; существующий русский файл содержал много непереведённых английских строк.
 
+## CreativeCore
+
+Файл `src/main/resources/data/rusify/translations/creativecore/ru_ru.json` — русская локализация на основе языковых файлов проекта [CreativeMD/CreativeCore](https://github.com/CreativeMD/CreativeCore/tree/1.21.x).
+
+- Автор оригинального проекта: CreativeMD.
+- Исходная ветка: `1.21.x`, ревизия `8d663de3916936fd469f54a9fffb2bf4eb29e09f`.
+- Целевая версия: Minecraft 1.21.1, NeoForge.
+- Лицензия исходного проекта: GNU Lesser General Public License v3.0 or later (LGPL-3.0-or-later).
+- Текст лицензии сохранён в [LICENSES/LGPL-3.0-CreativeCore.txt](LICENSES/LGPL-3.0-CreativeCore.txt).
+- Перевод включает все 47 ключей английского файла: 44 существующих русских строки сохранены, три недостающих переведены в Rusify.
+
 ## Sound Physics Remastered
 
 Файл `src/main/resources/data/rusify/translations/sound_physics_remastered/ru_ru.json` — русская локализация на основе языковых файлов проекта [henkelmax/sound-physics-remastered](https://github.com/henkelmax/sound-physics-remastered/tree/1.21.1).
