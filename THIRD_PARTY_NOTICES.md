@@ -1,5 +1,15 @@
 # Сторонние материалы
 
+## Bookshelf
+
+Файл `src/main/resources/data/rusify/translations/bookshelf/ru_ru.json` — русская локализация на основе английского языкового файла проекта [Darkhax-Minecraft/Bookshelf](https://github.com/Darkhax-Minecraft/Bookshelf/tree/1.21.1).
+
+- Автор оригинального проекта: Darkhax (DarkhaxDev).
+- Исходная ветка: `1.21.1`, ревизия `5dead24858668c3de411cec7956158dfc2aeeecf`.
+- Лицензия исходного проекта: GNU Lesser General Public License v2.1 only (LGPL-2.1-only).
+- Текст лицензии сохранён в [LICENSES/LGPL-2.1.txt](LICENSES/LGPL-2.1.txt).
+- Перевод охватывает все 208 ключей исходного английского файла. Плейсхолдеры форматирования сохранены.
+
 ## Goblin Traders
 
 Русская локализация 11 строк проекта [MrCrayfish/GoblinTraders](https://github.com/MrCrayfish/GoblinTraders/tree/multiloader/1.21.1), Minecraft 1.21.1. Автор: MrCrayfish. Исходный проект распространяется по лицензии MIT; её текст сохранён в `LICENSES/MIT-GoblinTraders.txt`.
