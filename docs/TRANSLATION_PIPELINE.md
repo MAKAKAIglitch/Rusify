@@ -148,6 +148,18 @@ The upstream Russian file contained 12 of the 22 keys. Rusify retains the existi
 
 The translation follows the upstream 1.21.1 English key set. All 489 keys are present, including the 35 strings missing from the upstream Russian file. Format placeholders are checked against the English source and preserved.
 
+## Built-in translation: Bookshelf
+
+- Mod ID / language-key namespace: `bookshelf`
+- Target namespace: `assets/bookshelf/lang/ru_ru.json`
+- Included strings: 208 (all keys in the upstream English file)
+- Target game: Minecraft 1.21.1, NeoForge
+- Upstream project: https://github.com/Darkhax-Minecraft/Bookshelf/tree/1.21.1
+- Source revision: `5dead24858668c3de411cec7956158dfc2aeeecf`
+- License: LGPL-2.1-only; the original license text is preserved in [LICENSES/LGPL-2.1.txt](../LICENSES/LGPL-2.1.txt).
+
+All 208 English source keys are covered. Formatting placeholders such as `%s` are preserved. The built-in entry is registered in Rusify's translation menu and export pipeline.
+
 ## Installed mod exports
 
 Bulk export writes each mod into its own subfolder under `<game-directory>/Rusify/exports`:
