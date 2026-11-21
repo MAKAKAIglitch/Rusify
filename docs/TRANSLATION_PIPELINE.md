@@ -31,7 +31,7 @@ The included Russian file is based on the official Carry On project localization
 - Source revision: `cd80d147c7a326ce67731f9ef546a65d72c98629`
 - License: Unlicense (public domain dedication); see [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 
-The upstream Russian file contained 12 of the 22 keys. Rusify retains the existing Russian labels and completes the 10 missing tooltip descriptions. The English source key set is fully covered.
+The upstream Russian file contained 12 of the 22 keys. Rusify retains the existing Russian labels and completes the 10 missing tooltip descriptions. The English source key set is fully covered. The upstream release notes state that the 1.21 build also works on Minecraft 1.21.1.
 ## Built-in translation: OfflineLAN
 
 - Mod ID: `offlinelan`
