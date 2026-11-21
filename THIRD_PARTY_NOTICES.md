@@ -14,6 +14,16 @@
 - Оригинальный текст лицензии сохранён в [LICENSES/LGPL-3.0-Configured.txt](LICENSES/LGPL-3.0-Configured.txt).
 - Перевод включает все 72 ключа английского файла; существующий русский файл содержал много непереведённых английских строк.
 
+## Sound Physics Remastered
+
+Файл `src/main/resources/data/rusify/translations/sound_physics_remastered/ru_ru.json` — русская локализация на основе языковых файлов проекта [henkelmax/sound-physics-remastered](https://github.com/henkelmax/sound-physics-remastered/tree/1.21.1).
+
+- Авторы оригинального проекта: Sonic Ether, vlad2305m, Max Henkel.
+- Исходная ветка: `1.21.1`, ревизия `904527a720858a8a79f59b6a6bab2ebfafab0538`.
+- Лицензия исходного проекта и локализации: GNU General Public License v3.0 (GPL-3.0).
+- Текст лицензии: [LICENSES/GPL-3.0.txt](LICENSES/GPL-3.0.txt).
+- Перевод включает все 72 ключа английского файла; шесть отсутствовавших строк добавлены в Rusify.
+
 ## Controlling
 
 Файл `src/main/resources/data/rusify/translations/controlling/ru_ru.json` — русская локализация на основе языковых файлов проекта [jaredlll08/Controlling](https://github.com/jaredlll08/Controlling/tree/1.21.1).
