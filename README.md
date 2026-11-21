@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (100) · 12 777 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (101) · 12 985 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -142,6 +142,7 @@ resourcepacks/
 | Biomes O' Plenty | 601 | [biomesoplenty](src/main/resources/data/rusify/translations/biomesoplenty/ru_ru.json) |
 | Borderless Window | 21 | [borderless](src/main/resources/data/rusify/translations/borderless/ru_ru.json) |
 | BreakingPlace 211 neo | 3 | [breakingplace211neo](src/main/resources/data/rusify/translations/breakingplace211neo/ru_ru.json) |
+| Bookshelf | 208 | [bookshelf](src/main/resources/data/rusify/translations/bookshelf/ru_ru.json) |
 | Carry On | 12 | [carryon](src/main/resources/data/rusify/translations/carryon/ru_ru.json) |
 | Chat Heads | 30 | [chat_heads](src/main/resources/data/rusify/translations/chat_heads/ru_ru.json) |
 | Chef's Delight | 15 | [chefsdelight](src/main/resources/data/rusify/translations/chefsdelight/ru_ru.json) |
