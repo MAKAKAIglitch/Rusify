@@ -90,6 +90,18 @@ The included Russian file is based on the official Carry On project localization
 - Included strings: 21
 - The existing translation is now available as an individual toggle in the built-in translation menu.
 
+## Built-in translation: TaCZ (Timeless & Classics Zero)
+
+- Mod ID / language-key namespace: `tacz`
+- Target namespace: `assets/tacz/lang/ru_ru.json`
+- Included strings: 489
+- Target game: Minecraft 1.21.1
+- Upstream project: https://github.com/MCModderAnchor/TACZ/tree/1.21.1
+- Source revision: `0c18675405838eae703d71a87d553a0f111220a4`
+- License: GPL-3.0; see [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
+
+The translation follows the upstream 1.21.1 English key set. All 489 keys are present, including the 35 strings missing from the upstream Russian file. Format placeholders are checked against the English source and preserved.
+
 ## Installed mod exports
 
 Bulk export writes each mod into its own subfolder under `<game-directory>/Rusify/exports`:
