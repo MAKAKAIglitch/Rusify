@@ -112,7 +112,7 @@ public final class ExportScreen extends Screen {
     private void exportIncomplete() {
         if (scanning || exporting) return;
         List<ModScanResult> incomplete = results.stream()
-                .filter(result -> result.englishKeys() > 0 && result.coveragePercent() < 100)
+                .filter(ModScanner::isIncompleteTranslation)
                 .toList();
         if (incomplete.isEmpty()) {
             message = "Неполных переводов не найдено. Сначала нажмите «Сканировать».";
