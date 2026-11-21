@@ -135,6 +135,13 @@ public final class TranslationPackManager {
             com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(json);
             if (!parsed.isJsonObject()) throw new IOException("Встроенный перевод должен быть JSON-объектом: " + modId);
             com.google.gson.JsonObject bundled = parsed.getAsJsonObject();
+            // Do not inherit strings from the mod's own ru_ru.json: this export represents Rusify's coverage.
+            for (var entry : template.entrySet()) {
+                com.google.gson.JsonElement value = entry.getValue();
+                if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
+                    entry.setValue(new com.google.gson.JsonPrimitive(""));
+                }
+            }
             for (var entry : bundled.entrySet()) {
                 com.google.gson.JsonElement value = entry.getValue();
                 if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()
