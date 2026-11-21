@@ -4,6 +4,14 @@
 
 Русская локализация 11 строк проекта [MrCrayfish/GoblinTraders](https://github.com/MrCrayfish/GoblinTraders/tree/multiloader/1.21.1), Minecraft 1.21.1. Автор: MrCrayfish. Исходный проект распространяется по лицензии MIT; её текст сохранён в `LICENSES/MIT-GoblinTraders.txt`.
 
+## AppleSkin
+
+Файл `src/main/resources/data/rusify/translations/appleskin/ru_ru.json` — русская локализация на основе языковых файлов проекта [squeek502/AppleSkin](https://github.com/squeek502/AppleSkin/tree/1.21-neoforge).
+
+- Автор оригинального проекта: squeek502.
+- Исходная ветка: `1.21-neoforge`, ревизия `cd80d147c7a326ce67731f9ef546a65d72c98629`.
+- Лицензия исходного проекта: Unlicense (передача в общественное достояние).
+- Перевод включает все 22 ключа английского файла; 10 недостающих описаний настроек переведены в Rusify.
 ## TaCZ (Timeless & Classics Zero)
 
 Файл `src/main/resources/data/rusify/translations/tacz/ru_ru.json` — русская локализация на основе языковых файлов проекта [MCModderAnchor/TACZ](https://github.com/MCModderAnchor/TACZ).
