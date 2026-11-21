@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **99 встроенных локализаций** для популярных модов.
+- **100 встроенных локализаций** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (99) · 12 705 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (100) · 12 777 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -210,6 +210,7 @@ resourcepacks/
 | Sable Ragdolls | 43 | [sable_player_ragdoll](src/main/resources/data/rusify/translations/sable_player_ragdoll/ru_ru.json) |
 | Screenshot Viewer | 74 | [screenshot_viewer](src/main/resources/data/rusify/translations/screenshot_viewer/ru_ru.json) |
 | Smooth Swapping | 14 | [smoothswapping](src/main/resources/data/rusify/translations/smoothswapping/ru_ru.json) |
+| Sound Physics Remastered | 72 | [sound_physics_remastered](src/main/resources/data/rusify/translations/sound_physics_remastered/ru_ru.json) |
 | Snow! Real Magic! | 74 | [snowrealmagic](src/main/resources/data/rusify/translations/snowrealmagic/ru_ru.json) |
 | Sodium Extra | 418 | [sodium_extra](src/main/resources/data/rusify/translations/sodium_extra/ru_ru.json) |
 | Stone Zone | 411 | [stonezone](src/main/resources/data/rusify/translations/stonezone/ru_ru.json) |
