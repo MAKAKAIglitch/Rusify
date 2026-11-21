@@ -60,6 +60,56 @@ public final class TranslationPackManager {
         }
     }
 
+    /**
+     * Merges the bundled Russian file into an exported source template.
+     * Missing source keys remain empty so translators can fill them in.
+     */
+    public static void mergeBuiltInTranslation(String modId, Path exportRoot) throws IOException {
+        if (!hasBuiltInTranslation(modId)) return;
+        Translation translation = translation(modId);
+        Path destination = exportRoot.resolve("assets").resolve(translation.namespace())
+                .resolve("lang").resolve("ru_ru.json").normalize();
+        if (!destination.startsWith(exportRoot.normalize())) {
+            throw new IOException("Недопустимый путь для встроенного перевода: " + modId);
+        }
+        if (!Files.isRegularFile(destination)) {
+            throw new IOException("Не найден шаблон для объединения: " + destination);
+        }
+
+        com.google.gson.JsonObject template;
+        try {
+            com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(
+                    Files.readString(destination, StandardCharsets.UTF_8));
+            if (!parsed.isJsonObject()) throw new IOException("Шаблон перевода должен быть JSON-объектом.");
+            template = parsed.getAsJsonObject();
+        } catch (com.google.gson.JsonParseException exception) {
+            throw new IOException("Некорректный JSON шаблона: " + destination, exception);
+        }
+
+        String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
+        try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
+            if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+            String json = new String(input.readAllBytes(), StandardCharsets.UTF_8);
+            com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(json);
+            if (!parsed.isJsonObject()) throw new IOException("Встроенный перевод должен быть JSON-объектом: " + modId);
+            com.google.gson.JsonObject bundled = parsed.getAsJsonObject();
+            for (var entry : bundled.entrySet()) {
+                com.google.gson.JsonElement value = entry.getValue();
+                if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()
+                        && !value.getAsString().isBlank()) {
+                    template.add(entry.getKey(), value.deepCopy());
+                }
+            }
+        } catch (com.google.gson.JsonParseException exception) {
+            throw new IOException("Некорректный JSON встроенного перевода: " + modId, exception);
+        }
+
+        Files.writeString(destination,
+                new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(template)
+                        + System.lineSeparator(),
+                StandardCharsets.UTF_8);
+    }
+
     public static void enableNewBuiltInTranslations(java.util.Set<String> modIds) throws IOException {
         if (modIds.isEmpty()) return;
 
