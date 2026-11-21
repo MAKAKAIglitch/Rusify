@@ -61,6 +61,48 @@ public final class TranslationPackManager {
     }
 
     /**
+     * Checks the built-in Rusify file against the installed mod's English source.
+     */
+    public static boolean hasIncompleteBuiltInTranslation(String modId, Path jarPath) throws IOException {
+        if (!hasBuiltInTranslation(modId)) return false;
+        Translation translation = translation(modId);
+        String sourcePath = "assets/" + translation.namespace() + "/lang/en_us.json";
+        try (java.util.jar.JarFile jar = new java.util.jar.JarFile(jarPath.toFile())) {
+            java.util.jar.JarEntry sourceEntry = jar.getJarEntry(sourcePath);
+            if (sourceEntry == null || sourceEntry.getSize() > 8 * 1024 * 1024) return false;
+            com.google.gson.JsonObject source;
+            try (InputStream input = jar.getInputStream(sourceEntry)) {
+                com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(
+                        new String(input.readAllBytes(), StandardCharsets.UTF_8));
+                if (!parsed.isJsonObject()) throw new IOException("Некорректный en_us.json: " + sourcePath);
+                source = parsed.getAsJsonObject();
+            }
+
+            String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
+            try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
+                if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+                com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(
+                        new String(input.readAllBytes(), StandardCharsets.UTF_8));
+                if (!parsed.isJsonObject()) throw new IOException("Некорректный встроенный JSON: " + modId);
+                com.google.gson.JsonObject russian = parsed.getAsJsonObject();
+                for (var entry : source.entrySet()) {
+                    com.google.gson.JsonElement sourceValue = entry.getValue();
+                    if (!sourceValue.isJsonPrimitive() || !sourceValue.getAsJsonPrimitive().isString()) continue;
+                    com.google.gson.JsonElement translated = russian.get(entry.getKey());
+                    if (translated == null || !translated.isJsonPrimitive()
+                            || !translated.getAsJsonPrimitive().isString()
+                            || translated.getAsString().isBlank()) return true;
+                }
+                return false;
+            } catch (com.google.gson.JsonParseException exception) {
+                throw new IOException("Некорректный JSON встроенного перевода: " + modId, exception);
+            }
+        } catch (com.google.gson.JsonParseException exception) {
+            throw new IOException("Некорректный исходный JSON: " + sourcePath, exception);
+        }
+    }
+
+    /**
      * Merges the bundled Russian file into an exported source template.
      * Missing source keys remain empty so translators can fill them in.
      */
