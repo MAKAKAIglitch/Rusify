@@ -21,6 +21,17 @@ The included Russian file is based on the official Carry On project localization
 - Upstream project: https://github.com/Tschipp/CarryOn
 - License: LGPL-3.0
 
+## Built-in translation: AppleSkin
+
+- Mod ID / language-key namespace: `appleskin`
+- Target namespace: `assets/appleskin/lang/ru_ru.json`
+- Included strings: 22 (all keys in the upstream English file)
+- Target game: Minecraft 1.21.1, NeoForge
+- Upstream project: https://github.com/squeek502/AppleSkin/tree/1.21-neoforge
+- Source revision: `cd80d147c7a326ce67731f9ef546a65d72c98629`
+- License: Unlicense (public domain dedication); see [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
+
+The upstream Russian file contained 12 of the 22 keys. Rusify retains the existing Russian labels and completes the 10 missing tooltip descriptions. The English source key set is fully covered.
 ## Built-in translation: OfflineLAN
 
 - Mod ID: `offlinelan`
