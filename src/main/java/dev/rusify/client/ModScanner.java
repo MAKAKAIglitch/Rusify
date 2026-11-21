@@ -171,12 +171,15 @@ public final class ModScanner {
         if (result.englishKeys() <= 0) {
             throw new IOException("В этом моде нет строк en_us.json для перевода.");
         }
-        if (result.translatedKeys() >= result.englishKeys()) {
+        boolean hasRusifyTranslation = TranslationPackManager.hasBuiltInTranslation(result.modId());
+        boolean incomplete = hasRusifyTranslation
+                ? TranslationPackManager.hasIncompleteBuiltInTranslation(result.modId(), result.jarPath())
+                : result.translatedKeys() < result.englishKeys();
+        if (!incomplete) {
             throw new IOException("Русский перевод этого мода уже полный.");
         }
 
         Path exportRoot = FMLPaths.GAMEDIR.get().resolve("Rusify").resolve("exports");
-        boolean hasRusifyTranslation = TranslationPackManager.hasBuiltInTranslation(result.modId());
         String category = hasRusifyTranslation
                 ? "Неполные переводы Rusify"
                 : (result.translatedKeys() > 0 ? "Частичный перевод" : "Нет перевода");
@@ -262,6 +265,19 @@ public final class ModScanner {
                 + "}\n";
         Files.writeString(modDirectory.resolve("mod-info.json"), metadata, StandardCharsets.UTF_8);
         return modDirectory;
+    }
+
+    public static boolean isIncompleteTranslation(ModScanResult result) {
+        if (result.englishKeys() <= 0) return false;
+        try {
+            return TranslationPackManager.hasBuiltInTranslation(result.modId())
+                    ? TranslationPackManager.hasIncompleteBuiltInTranslation(result.modId(), result.jarPath())
+                    : result.translatedKeys() < result.englishKeys();
+        } catch (IOException exception) {
+            System.err.println("[Rusify] Не удалось проверить полноту перевода "
+                    + result.modId() + ": " + exception.getMessage());
+            return false;
+        }
     }
 
     private static Path safeResolve(Path root, String entryName) throws IOException {
