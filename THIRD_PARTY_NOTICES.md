@@ -4,6 +4,16 @@
 
 Русская локализация 11 строк проекта [MrCrayfish/GoblinTraders](https://github.com/MrCrayfish/GoblinTraders/tree/multiloader/1.21.1), Minecraft 1.21.1. Автор: MrCrayfish. Исходный проект распространяется по лицензии MIT; её текст сохранён в `LICENSES/MIT-GoblinTraders.txt`.
 
+## Configured
+
+Файл `src/main/resources/data/rusify/translations/configured/ru_ru.json` — русская локализация на основе языковых файлов проекта [MrCrayfish/Configured](https://github.com/MrCrayfish/Configured/tree/multiloader/1.21.1).
+
+- Автор оригинального проекта: MrCrayfish.
+- Исходная ветка: `multiloader/1.21.1`, ревизия `3f03e0d70663a8ddf22b00bfb283db4c912b56f0`.
+- Лицензия исходного проекта: GNU Lesser General Public License v3.0 or later (LGPL-3.0-or-later).
+- Оригинальный текст лицензии сохранён в [LICENSES/LGPL-3.0-Configured.txt](LICENSES/LGPL-3.0-Configured.txt).
+- Перевод включает все 72 ключа английского файла; существующий русский файл содержал много непереведённых английских строк.
+
 ## Controlling
 
 Файл `src/main/resources/data/rusify/translations/controlling/ru_ru.json` — русская локализация на основе языковых файлов проекта [jaredlll08/Controlling](https://github.com/jaredlll08/Controlling/tree/1.21.1).
