@@ -32,6 +32,18 @@ The included Russian file is based on the official Carry On project localization
 - License: MIT; the original license notice is preserved in [LICENSES/MIT-Controlling.txt](../LICENSES/MIT-Controlling.txt).
 
 The upstream Russian file contained 10 of the 12 keys. Rusify keeps those translations and adds the two missing key-sorting labels. The English source key set is fully covered.
+## Built-in translation: Configured
+
+- Mod ID / language-key namespace: `configured`
+- Target namespace: `assets/configured/lang/ru_ru.json`
+- Included strings: 72 (all keys in the upstream English file)
+- Target game: Minecraft 1.21.1, NeoForge
+- Upstream project: https://github.com/MrCrayfish/Configured/tree/multiloader/1.21.1
+- Source revision: `3f03e0d70663a8ddf22b00bfb283db4c912b56f0`
+- License: LGPL-3.0-or-later; the original license text is preserved in [LICENSES/LGPL-3.0-Configured.txt](../LICENSES/LGPL-3.0-Configured.txt).
+
+The upstream Russian file contained 62 entries, but most still had English text. Rusify provides a reviewed Russian translation for all 72 English keys. Format placeholders and the `§6` warning color code are preserved.
+
 ## Built-in translation: AppleSkin
 
 - Mod ID / language-key namespace: `appleskin`
