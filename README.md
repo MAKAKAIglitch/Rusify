@@ -42,7 +42,7 @@
 
 ### Переводы под контролем
 
-- **91 встроенная локализация** для популярных модов.
+- **96 встроенных локализаций** для популярных модов.
 - Независимое включение и отключение каждого перевода.
 - Изменения применяются после перезагрузки ресурсов.
 - Все переводы доступны офлайн — сетевые сервисы не нужны.
@@ -119,7 +119,7 @@ resourcepacks/
 ## Встроенные локализации
 
 <details open>
-<summary><strong>Все локализации (95) · 12 110 переводимых ключей</strong></summary>
+<summary><strong>Все локализации (96) · 12 568 переводимых ключей</strong></summary>
 
 Список сформирован по фактическим JSON-файлам в репозитории и сверён с реестром встроенных переводов Rusify. Число ключей указано для текущего файла локализации; оно не означает, что в каждой версии соответствующего мода набор ключей остаётся неизменным.
 
@@ -212,6 +212,7 @@ resourcepacks/
 | Stone Zone | 411 | [stonezone](src/main/resources/data/rusify/translations/stonezone/ru_ru.json) |
 | Subtle Effects | 753 | [subtle_effects](src/main/resources/data/rusify/translations/subtle_effects/ru_ru.json) |
 | Tectonic | 109 | [tectonic](src/main/resources/data/rusify/translations/tectonic/ru_ru.json) |
+| TaCZ (Timeless & Classics Zero) | 458 | [tacz](src/main/resources/data/rusify/translations/tacz/ru_ru.json) |
 | TaCZ Tweaks | 244 | [tacztweaks](src/main/resources/data/rusify/translations/tacztweaks/ru_ru.json) |
 | TCTcore | 54 | [tctcore](src/main/resources/data/rusify/translations/tctcore/ru_ru.json) |
 | Tool Trims | 14 | [tooltrims](src/main/resources/data/rusify/translations/tooltrims/ru_ru.json) |
