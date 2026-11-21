@@ -106,7 +106,8 @@ The translation follows the upstream 1.21.1 English key set. All 489 keys are pr
 
 Bulk export writes each mod into its own subfolder under `<game-directory>/Rusify/exports`:
 
-- `Частичный перевод/<mod-id>/` — mods with at least one non-empty Russian translation, but with untranslated source keys remaining.
+- `Неполные переводы Rusify/<mod-id>/` — installed mods that have a built-in Rusify translation but still have untranslated source keys. The exported `ru_ru.json` starts with the bundled Rusify strings; missing source keys remain empty for further translation.
+- `Частичный перевод/<mod-id>/` — other mods with at least one non-empty Russian translation, but with untranslated source keys remaining.
 - `Нет перевода/<mod-id>/` — mods with no non-empty Russian translations.
 
 Mods with complete Russian translations are not included in the incomplete-translation export. Mods without usable `en_us.json` strings are skipped.
