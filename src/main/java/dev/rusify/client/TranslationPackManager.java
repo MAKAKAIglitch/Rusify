@@ -139,7 +139,7 @@ public final class TranslationPackManager {
             for (var entry : template.entrySet()) {
                 com.google.gson.JsonElement value = entry.getValue();
                 if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
-                    entry.setValue(new com.google.gson.JsonPrimitive(""));
+                    template.add(entry.getKey(), new com.google.gson.JsonPrimitive(""));
                 }
             }
             for (var entry : bundled.entrySet()) {
