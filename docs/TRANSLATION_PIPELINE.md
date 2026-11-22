@@ -190,3 +190,12 @@ Mods with complete Russian translations are not included in the incomplete-trans
 4. Original source text if no translation is available.
 
 No hidden network translation requests are made. Only localization strings may ever be sent to an explicitly selected provider; mod JARs and game folders must never be uploaded. Runtime translation should use resource packs/resource overlays and must not modify third-party JAR files.
+
+
+## Автообновление переводов
+
+Клиентская проверка обновлений включена по умолчанию и выполняется не чаще одного раза в 24 часа. Rusify получает дерево файлов своего публичного GitHub-репозитория, сравнивает Git blob SHA-1 и скачивает только изменившиеся JSON-файлы. Запросы выполняются последовательно в одном фоновом потоке; каждый файл ограничен 4 МиБ.
+
+Новые файлы сначала сохраняются в `Rusify/updates/pending`, проверяются как JSON-объекты со строковыми значениями и сверяются с SHA-1 GitHub. В текущую сессию они не попадают. При следующем запуске Rusify атомарно переносит проверенные файлы в локальный активный кэш и обновляет принадлежащий ему ресурс-пак до его загрузки. Перезагрузки ресурсов посреди игры из-за автообновления не происходит.
+
+Если GitHub недоступен, файл отсутствует, ответ неполный или проверка не пройдена, Rusify оставляет предыдущий перевод без изменений. Отсутствие файла в удалённом репозитории не считается командой на удаление. Локальный кэш находится в папке игры и не отправляется на GitHub; модификации и игровые данные не загружаются.

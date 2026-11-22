@@ -17,6 +17,8 @@ import java.util.TreeSet;
 public final class TranslationSettings {
     private static final Path CONFIG_FILE = FMLPaths.CONFIGDIR.get().resolve("rusify-client.json");
     private static boolean autoApplyBuiltInPacks = loadBoolean("autoApplyBuiltInPacks", true);
+    private static boolean autoUpdateTranslations = loadBoolean("autoUpdateTranslations", true);
+    private static long lastTranslationUpdateCheck = loadLong("lastTranslationUpdateCheck", 0L);
     private static boolean builtInTranslationsInitialized = loadBoolean("builtInTranslationsInitialized", false);
     private static Set<String> knownBuiltInTranslations = loadKnownBuiltInTranslations();
 
@@ -29,6 +31,28 @@ public final class TranslationSettings {
 
     public static synchronized void setAutoApplyBuiltInPacks(boolean enabled) throws IOException {
         autoApplyBuiltInPacks = enabled;
+        save();
+    }
+
+    public static synchronized boolean autoUpdateTranslations() {
+        return autoUpdateTranslations;
+    }
+
+    public static synchronized void setAutoUpdateTranslations(boolean enabled) throws IOException {
+        autoUpdateTranslations = enabled;
+        if (enabled) lastTranslationUpdateCheck = 0L;
+        save();
+    }
+
+    public static synchronized boolean shouldCheckTranslationUpdates() {
+        long now = System.currentTimeMillis();
+        return autoUpdateTranslations && (lastTranslationUpdateCheck <= 0L
+                || now < lastTranslationUpdateCheck
+                || now - lastTranslationUpdateCheck >= 24L * 60L * 60L * 1000L);
+    }
+
+    public static synchronized void markTranslationUpdateCheck() throws IOException {
+        lastTranslationUpdateCheck = System.currentTimeMillis();
         save();
     }
 
@@ -62,6 +86,18 @@ public final class TranslationSettings {
         }
     }
 
+    private static long loadLong(String key, long defaultValue) {
+        if (!Files.isRegularFile(CONFIG_FILE)) return defaultValue;
+        try {
+            JsonObject config = JsonParser.parseString(
+                    Files.readString(CONFIG_FILE, StandardCharsets.UTF_8)).getAsJsonObject();
+            return config.has(key) ? config.get(key).getAsLong() : defaultValue;
+        } catch (Exception exception) {
+            System.err.println("[Rusify] Не удалось прочитать настройку " + key + ": " + exception.getMessage());
+            return defaultValue;
+        }
+    }
+
     private static Set<String> loadKnownBuiltInTranslations() {
         Set<String> result = new HashSet<>();
         if (!Files.isRegularFile(CONFIG_FILE)) return result;
@@ -85,6 +121,8 @@ public final class TranslationSettings {
         Files.createDirectories(CONFIG_FILE.getParent());
         JsonObject config = new JsonObject();
         config.addProperty("autoApplyBuiltInPacks", autoApplyBuiltInPacks);
+        config.addProperty("autoUpdateTranslations", autoUpdateTranslations);
+        config.addProperty("lastTranslationUpdateCheck", lastTranslationUpdateCheck);
         config.addProperty("builtInTranslationsInitialized", builtInTranslationsInitialized);
         JsonArray known = new JsonArray();
         for (String modId : new TreeSet<>(knownBuiltInTranslations)) {

@@ -40,10 +40,18 @@ public final class RusifyClientEvents {
     public static void applyBuiltInTranslations(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             try {
+                TranslationUpdateManager.applyPendingUpdates();
+            } catch (IOException exception) {
+                System.err.println("[Rusify] Не удалось применить отложенные обновления переводов: "
+                        + exception.getMessage());
+            }
+            try {
                 TranslationPackManager.ensureDynamicPackEnabled();
             } catch (IOException exception) {
-                System.err.println("[Rusify] Не удалось автоматически подключить встроенные переводы: " + exception.getMessage());
+                System.err.println("[Rusify] Не удалось автоматически подключить встроенные переводы: "
+                        + exception.getMessage());
             }
+            TranslationUpdateManager.checkForUpdates();
         });
     }
 

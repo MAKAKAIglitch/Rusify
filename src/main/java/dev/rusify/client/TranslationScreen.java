@@ -33,7 +33,7 @@ public final class TranslationScreen extends Screen {
     }
 
     private int listTop() {
-        return 66;
+        return 88;
     }
 
     private int listBottom() {
@@ -83,6 +83,11 @@ public final class TranslationScreen extends Screen {
             }
         }
         int center = width / 2;
+        String updateState = TranslationSettings.autoUpdateTranslations() ? "ВКЛ" : "ВЫКЛ";
+        addRenderableWidget(Button.builder(Component.literal("Автообновление переводов: " + updateState),
+                        button -> toggleAutoUpdates())
+                .bounds(center - 112, 64, 224, 18).build());
+
         int buttonWidth = Math.min(145, Math.max(100, (width - 28) / 2));
         int gap = 8;
         int total = buttonWidth * 2 + gap;
@@ -101,6 +106,19 @@ public final class TranslationScreen extends Screen {
                 .bounds(footerLeft, height - 49, exportWidth, 20).build());
         addRenderableWidget(Button.builder(Component.literal("Назад"), button -> onClose())
                 .bounds(footerLeft + exportWidth + 8, height - 49, 92, 20).build());
+    }
+
+    private void toggleAutoUpdates() {
+        try {
+            boolean enabled = !TranslationSettings.autoUpdateTranslations();
+            TranslationSettings.setAutoUpdateTranslations(enabled);
+            if (enabled) TranslationUpdateManager.checkForUpdates();
+            reopen(enabled
+                    ? "Автообновление включено. Новые переводы применятся после перезапуска."
+                    : "Автообновление переводов выключено.");
+        } catch (IOException exception) {
+            reopen("Не удалось изменить настройку автообновления: " + exception.getMessage());
+        }
     }
 
     private void toggleAllTranslations(boolean enabled) {

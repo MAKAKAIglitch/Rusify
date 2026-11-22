@@ -53,11 +53,7 @@ public final class TranslationPackManager {
             throw new IOException("Недопустимый путь для встроенного перевода: " + modId);
         }
         Files.createDirectories(destination.getParent());
-        String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
-        try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
-            if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
-            Files.copy(input, destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-        }
+        copyTranslation(modId, destination);
     }
 
     /**
@@ -78,9 +74,7 @@ public final class TranslationPackManager {
                 source = parsed.getAsJsonObject();
             }
 
-            String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
-            try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
-                if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+            try (InputStream input = openTranslationStream(modId)) {
                 com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(
                         new String(input.readAllBytes(), StandardCharsets.UTF_8));
                 if (!parsed.isJsonObject()) throw new IOException("Некорректный встроенный JSON: " + modId);
@@ -128,9 +122,7 @@ public final class TranslationPackManager {
             throw new IOException("Некорректный JSON шаблона: " + destination, exception);
         }
 
-        String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
-        try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
-            if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+        try (InputStream input = openTranslationStream(modId)) {
             String json = new String(input.readAllBytes(), StandardCharsets.UTF_8);
             com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(json);
             if (!parsed.isJsonObject()) throw new IOException("Встроенный перевод должен быть JSON-объектом: " + modId);
@@ -171,11 +163,7 @@ public final class TranslationPackManager {
             Translation translation = translation(modId);
             Path file = translationFile(translation);
             Files.createDirectories(file.getParent());
-            String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
-            try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
-                if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
-                Files.copy(input, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-            }
+            copyTranslation(modId, file);
         }
 
         List<String> selected = selectedPacks(minecraft);
@@ -222,11 +210,7 @@ public final class TranslationPackManager {
         Path file = translationFile(translation);
         if (enabled) {
             Files.createDirectories(file.getParent());
-            String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
-            try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
-                if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
-                Files.copy(input, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-            }
+            copyTranslation(modId, file);
         } else {
             Files.deleteIfExists(file);
             removeEmptyParents(file.getParent(), pack);
@@ -272,6 +256,7 @@ public final class TranslationPackManager {
         Path pack = packDirectory();
         if (hasAnyTranslation(pack)) {
             verifyOwnedPack(pack);
+            syncCachedTranslations(pack);
             if (!selected.contains(PACK_ID)) selected.add(PACK_ID);
         } else {
             selected.removeIf(PACK_ID::equals);
@@ -296,11 +281,7 @@ public final class TranslationPackManager {
                 Path pack = packDirectory();
                 preparePack(pack);
                 Files.createDirectories(file.getParent());
-                String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
-                try (InputStream input = TranslationPackManager.class.getResourceAsStream(resource)) {
-                    if (input == null) throw new IOException("Не найден перевод " + translation.name());
-                    Files.copy(input, file, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                }
+                copyTranslation(modId, file);
             } else {
                 Files.deleteIfExists(file);
                 removeEmptyParents(file.getParent(), packDirectory());
@@ -319,6 +300,38 @@ public final class TranslationPackManager {
         }
         minecraft.options.save();
         minecraft.reloadResourcePacks();
+    }
+
+
+    static String translationResourceFolder(String modId) throws IOException {
+        return translation(modId).resourceFolder();
+    }
+
+    static InputStream openTranslationStream(String modId) throws IOException {
+        Path cached = TranslationUpdateManager.activeFile(modId);
+        if (Files.isRegularFile(cached)) return Files.newInputStream(cached);
+        Translation translation = translation(modId);
+        String resource = "/data/rusify/translations/" + translation.resourceFolder() + "/ru_ru.json";
+        InputStream input = TranslationPackManager.class.getResourceAsStream(resource);
+        if (input == null) throw new IOException("Встроенный перевод " + translation.name() + " не найден.");
+        return input;
+    }
+
+    private static void copyTranslation(String modId, Path destination) throws IOException {
+        try (InputStream input = openTranslationStream(modId)) {
+            Files.copy(input, destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    private static void syncCachedTranslations(Path pack) throws IOException {
+        for (String modId : MODS) {
+            Path cached = TranslationUpdateManager.activeFile(modId);
+            if (!Files.isRegularFile(cached)) continue;
+            Path destination = translationFile(translation(modId));
+            if (Files.isRegularFile(destination)) {
+                Files.copy(cached, destination, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
     }
 
     private static Translation translation(String modId) throws IOException {
